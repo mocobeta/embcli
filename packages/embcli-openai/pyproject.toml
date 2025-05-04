@@ -1,0 +1,18 @@
+[project]
+name = "embcli-openai"
+version = "0.0.1"
+description = "openai plugin for embcli"
+readme = "README.md"
+authors = [{ name = "Tomoko Uchida", email = "tomoko.uchida.1111@gmail.com" }]
+requires-python = ">=3.10"
+dependencies = ["embcli-core", "openai>=1.77.0"]
+
+[tool.uv.sources]
+embcli-core = { workspace = true }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.entry-points."embcli"]
+openai = "embcli_openai.openai"

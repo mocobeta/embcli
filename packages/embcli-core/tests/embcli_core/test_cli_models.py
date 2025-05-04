@@ -1,0 +1,18 @@
+from click.testing import CliRunner
+from embcli_core.cli import models
+
+
+def test_models_command(plugin_manager, mocker):
+    """Test the models command."""
+    mocker.patch("embcli_core.cli.pm", plugin_manager)
+    runner = CliRunner()
+    result = runner.invoke(models)
+
+    # Check if the command runs successfully
+    assert result.exit_code == 0
+
+    # Check if the output contains the expected model names
+    assert "MockEmbeddingModel" in result.output
+    assert "Vendor: mock" in result.output
+    assert "Models:" in result.output
+    assert "embedding-mock-1 (aliases: mock1)" in result.output

@@ -1,0 +1,21 @@
+[project]
+name = "embcli-core"
+version = "0.0.1"
+description = "embcli - CLI for Embeddings"
+readme = "README.md"
+authors = [{ name = "Tomoko Uchida", email = "tomoko.uchida.1111@gmail.com" }]
+requires-python = ">=3.10"
+dependencies = [
+    "chroma>=0.2.0",
+    "click>=8.1.8",
+    "numpy>=2.2.5",
+    "pluggy>=1.5.0",
+    "python-dotenv>=1.1.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+emb = "embcli_core:main"

@@ -1,0 +1,30 @@
+[project]
+name = "embcli"
+version = "0.0.1"
+description = "embcli - CLI for Embeddings"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.uv.workspace]
+members = ["packages/embcli-core", "packages/embcli-openai"]
+
+[dependency-groups]
+dev = [
+    "pyright>=1.1.400",
+    "pytest>=8.3.5",
+    "pytest-mock>=3.14.0",
+    "ruff>=0.11.8",
+]
+
+[tool.ruff]
+line-length = 120
+indent-width = 4
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["F", "E", "W", "I"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
