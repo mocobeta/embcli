@@ -1,9 +1,6 @@
 import os
 
-import dotenv
 import pytest
-
-dotenv.load_dotenv(".env")
 
 
 @pytest.mark.skipif(
