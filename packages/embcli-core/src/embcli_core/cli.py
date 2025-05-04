@@ -1,15 +1,26 @@
 import json
 import os
+from typing import Optional
 
 import click
+import pluggy
 from dotenv import load_dotenv
 
 from .models import avaliable_models, get_model
 from .plugins import get_plugin_manager, register_models
 
-# Initialize the plugin manager
+# Placeholder for the plugin manager.
+# In production, this will be set to the actual plugin manager.
 # In test cases, you would mock this.
-pm = get_plugin_manager()
+_pm: Optional[pluggy.PluginManager] = None
+
+
+def pm() -> pluggy.PluginManager:
+    """Get the plugin manager instance."""
+    global _pm
+    if _pm is None:
+        _pm = get_plugin_manager()
+    return _pm
 
 
 def load_env(env_file):
@@ -26,7 +37,7 @@ def cli():
 @cli.command()
 def models():
     """List available models."""
-    register_models(pm)
+    register_models(pm())
 
     for model_cls in avaliable_models():
         click.echo(model_cls.__name__)
@@ -44,8 +55,8 @@ def models():
 @click.argument("text", required=False)
 def embed(env_file, model_id, file, options, text):
     """Generate embeddings for the provided text or file content."""
+    register_models(pm())
     load_env(env_file)
-    register_models(pm)
 
     # Ensure we have either text or file input
     if not text and not file:

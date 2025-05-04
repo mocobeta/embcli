@@ -4,7 +4,7 @@ from embcli_core.cli import models
 
 def test_models_command(plugin_manager, mocker):
     """Test the models command."""
-    mocker.patch("embcli_core.cli.pm", plugin_manager)
+    mocker.patch("embcli_core.cli._pm", plugin_manager)
     runner = CliRunner()
     result = runner.invoke(models)
 
