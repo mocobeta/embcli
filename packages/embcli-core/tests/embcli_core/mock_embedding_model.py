@@ -10,7 +10,10 @@ class MockEmbeddingModel(EmbeddingModel):
     vendor = "mock"
     default_batch_size = 2
     model_aliases = [("embedding-mock-1", ["mock1"]), ("embedding-mock-2", ["mock2"])]
-    valid_options = [ModelOption("option1", ModelOptionType.INT), ModelOption("option2", ModelOptionType.STR)]
+    valid_options = [
+        ModelOption("option1", ModelOptionType.INT, "Model option 1"),
+        ModelOption("option2", ModelOptionType.STR, "Model option 2"),
+    ]
 
     def _embed_one_batch(self, input: list[str], **kwargs) -> Iterator[list[float]]:
         for _ in input:

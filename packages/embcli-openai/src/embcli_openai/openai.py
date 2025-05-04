@@ -14,7 +14,13 @@ class OpenAIEmbeddingModel(EmbeddingModel):
         ("text-embedding-3-large", ["3-large"]),
         ("text-embedding-ada-002", ["ada-002"]),
     ]
-    valid_options = [ModelOption("dimensions", ModelOptionType.INT)]
+    valid_options = [
+        ModelOption(
+            "dimensions",
+            ModelOptionType.INT,
+            "The number of dimensions the resulting output embeddings should have. Only supported in text-embedding-3 and later models.",  # noqa: E501
+        )
+    ]
 
     def __init__(self, model_id: str):
         super().__init__(model_id)

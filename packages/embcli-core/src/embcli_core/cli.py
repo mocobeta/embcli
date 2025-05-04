@@ -45,11 +45,16 @@ def models():
         click.echo("    Models:")
         for model_id, aliases in model_cls.model_aliases:
             click.echo(f"    * {model_id} (aliases: {', '.join(aliases)})")
+        click.echo("    Model Options:")
+        for option in model_cls.valid_options:
+            click.echo(f"    * {option.name} ({option.type.value}) - {option.description}")
 
 
 @cli.command()
 @click.option("--env-file", "-e", default=".env", help="Path to the .env file")
-@click.option("model_id", "--model", "-m", default="text-embedding-3-small", help="Model alias to use for embedding")
+@click.option(
+    "model_id", "--model", "-m", default="text-embedding-3-small", help="Model id or alias to use for embedding"
+)
 @click.option("--file", "-f", type=click.Path(exists=True), help="File containing text to embed")
 @click.option("options", "--option", "-o", type=(str, str), multiple=True, help="key/value options for the model")
 @click.argument("text", required=False)

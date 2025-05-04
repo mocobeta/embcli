@@ -16,3 +16,6 @@ def test_models_command(plugin_manager, mocker):
     assert "Vendor: mock" in result.output
     assert "Models:" in result.output
     assert "embedding-mock-1 (aliases: mock1)" in result.output
+    assert "Options:" in result.output
+    assert "option1 (int) - Model option 1" in result.output
+    assert "option2 (str) - Model option 2" in result.output

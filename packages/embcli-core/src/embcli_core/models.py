@@ -15,6 +15,7 @@ class ModelOptionType(Enum):
 class ModelOption:
     name: str
     type: ModelOptionType
+    description: str = ""
 
 
 class EmbeddingModel(ABC):
