@@ -95,7 +95,7 @@ def embed(env_file, model_id, file, options, text):
 
 @cli.command()
 @click.option("--env-file", "-e", default=".env", help="Path to the .env file")
-@click.option("model_id", "--model", "-m", default="text-embedding-3-small", help="Model alias to use for embedding")
+@click.option("model_id", "--model", "-m", help="Model id or alias to use for embedding")
 @click.option(
     "--similarity",
     "-s",
