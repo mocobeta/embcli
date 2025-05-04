@@ -52,9 +52,7 @@ def models():
 
 @cli.command()
 @click.option("--env-file", "-e", default=".env", help="Path to the .env file")
-@click.option(
-    "model_id", "--model", "-m", help="Model id or alias to use for embedding"
-)
+@click.option("model_id", "--model", "-m", help="Model id or alias to use for embedding")
 @click.option("--file", "-f", type=click.Path(exists=True), help="File containing text to embed")
 @click.option("options", "--option", "-o", type=(str, str), multiple=True, help="key/value options for the model")
 @click.argument("text", required=False)
