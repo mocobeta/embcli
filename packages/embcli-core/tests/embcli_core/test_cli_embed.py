@@ -66,8 +66,9 @@ def test_embed_command_no_input():
     assert "Error: Please provide either text or a file to embed." in result.output
 
 
-def test_embed_command_unknown_model():
+def test_embed_command_unknown_model(plugin_manager, mocker):
     """Test error handling when an unknown model alias is provided."""
+    mocker.patch("embcli_core.cli._pm", plugin_manager)
     runner = CliRunner()
     result = runner.invoke(embed, ["--model", "xyz", "This is a test text"])
 

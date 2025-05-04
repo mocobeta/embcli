@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 
 from .models import avaliable_models, get_model
 from .plugins import get_plugin_manager, register_models
+from .similarities import SimilarityFunction
 
 # Placeholder for the plugin manager.
 # In production, this will be set to the actual plugin manager.
@@ -90,3 +91,65 @@ def embed(env_file, model_id, file, options, text):
         click.echo(output_json)
     except Exception as e:
         click.echo(f"Error generating embeddings: {str(e)}", err=True)
+
+
+@cli.command()
+@click.option("--env-file", "-e", default=".env", help="Path to the .env file")
+@click.option("model_id", "--model", "-m", default="text-embedding-3-small", help="Model alias to use for embedding")
+@click.option(
+    "--similarity",
+    "-s",
+    default="cosine",
+    type=click.Choice(["dot", "cosine", "euclidean", "manhattan"]),
+    help="Similarity function to use",
+)
+@click.option("--file1", "-f1", type=click.Path(exists=True), help="First file containing text to compare")
+@click.option("--file2", "-f2", type=click.Path(exists=True), help="Second file containing text to compare")
+@click.option("options", "--option", "-o", type=(str, str), multiple=True, help="key/value options for the model")
+@click.argument("text1", required=False)
+@click.argument("text2", required=False)
+def simscore(env_file, model_id, similarity, file1, file2, options, text1, text2):
+    """Calculate similarity score between two texts."""
+    register_models(pm())
+    load_env(env_file)
+
+    # Ensure we have either text or file input for both texts
+    if (not text1 and not file1) or (not text2 and not file2):
+        click.echo("Error: Please provide either two texts or two files to compare.", err=True)
+        return
+
+    # Initialize the model
+    embedding_model = get_model(model_id)
+    if not embedding_model:
+        click.echo(f"Error: Unknown model id or alias '{model_id}'.", err=True)
+        return
+
+    # Convert options to kwargs
+    kwargs = dict(options)
+
+    # Get the input texts
+    if file1:
+        with open(file1, "r", encoding="utf-8") as f:
+            input_text1 = f.read()
+    else:
+        input_text1 = text1
+
+    if file2:
+        with open(file2, "r", encoding="utf-8") as f:
+            input_text2 = f.read()
+    else:
+        input_text2 = text2
+
+    try:
+        # Generate embeddings for both texts
+        embedding1 = embedding_model.embed(input_text1, **kwargs)
+        embedding2 = embedding_model.embed(input_text2, **kwargs)
+
+        # Calculate similarity
+        sim_func = SimilarityFunction(similarity).get_similarity_function()
+        score = sim_func(embedding1, embedding2)
+
+        click.echo(f"{score}")
+
+    except Exception as e:
+        click.echo(f"Error calculating similarity: {str(e)}", err=True)
