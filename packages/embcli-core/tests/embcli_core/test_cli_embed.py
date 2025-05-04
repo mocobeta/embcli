@@ -5,7 +5,7 @@ from embcli_core.cli import embed
 
 
 def test_embed_command_model_id(plugin_manager, mocker):
-    mocker.patch("embcli_core.cli.pm", plugin_manager)
+    mocker.patch("embcli_core.cli._pm", plugin_manager)
     runner = CliRunner()
     result = runner.invoke(embed, ["--model", "embedding-mock-1", "flying cat"])
     assert result.exit_code == 0
@@ -17,7 +17,7 @@ def test_embed_command_model_id(plugin_manager, mocker):
 
 
 def test_embed_command_model_alias(plugin_manager, mocker):
-    mocker.patch("embcli_core.cli.pm", plugin_manager)
+    mocker.patch("embcli_core.cli._pm", plugin_manager)
     runner = CliRunner()
     result = runner.invoke(embed, ["--model", "mock1", "flying cat"])
     assert result.exit_code == 0
@@ -29,7 +29,7 @@ def test_embed_command_model_alias(plugin_manager, mocker):
 
 
 def test_embed_command_with_file(plugin_manager, mocker, tmp_path):
-    mocker.patch("embcli_core.cli.pm", plugin_manager)
+    mocker.patch("embcli_core.cli._pm", plugin_manager)
 
     # Create a temporary file with test content
     test_file = tmp_path / "test_file.txt"
@@ -46,7 +46,7 @@ def test_embed_command_with_file(plugin_manager, mocker, tmp_path):
 
 
 def test_embed_command_with_options(plugin_manager, mocker):
-    mocker.patch("embcli_core.cli.pm", plugin_manager)
+    mocker.patch("embcli_core.cli._pm", plugin_manager)
     runner = CliRunner()
     result = runner.invoke(
         embed, ["--model", "embedding-mock-1", "--option", "option1", "42", "--option", "option2", "test", "flying cat"]
