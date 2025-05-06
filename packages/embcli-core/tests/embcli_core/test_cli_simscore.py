@@ -69,7 +69,7 @@ def test_simscore_command_with_similarity_option(plugin_manager, mocker):
 def test_simscore_command_no_input():
     """Test error handling when no text or file is provided."""
     runner = CliRunner()
-    result = runner.invoke(simscore, [])
+    result = runner.invoke(simscore, ["--model", "mock1"])
 
     assert "Error: Please provide either two texts or two files to compare." in result.output
 

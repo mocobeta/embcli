@@ -6,9 +6,11 @@ import click
 import pluggy
 from dotenv import load_dotenv
 
+from .document_loader import load_from_csv
 from .models import avaliable_models, get_model
-from .plugins import get_plugin_manager, register_models
+from .plugins import get_plugin_manager, register_models, register_vector_stores
 from .similarities import SimilarityFunction
+from .vector_stores import VectorStoreLocalFS, available_vector_stores, get_vector_store
 
 # Placeholder for the plugin manager.
 # In production, this will be set to the actual plugin manager.
@@ -52,8 +54,18 @@ def models():
 
 
 @cli.command()
+def vector_stores():
+    """List available vector stores."""
+    register_vector_stores(pm())
+
+    for vector_store_cls in available_vector_stores():
+        click.echo(vector_store_cls.__name__)
+        click.echo(f"    Vendor: {vector_store_cls.vendor}")
+
+
+@cli.command()
 @click.option("--env-file", "-e", default=".env", help="Path to the .env file")
-@click.option("model_id", "--model", "-m", help="Model id or alias to use for embedding")
+@click.option("model_id", "--model", "-m", required=True, help="Model id or alias to use for embedding")
 @click.option("--file", "-f", type=click.Path(exists=True), help="File containing text to embed")
 @click.option("options", "--option", "-o", type=(str, str), multiple=True, help="key/value options for the model")
 @click.argument("text", required=False)
@@ -95,13 +107,14 @@ def embed(env_file, model_id, file, options, text):
 
 @cli.command()
 @click.option("--env-file", "-e", default=".env", help="Path to the .env file")
-@click.option("model_id", "--model", "-m", help="Model id or alias to use for embedding")
+@click.option("model_id", "--model", "-m", required=True, help="Model id or alias to use for embedding")
 @click.option(
     "--similarity",
     "-s",
     default="cosine",
     type=click.Choice(["dot", "cosine", "euclidean", "manhattan"]),
     help="Similarity function to use",
+    show_default=True,
 )
 @click.option("--file1", "-f1", type=click.Path(exists=True), help="First file containing text to compare")
 @click.option("--file2", "-f2", type=click.Path(exists=True), help="Second file containing text to compare")
@@ -153,3 +166,62 @@ def simscore(env_file, model_id, similarity, file1, file2, options, text1, text2
 
     except Exception as e:
         click.echo(f"Error calculating similarity: {str(e)}", err=True)
+
+
+@cli.command()
+@click.option("--env-file", "-e", default=".env", help="Path to the .env file")
+@click.option("model_id", "--model", "-m", required=True, help="Model id or alias to use for embedding")
+@click.option(
+    "vector_store_vendor",
+    "--vector-store",
+    default="chroma",
+    help="Vector store to use for storing embeddings",
+    show_default=True,
+)
+@click.option("--persist-path", required=False, help="Path to persist the vector store")
+@click.option("--collection", "-c", required=True, help="Collection name where to store the embeddings")
+@click.option("--file", "-f", required=True, type=click.Path(exists=True), help="File containing text to embed")
+@click.option(
+    "--input-format", default="csv", type=click.Choice(["csv"]), help="Input format of the file", show_default=True
+)
+@click.option("--batch-size", default=100, type=int, help="Batch size for embedding", show_default=True)
+@click.option("options", "--option", "-o", type=(str, str), multiple=True, help="key/value options for the model")
+def ingest(env_file, model_id, vector_store_vendor, persist_path, collection, file, input_format, batch_size, options):
+    """Ingest documents into the vector store."""
+    register_models(pm())
+    register_vector_stores(pm())
+    load_env(env_file)
+
+    # Initialize the model
+    embedding_model = get_model(model_id)
+    if not embedding_model:
+        click.echo(f"Error: Unknown model id or alias '{model_id}'.", err=True)
+        return
+
+    # Initialize the vector store
+    args = {"persist_path": persist_path} if persist_path else {}
+    vector_store = get_vector_store(vector_store_vendor, args)
+    if not vector_store:
+        click.echo(f"Error: Unknown vector store '{vector_store}'.", err=True)
+        return
+
+    # Convert options to kwargs
+    kwargs = dict(options)
+
+    # Get the data to ingest
+    docs = []
+    if input_format == "csv":
+        docs.extend(load_from_csv(file, **kwargs))
+    else:
+        click.echo(f"Error: Unsupported input format '{input_format}'.", err=True)
+        return
+
+    # Ingest documents into the vector store
+    try:
+        vector_store.ingest(embedding_model, collection, docs, batch_size, **kwargs)
+        click.echo("Documents ingested successfully.")
+        click.echo(f"Vector store: {vector_store.vendor} (collection: {collection})")
+        if isinstance(vector_store, VectorStoreLocalFS):
+            click.echo(f"Persist path: {vector_store.persist_path}")
+    except Exception as e:
+        click.echo(f"Error ingesting documents: {str(e)}", err=True)

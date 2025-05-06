@@ -91,7 +91,7 @@ __model_aliases: dict[str, str] = {}
 def register(model_cls: Type[EmbeddingModel], factory: Callable[[str], EmbeddingModel]):
     """Register an embedding model.
     Args:
-        model: The embedding model to register.
+        model_cls: The embedding model class to register.
         factory: A factory function that creates an instance of the model.
     """
     for model_id, aliases in model_cls.model_aliases:
