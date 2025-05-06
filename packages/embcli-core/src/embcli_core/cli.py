@@ -114,6 +114,7 @@ def embed(env_file, model_id, file, options, text):
     default="cosine",
     type=click.Choice(["dot", "cosine", "euclidean", "manhattan"]),
     help="Similarity function to use",
+    show_default=True,
 )
 @click.option("--file1", "-f1", type=click.Path(exists=True), help="First file containing text to compare")
 @click.option("--file2", "-f2", type=click.Path(exists=True), help="Second file containing text to compare")
@@ -171,13 +172,19 @@ def simscore(env_file, model_id, similarity, file1, file2, options, text1, text2
 @click.option("--env-file", "-e", default=".env", help="Path to the .env file")
 @click.option("model_id", "--model", "-m", required=True, help="Model id or alias to use for embedding")
 @click.option(
-    "vector_store_vendor", "--vector-store", default="chroma", help="Vector store to use for storing embeddings"
+    "vector_store_vendor",
+    "--vector-store",
+    default="chroma",
+    help="Vector store to use for storing embeddings",
+    show_default=True,
 )
 @click.option("--persist-path", required=False, help="Path to persist the vector store")
 @click.option("--collection", "-c", required=True, help="Collection name where to store the embeddings")
 @click.option("--file", "-f", required=True, type=click.Path(exists=True), help="File containing text to embed")
-@click.option("--input-format", default="csv", type=click.Choice(["csv"]), help="Input format of the file")
-@click.option("--batch-size", default=100, type=int, help="Batch size for embedding")
+@click.option(
+    "--input-format", default="csv", type=click.Choice(["csv"]), help="Input format of the file", show_default=True
+)
+@click.option("--batch-size", default=100, type=int, help="Batch size for embedding", show_default=True)
 @click.option("options", "--option", "-o", type=(str, str), multiple=True, help="key/value options for the model")
 def ingest(env_file, model_id, vector_store_vendor, persist_path, collection, file, input_format, batch_size, options):
     """Ingest documents into the vector store."""
