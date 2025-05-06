@@ -23,5 +23,4 @@ def plugin_manager():
     pm.add_hookspecs(hookspecs)
     pm.register(mock_embedding_model)
     pm.register(mock_vector_store)
-
     return pm

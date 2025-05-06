@@ -29,10 +29,10 @@ class VectorStore(ABC):
             # Generate embeddings for the batch
             embeddings = list(model.embed_batch(batch_input, batch_size=batch_size, **kwargs))
             # Index the embeddings with documents
-            self._index(collection, embeddings, batch_docs, **kwargs)
+            self._index(collection, embeddings, batch_docs)
 
     @abstractmethod
-    def _index(self, collection: str, embeddings: list[list[float]], docs: list[DocumentType], **kwargs):
+    def _index(self, collection: str, embeddings: list[list[float]], docs: list[DocumentType]):
         """Index the embeddings with documents."""
         pass
 

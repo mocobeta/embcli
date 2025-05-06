@@ -17,7 +17,7 @@ class ChromaVectorStore(VectorStoreLocalFS):
         else:
             self.client = chromadb.PersistentClient()
 
-    def _index(self, collection: str, embeddings: list[list[float]], docs: list[DocumentType], **kwargs):
+    def _index(self, collection: str, embeddings: list[list[float]], docs: list[DocumentType]):
         assert len(embeddings) == len(docs), "Number of embeddings must match number of documents"
         # Create or get the collection
         chroma_collection = self.client.get_or_create_collection(name=collection)

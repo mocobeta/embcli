@@ -12,7 +12,7 @@ class MockVectorStore(VectorStoreLocalFS):
         super().__init__(persist_path)
         self.cache = {}
 
-    def _index(self, collection: str, embeddings: list[list[float]], docs: list[DocumentType], **kwargs):
+    def _index(self, collection: str, embeddings: list[list[float]], docs: list[DocumentType]):
         self.cache[collection] = {
             "embeddings": embeddings,
             "documents": [doc.source_text() for doc in docs],
