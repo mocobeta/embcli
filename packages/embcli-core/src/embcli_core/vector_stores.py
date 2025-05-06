@@ -40,7 +40,12 @@ class VectorStore(ABC):
 class VectorStoreLocalFS(VectorStore):
     """Local file system vector store."""
 
+    default_persist_path: str
+
     def __init__(self, persist_path: Optional[str] = None):
+        super().__init__()
+        if persist_path is None:
+            persist_path = self.default_persist_path
         self.persist_path = persist_path
 
     def __str__(self):

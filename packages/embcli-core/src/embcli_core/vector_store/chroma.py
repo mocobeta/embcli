@@ -9,13 +9,11 @@ from embcli_core.vector_stores import VectorStoreLocalFS
 
 class ChromaVectorStore(VectorStoreLocalFS):
     vendor = "chroma"
+    default_persist_path = "./chroma"
 
     def __init__(self, persist_path: Optional[str] = None):
         super().__init__(persist_path)
-        if persist_path:
-            self.client = chromadb.PersistentClient(path=persist_path)
-        else:
-            self.client = chromadb.PersistentClient()
+        self.client = chromadb.PersistentClient(path=self.persist_path)
 
     def _index(self, collection: str, embeddings: list[list[float]], docs: list[DocumentType]):
         assert len(embeddings) == len(docs), "Number of embeddings must match number of documents"

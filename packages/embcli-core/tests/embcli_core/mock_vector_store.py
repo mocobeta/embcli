@@ -7,6 +7,7 @@ from embcli_core.vector_stores import VectorStore, VectorStoreLocalFS
 
 class MockVectorStore(VectorStoreLocalFS):
     vendor = "mock"
+    default_persist_path = "./mockdb"
 
     def __init__(self, persist_path: Optional[str] = None):
         super().__init__(persist_path)
