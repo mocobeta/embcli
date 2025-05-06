@@ -42,5 +42,8 @@ def test_register_vector_stores(plugin_manager):
         [Document("doc1", "This is a test document."), Document("doc2", "Another test document.")],
     )
     data = vector_store.cache["test_collection"]
-    assert data["documents"] == ["This is a test document.", "Another test document."]
+    assert data["documents"] == [
+        Document("doc1", "This is a test document."),
+        Document("doc2", "Another test document."),
+    ]
     assert len(data["embeddings"]) == 2

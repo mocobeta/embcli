@@ -1,3 +1,4 @@
+import random
 import tempfile
 
 import pytest
@@ -42,3 +43,20 @@ def test_index_embedding_doc_length_mismatch():
 
         with pytest.raises(AssertionError, match="Number of embeddings must match number of documents"):
             store._index("test_collection", embeddings, docs)
+
+
+def test_search_success():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        store = ChromaVectorStore(persist_path=tmpdir)
+        embeddings = [[random.uniform(0, 1) for _ in range(10)] for _ in range(10)]
+        docs = [Document(id=f"id{i}", text=f"text{i}") for i in range(10)]
+
+        collection_name = "test_collection"
+        store._index(collection_name, embeddings, docs)
+
+        query_embedding = [random.uniform(0, 1) for _ in range(10)]
+        top_k = 3
+        results = store._search(collection_name, query_embedding, top_k)
+
+        assert len(results) == top_k
+        assert all(isinstance(hit.score, float) for hit in results)

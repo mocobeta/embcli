@@ -1,9 +1,10 @@
 import csv
+from pathlib import Path
 
 from .document import Document
 
 
-def load_from_csv(file_path: str, delimiter: str = ",") -> list[Document]:
+def load_from_csv(file_path: str | Path, delimiter: str = ",") -> list[Document]:
     """
     Load documents from a CSV file. The first column is treated as the document ID,
     and the rest of the columns are treated as the document text.
