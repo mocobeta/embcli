@@ -23,6 +23,8 @@ def test_ingest_command(plugin_manager, mocker, tmp_path):
         [
             "--model",
             "embedding-mock-1",
+            "--vector-store",
+            "chroma",
             "--persist-path",
             str(test_persist_path),
             "--collection",
