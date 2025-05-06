@@ -1,8 +1,6 @@
 from importlib import resources
 
 import pytest
-from embcli_core.document import Document
-from embcli_core.document_loader import load_from_csv
 
 from . import mock_embedding_model, mock_vector_store
 
@@ -31,7 +29,6 @@ def plugin_manager():
 
 
 @pytest.fixture
-def test_docs_from_csv() -> list[Document]:
-    with resources.path("embcli_core.synth_data", "fake_cat_names.csv") as file_path:
-        documents = load_from_csv(file_path, ",")
-    return documents
+def test_csv_file() -> str:
+    file_path = resources.path("embcli_core.synth_data", "fake_cat_names.csv")
+    return str(file_path)
