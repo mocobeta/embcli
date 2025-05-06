@@ -2,8 +2,8 @@ from typing import Callable, Optional
 
 import chromadb
 
-from embcli_core import hookimpl
 from embcli_core.document import DocumentType
+from embcli_core.hookspecs import hookimpl
 from embcli_core.vector_stores import VectorStoreLocalFS
 
 

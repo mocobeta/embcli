@@ -7,8 +7,9 @@ import pluggy
 from dotenv import load_dotenv
 
 from .models import avaliable_models, get_model
-from .plugins import get_plugin_manager, register_models
+from .plugins import get_plugin_manager, register_models, register_vector_stores
 from .similarities import SimilarityFunction
+from .vector_stores import available_vector_stores
 
 # Placeholder for the plugin manager.
 # In production, this will be set to the actual plugin manager.
@@ -49,6 +50,16 @@ def models():
         click.echo("    Model Options:")
         for option in model_cls.valid_options:
             click.echo(f"    * {option.name} ({option.type.value}) - {option.description}")
+
+
+@cli.command()
+def vector_stores():
+    """List available vector stores."""
+    register_vector_stores(pm())
+
+    for vector_store_cls in available_vector_stores():
+        click.echo(vector_store_cls.__name__)
+        click.echo(f"    Vendor: {vector_store_cls.vendor}")
 
 
 @cli.command()

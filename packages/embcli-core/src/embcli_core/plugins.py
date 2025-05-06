@@ -1,6 +1,7 @@
 import pluggy
 
 from . import hookspecs, models, vector_stores
+from .vector_store import chroma
 
 
 def get_plugin_manager():
@@ -8,6 +9,7 @@ def get_plugin_manager():
     pm = pluggy.PluginManager("embcli")
     pm.add_hookspecs(hookspecs)
     pm.load_setuptools_entrypoints("embcli")
+    pm.register(chroma)
     pm.check_pending()
     return pm
 
