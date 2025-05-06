@@ -1,11 +1,16 @@
 import pytest
 
-from . import mock_embedding_model
+from . import mock_embedding_model, mock_vector_store
 
 
 @pytest.fixture
 def mock_model():
     return mock_embedding_model.MockEmbeddingModel("embedding-mock-1")
+
+
+@pytest.fixture
+def mock_store():
+    return mock_vector_store.MockVectorStore("persist_path")
 
 
 @pytest.fixture
@@ -17,5 +22,6 @@ def plugin_manager():
     pm = pluggy.PluginManager("embcli")
     pm.add_hookspecs(hookspecs)
     pm.register(mock_embedding_model)
+    pm.register(mock_vector_store)
 
     return pm
