@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Callable, Iterator, Optional, TypeVar
 
-from .document import DocumentType
+from .document import DocumentType, HitDocument
 from .models import EmbeddingModel
 
 T = TypeVar("T")
@@ -34,6 +34,18 @@ class VectorStore(ABC):
     @abstractmethod
     def _index(self, collection: str, embeddings: list[list[float]], docs: list[DocumentType]):
         """Index the embeddings with documents."""
+        pass
+
+    def search(self, model: EmbeddingModel, collection: str, query: str, top_k: int = 5, **kwargs) -> list[HitDocument]:
+        """Search for the top K documents in the collection."""
+        # Generate embedding for the query
+        query_embedding = model.embed(query, **kwargs)
+        # Search for the top K documents
+        return self._search(collection, query_embedding, top_k)
+
+    @abstractmethod
+    def _search(self, collection: str, query_embedding: list[float], top_k: int) -> list[HitDocument]:
+        """Search for the top K documents."""
         pass
 
 

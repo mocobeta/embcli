@@ -23,6 +23,17 @@ def test_ingest_with_batch_size(mock_model, mock_store, mocker):
     assert spy2.call_count == 4
 
 
+def test_search(mock_model, mock_store, mocker):
+    spy1 = mocker.spy(mock_store, "_search")
+    spy2 = mocker.spy(mock_model, "embed")
+    collection = "test_collection"
+    query = "test query"
+    top_k = 3
+    mock_store.search(mock_model, collection, query, top_k=top_k)
+    assert spy1.call_count == 1
+    assert spy2.call_count == 1
+
+
 def test_register(mocker):
     mock_vector_store_cls = mocker.Mock()  # Mocking the vector store class
     mock_vector_store_cls.vendor = "mock"

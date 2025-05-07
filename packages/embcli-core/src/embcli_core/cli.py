@@ -225,3 +225,50 @@ def ingest(env_file, model_id, vector_store_vendor, persist_path, collection, fi
             click.echo(f"Persist path: {vector_store.persist_path}")
     except Exception as e:
         click.echo(f"Error ingesting documents: {str(e)}", err=True)
+
+
+@cli.command()
+@click.option("--env-file", "-e", default=".env", help="Path to the .env file")
+@click.option("model_id", "--model", "-m", required=True, help="Model id or alias to use for embedding")
+@click.option(
+    "vector_store_vendor",
+    "--vector-store",
+    default="chroma",
+    help="Vector store to use for storing embeddings",
+    show_default=True,
+)
+@click.option("--persist-path", required=False, help="Path to persist the vector store")
+@click.option("--collection", "-c", required=True, help="Collection name where the embeddings are stored")
+@click.option("--query", "-q", required=True, help="Query text to search for")
+@click.option("--top-k", "-k", default=5, type=int, help="Number of top results to return", show_default=True)
+@click.option("options", "--option", "-o", type=(str, str), multiple=True, help="key/value options for the model")
+def search(env_file, model_id, vector_store_vendor, persist_path, collection, query, top_k, options):
+    """Search for documents in the vector store."""
+    register_models(pm())
+    register_vector_stores(pm())
+    load_env(env_file)
+
+    # Initialize the model
+    embedding_model = get_model(model_id)
+    if not embedding_model:
+        click.echo(f"Error: Unknown model id or alias '{model_id}'.", err=True)
+        return
+
+    # Initialize the vector store
+    args = {"persist_path": persist_path} if persist_path else {}
+    vector_store = get_vector_store(vector_store_vendor, args)
+    if not vector_store:
+        click.echo(f"Error: Unknown vector store '{vector_store_vendor}'.", err=True)
+        return
+
+    # Convert options to kwargs
+    kwargs = dict(options)
+
+    # Search for documents in the vector store
+    try:
+        results = vector_store.search(embedding_model, collection, query, top_k, **kwargs)
+        click.echo(f"Found {len(results)} results:")
+        for hit in results:
+            click.echo(f"Score: {hit.score}, Document ID: {hit.doc.id}, Text: {hit.doc.text}")
+    except Exception as e:
+        click.echo(f"Error searching documents: {str(e)}", err=True)

@@ -26,3 +26,9 @@ class Document(DocumentBase):
 
     def source_text(self) -> str:
         return self.text
+
+
+@dataclass
+class HitDocument:
+    score: float
+    doc: Document

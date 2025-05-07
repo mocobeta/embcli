@@ -1,3 +1,5 @@
+from importlib import resources
+
 import pytest
 
 from . import mock_embedding_model, mock_vector_store
@@ -24,3 +26,9 @@ def plugin_manager():
     pm.register(mock_embedding_model)
     pm.register(mock_vector_store)
     return pm
+
+
+@pytest.fixture
+def test_csv_file() -> str:
+    file_path = resources.path("embcli_core.synth_data", "fake_cat_names.csv")
+    return str(file_path)
