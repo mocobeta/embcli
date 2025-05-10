@@ -1,23 +1,31 @@
 import os
 
 import pytest
+from embcli_openai.openai import OpenAIEmbeddingModel, embedding_model
 
-
-@pytest.mark.skipif(
+skip_if_no_api_key = pytest.mark.skipif(
     not os.environ.get("OPENAI_API_KEY") or not os.environ.get("RUN_OPENAI_TESTS") == "1",
     reason="OPENAI_API_KEY and RUN_OPENAI_TESTS environment variables not set",
 )
-def test_initialization_sets_model_id_and_client(openai_model):
-    model = openai_model
+
+
+@skip_if_no_api_key
+def test_factory_create_valid_model():
+    _, create = embedding_model()
+    model = create("text-embedding-3-small")
+    assert isinstance(model, OpenAIEmbeddingModel)
     assert model.model_id == "text-embedding-3-small"
-    assert model.client is not None
 
 
-@pytest.mark.skipif(
-    not os.environ.get("OPENAI_API_KEY") or not os.environ.get("RUN_OPENAI_TESTS") == "1",
-    reason="OPENAI_API_KEY and RUN_OPENAI_TESTS environment variables not set",
-)
-def test_embed_one_batch_calls_openai_and_yields_embeddings(openai_model):
+@skip_if_no_api_key
+def test_factory_create_invalid_model():
+    _, create = embedding_model()
+    with pytest.raises(ValueError):
+        create("invalid-model-id")
+
+
+@skip_if_no_api_key
+def test_embed_one_batch_yields_embeddings(openai_model):
     model = openai_model
     input_data = ["hello", "world"]
 
@@ -29,10 +37,7 @@ def test_embed_one_batch_calls_openai_and_yields_embeddings(openai_model):
         assert all(isinstance(x, float) for x in emb)
 
 
-@pytest.mark.skipif(
-    not os.environ.get("OPENAI_API_KEY") or not os.environ.get("RUN_OPENAI_TESTS") == "1",
-    reason="OPENAI_APIKEY and RUN_OPENAI_TESTS environment variables not set",
-)
+@skip_if_no_api_key
 def test_embed_batch_with_options(openai_model):
     model = openai_model
     input_data = ["hello", "world"]
