@@ -11,6 +11,7 @@ members = [
     "embcli-cohere",
     "embcli-core",
     "embcli-gemini",
+    "embcli-jina",
     "embcli-openai",
 ]
 
@@ -439,6 +440,21 @@ dependencies = [
 requires-dist = [
     { name = "embcli-core", editable = "packages/embcli-core" },
     { name = "google-genai", specifier = ">=1.14.0" },
+]
+
+[[package]]
+name = "embcli-jina"
+version = "0.0.1"
+source = { editable = "packages/embcli-jina" }
+dependencies = [
+    { name = "embcli-core" },
+    { name = "httpx" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "embcli-core", editable = "packages/embcli-core" },
+    { name = "httpx", specifier = ">=0.28.1" },
 ]
 
 [[package]]
