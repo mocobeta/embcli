@@ -37,13 +37,13 @@ jobs:
       run: |
         uv run ruff check .
         
-    - name: Type check with pyright in embcli-openai
+    - name: Type check with pyright in embcli-gemini
       run: |
-        uv run --package embcli-openai pyright packages/embcli-openai/
+        uv run --package embcli-gemini pyright packages/embcli-gemini/
         
-    - name: Test with pytest in embcli-openai
+    - name: Test with pytest in embcli-gemini
       env:
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        RUN_OPENAI_TESTS: "1"
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        RUN_GEMINI_TESTS: "1"
       run: |
-        uv run --package embcli-openai pytest packages/embcli-openai/tests
+        uv run --package embcli-gemini pytest packages/embcli-gemini/tests
