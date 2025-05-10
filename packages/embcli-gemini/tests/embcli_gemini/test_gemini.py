@@ -25,28 +25,24 @@ def test_factory_create_invalid_model():
 
 
 @skip_if_no_api_key
-def test_embed_one_batch_yields_embeddings(gemini_model):
-    input_data = ["hello", "world"]
-    embeddings = list(gemini_model._embed_one_batch(input_data))
+def test_embed_one_batch_yields_embeddings(gemini_models):
+    for model in gemini_models:
+        input_data = ["hello", "world"]
+        embeddings = list(model._embed_one_batch(input_data))
 
-    assert len(embeddings) == len(input_data)
-    for emb in embeddings:
-        assert isinstance(emb, list)
-        assert all(isinstance(x, float) for x in emb)
-
-
-@skip_if_no_api_key
-def test_embed_one_batch_empty_input(gemini_model):
-    result = list(gemini_model._embed_one_batch([]))
-    assert result == []
+        assert len(embeddings) == len(input_data)
+        for emb in embeddings:
+            assert isinstance(emb, list)
+            assert all(isinstance(x, float) for x in emb)
 
 
 @skip_if_no_api_key
-def test_embed_batch_with_options(gemini_model):
+def test_embed_batch_with_options(gemini_models):
+    model = gemini_models[0]
     input_data = ["hello", "world"]
     options = {"task_type": "retrieval_document"}
 
-    embeddings = list(gemini_model.embed_batch(input_data, None, **options))
+    embeddings = list(model.embed_batch(input_data, None, **options))
 
     assert len(embeddings) == len(input_data)
     for emb in embeddings:

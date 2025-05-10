@@ -25,21 +25,21 @@ def test_factory_create_invalid_model():
 
 
 @skip_if_no_api_key
-def test_embed_one_batch_yields_embeddings(openai_model):
-    model = openai_model
-    input_data = ["hello", "world"]
+def test_embed_one_batch_yields_embeddings(openai_models):
+    for model in openai_models:
+        input_data = ["hello", "world"]
 
-    embeddings = list(model._embed_one_batch(input_data))
+        embeddings = list(model._embed_one_batch(input_data))
 
-    assert len(embeddings) == len(input_data)
-    for emb in embeddings:
-        assert isinstance(emb, list)
-        assert all(isinstance(x, float) for x in emb)
+        assert len(embeddings) == len(input_data)
+        for emb in embeddings:
+            assert isinstance(emb, list)
+            assert all(isinstance(x, float) for x in emb)
 
 
 @skip_if_no_api_key
-def test_embed_batch_with_options(openai_model):
-    model = openai_model
+def test_embed_batch_with_options(openai_models):
+    model = openai_models[0]
     input_data = ["hello", "world"]
     options = {"dimensions": "128"}
 
