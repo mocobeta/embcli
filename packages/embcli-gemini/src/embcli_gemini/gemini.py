@@ -1,5 +1,5 @@
 import os
-from typing import Iterator, List
+from typing import Iterator
 
 import embcli_core
 from embcli_core.models import EmbeddingModel, ModelOption, ModelOptionType
@@ -27,7 +27,7 @@ class GeminiEmbeddingModel(EmbeddingModel):
         self.model_id = model_id
         self.client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
 
-    def _embed_one_batch(self, input: List[str], **kwargs) -> Iterator[List[float]]:
+    def _embed_one_batch(self, input: list[str], **kwargs) -> Iterator[list[float]]:
         if not input:
             return
         # Call Gemini API to get embeddings
