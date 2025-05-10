@@ -1,5 +1,5 @@
 import os
-from typing import Iterator, List
+from typing import Iterator
 
 import embcli_core
 from embcli_core.models import EmbeddingModel, ModelOption, ModelOptionType
@@ -26,7 +26,7 @@ class OpenAIEmbeddingModel(EmbeddingModel):
         super().__init__(model_id)
         self.client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))  # type: ignore
 
-    def _embed_one_batch(self, input: List[str], **kwargs) -> Iterator[List[float]]:
+    def _embed_one_batch(self, input: list[str], **kwargs) -> Iterator[list[float]]:
         if not input:
             return
         # Call OpenAI API to get embeddings

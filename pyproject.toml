@@ -7,7 +7,7 @@ requires-python = ">=3.10"
 dependencies = []
 
 [tool.uv.workspace]
-members = ["packages/embcli-core", "packages/embcli-openai", "packages/embcli-gemini", "packages/embcli-cohere"]
+members = ["packages/embcli-core", "packages/embcli-openai", "packages/embcli-gemini", "packages/embcli-cohere", "packages/embcli-jina"]
 
 [dependency-groups]
 dev = [
