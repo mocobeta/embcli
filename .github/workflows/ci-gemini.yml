@@ -1,4 +1,4 @@
-name: CI for OpenAI Models
+name: CI for Gemini Models
 
 on: workflow_dispatch
 
