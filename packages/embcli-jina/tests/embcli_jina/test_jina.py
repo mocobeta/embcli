@@ -42,7 +42,7 @@ def test_embed_one_batch_yields_embeddings(jina_models):
 
 
 @skip_if_no_api_key
-def test_embed_batch_with_options(jina_models):
+def test_embed_batch_with_options(jina_models, mocker):
     input_data = ["hello", "world"]
     for model in jina_models:
         if model.model_id == "jina-embeddings-v3":
@@ -56,6 +56,7 @@ def test_embed_batch_with_options(jina_models):
                 assert all(isinstance(x, float) for x in emb)
                 assert len(emb) == 512
         elif model.model_id == "jina-colbert-v2":
+            mocker.patch("embcli_jina.jina.COLBERT_TIMEOUT_SEC", 30)
             options = {"input_type": "query", "dimensions": "64"}
 
             embeddings = list(model.embed_batch(input_data, None, **options))
