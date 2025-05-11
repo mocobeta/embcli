@@ -188,7 +188,8 @@ def simscore(env_file, model_id, similarity, file1, file2, options, text1, text2
 @click.option("--batch-size", default=100, type=int, help="Batch size for embedding", show_default=True)
 @click.option("options", "--option", "-o", type=(str, str), multiple=True, help="key/value options for the model")
 def ingest(env_file, model_id, vector_store_vendor, persist_path, collection, file, input_format, batch_size, options):
-    """Ingest documents into the vector store."""
+    """Ingest documents into the vector store.
+    Ingestion-specific embeddings are used if the model provides options for generating search documents-optimized embeddings."""  # noqa: E501
     register_models(pm())
     register_vector_stores(pm())
     load_env(env_file)
@@ -249,7 +250,7 @@ def ingest(env_file, model_id, vector_store_vendor, persist_path, collection, fi
 )
 @click.option("options", "--option", "-o", type=(str, str), multiple=True, help="key/value options for the model")
 def ingest_sample(env_file, model_id, vector_store_vendor, persist_path, collection, corpus, options):
-    """Ingest documents into the vector store."""
+    """Ingest example documents into the vector store."""
     register_models(pm())
     register_vector_stores(pm())
     load_env(env_file)
@@ -305,7 +306,8 @@ def ingest_sample(env_file, model_id, vector_store_vendor, persist_path, collect
 @click.option("--top-k", "-k", default=5, type=int, help="Number of top results to return", show_default=True)
 @click.option("options", "--option", "-o", type=(str, str), multiple=True, help="key/value options for the model")
 def search(env_file, model_id, vector_store_vendor, persist_path, collection, query, top_k, options):
-    """Search for documents in the vector store."""
+    """Search for documents in the vector store for the query.
+    Query-specific embedding is used if the model provides options for generating search query-optimized embeddings."""  # noqa: E501
     register_models(pm())
     register_vector_stores(pm())
     load_env(env_file)

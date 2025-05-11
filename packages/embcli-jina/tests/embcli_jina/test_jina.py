@@ -43,6 +43,7 @@ def test_embed_one_batch_yields_embeddings(jina_models):
 
 @skip_if_no_api_key
 def test_embed_batch_with_options(jina_models, mocker):
+    mocker.patch("embcli_jina.jina.COLBERT_TIMEOUT_SEC", 30)
     input_data = ["hello", "world"]
     for model in jina_models:
         if model.model_id == "jina-embeddings-v3":
@@ -56,7 +57,6 @@ def test_embed_batch_with_options(jina_models, mocker):
                 assert all(isinstance(x, float) for x in emb)
                 assert len(emb) == 512
         elif model.model_id == "jina-colbert-v2":
-            mocker.patch("embcli_jina.jina.COLBERT_TIMEOUT_SEC", 30)
             options = {"input_type": "query", "dimensions": "64"}
 
             embeddings = list(model.embed_batch(input_data, None, **options))
@@ -65,3 +65,35 @@ def test_embed_batch_with_options(jina_models, mocker):
                 assert isinstance(emb, list)
                 assert all(isinstance(x, float) for x in emb)
                 assert len(emb) == 64
+
+
+@skip_if_no_api_key
+def test_embed_batch_for_ingest(jina_models, mocker):
+    mocker.patch("embcli_jina.jina.COLBERT_TIMEOUT_SEC", 30)
+    for model in jina_models:
+        input_data = ["hello", "world"]
+        spy = mocker.spy(model, "embed_batch")
+        embeddings = list(model.embed_batch_for_ingest(input_data, None))
+        assert len(embeddings) > 0
+
+        # Check that the spy was called with the correct model options
+        if model.model_id == "jina-embeddings-v3":
+            spy.assert_called_once_with(input_data, None, task="retrieval.passage")
+        elif model.model_id == "jina-colbert-v2":
+            spy.assert_called_once_with(input_data, None, input_type="document")
+
+
+@skip_if_no_api_key
+def test_embed_for_search(jina_models, mocker):
+    mocker.patch("embcli_jina.jina.COLBERT_TIMEOUT_SEC", 30)
+    for model in jina_models:
+        input = "hello world"
+        spy = mocker.spy(model, "embed")
+        embedding = list(model.embed_for_search(input))
+        assert len(embedding) > 0
+
+        # Check that the spy was called with the correct model options
+        if model.model_id == "jina-embeddings-v3":
+            spy.assert_called_once_with(input, task="retrieval.query")
+        elif model.model_id == "jina-colbert-v2":
+            spy.assert_called_once_with(input, input_type="query")

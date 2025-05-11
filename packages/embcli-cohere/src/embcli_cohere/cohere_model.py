@@ -51,6 +51,14 @@ class CohereEmbeddingModel(EmbeddingModel):
         for embedding in response.embeddings.float_:
             yield embedding
 
+    def embed_batch_for_ingest(self, input, batch_size, **kwargs):
+        kwargs["input_type"] = "search_document"
+        return self.embed_batch(input, batch_size, **kwargs)
+
+    def embed_for_search(self, input, **kwargs):
+        kwargs["input_type"] = "search_query"
+        return self.embed(input, **kwargs)
+
 
 @embcli_core.hookimpl
 def embedding_model():

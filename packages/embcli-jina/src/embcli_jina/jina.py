@@ -86,6 +86,20 @@ class JinaEmbeddingModel(EmbeddingModel):
                 for embedding in item.get("embeddings", []):
                     yield embedding
 
+    def embed_batch_for_ingest(self, input, batch_size, **kwargs):
+        if self.model_id == "jina-embeddings-v3":
+            kwargs["task"] = "retrieval.passage"
+        elif self.model_id == "jina-colbert-v2":
+            kwargs["input_type"] = "document"
+        return self.embed_batch(input, batch_size, **kwargs)
+
+    def embed_for_search(self, input, **kwargs):
+        if self.model_id == "jina-embeddings-v3":
+            kwargs["task"] = "retrieval.query"
+        elif self.model_id == "jina-colbert-v2":
+            kwargs["input_type"] = "query"
+        return self.embed(input, **kwargs)
+
 
 @embcli_core.hookimpl
 def embedding_model():
