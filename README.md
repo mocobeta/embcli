@@ -6,9 +6,7 @@ This project is a collection of plugins for different embedding models and APIs,
 
 ## Project Status
 
-Pre-alpha.
-
-embcli is in active development, and new features and plugins are being added regularly. If you have any suggestions or feature requests, please [open an issue on the GitHub repository](https://github.com/mocobeta/embcli/issues).
+Pre-alpha. embcli is in active development, and new features and plugins are being added regularly.
 
 ## Usage
 
