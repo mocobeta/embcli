@@ -1,0 +1,21 @@
+[project]
+name = "embcli-voyage"
+version = "0.0.1"
+description = "voyage plugin for embcli"
+readme = "README.md"
+authors = [{ name = "Tomoko Uchida", email = "tomoko.uchida.1111@gmail.com" }]
+requires-python = ">=3.10"
+dependencies = [
+    "embcli-core",
+    "voyageai>=0.3.2",
+]
+
+[tool.uv.sources]
+embcli-core = { workspace = true }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.entry-points."embcli"]
+voyage = "embcli_voyage.voyage"
