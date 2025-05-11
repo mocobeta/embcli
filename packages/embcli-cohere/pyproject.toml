@@ -1,6 +1,6 @@
 [project]
 name = "embcli-cohere"
-version = "0.0.4"
+version = "0.0.5"
 description = "cohere plugin for embcli"
 readme = "README.md"
 authors = [{ name = "Tomoko Uchida", email = "tomoko.uchida.1111@gmail.com" }]
@@ -20,7 +20,7 @@ classifiers = [
     "License :: OSI Approved :: Apache Software License",
 ]
 requires-python = ">=3.10"
-dependencies = ["embcli-core>=0.0.4", "cohere>=5.15.0"]
+dependencies = ["embcli-core>=0.0.5", "cohere>=5.15.0"]
 
 [project.urls]
 "Repository" = "https://github.com/mocobeta/embcli"
