@@ -491,7 +491,7 @@ wheels = [
 
 [[package]]
 name = "embcli"
-version = "0.0.1"
+version = "0.0.2"
 source = { virtual = "." }
 
 [package.dev-dependencies]
@@ -516,7 +516,7 @@ dev = [
 
 [[package]]
 name = "embcli-cohere"
-version = "0.0.1"
+version = "0.0.2"
 source = { editable = "packages/embcli-cohere" }
 dependencies = [
     { name = "cohere" },
@@ -531,7 +531,7 @@ requires-dist = [
 
 [[package]]
 name = "embcli-core"
-version = "0.0.1"
+version = "0.0.2"
 source = { editable = "packages/embcli-core" }
 dependencies = [
     { name = "chromadb" },
@@ -552,7 +552,7 @@ requires-dist = [
 
 [[package]]
 name = "embcli-gemini"
-version = "0.0.1"
+version = "0.0.2"
 source = { editable = "packages/embcli-gemini" }
 dependencies = [
     { name = "embcli-core" },
@@ -567,7 +567,7 @@ requires-dist = [
 
 [[package]]
 name = "embcli-jina"
-version = "0.0.1"
+version = "0.0.2"
 source = { editable = "packages/embcli-jina" }
 dependencies = [
     { name = "embcli-core" },
@@ -582,7 +582,7 @@ requires-dist = [
 
 [[package]]
 name = "embcli-mistral"
-version = "0.0.1"
+version = "0.0.2"
 source = { editable = "packages/embcli-mistral" }
 dependencies = [
     { name = "embcli-core" },
@@ -597,7 +597,7 @@ requires-dist = [
 
 [[package]]
 name = "embcli-openai"
-version = "0.0.1"
+version = "0.0.2"
 source = { editable = "packages/embcli-openai" }
 dependencies = [
     { name = "embcli-core" },
@@ -612,7 +612,7 @@ requires-dist = [
 
 [[package]]
 name = "embcli-voyage"
-version = "0.0.1"
+version = "0.0.2"
 source = { editable = "packages/embcli-voyage" }
 dependencies = [
     { name = "embcli-core" },
