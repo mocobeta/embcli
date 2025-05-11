@@ -1,5 +1,17 @@
 # embcli - CLI for Embeddings
 
+## Usage
+
+See the README of each package for usage instructions.
+
+- [embcli-core](packages/embcli-core/README.md)
+- [embcli-openai](packages/embcli-openai/README.md)
+- [embcli-cohere](packages/embcli-cohere/README.md)
+- [embcli-gemini](packages/embcli-gemini/README.md)
+- [embcli-jina](packages/embcli-jina/README.md)
+- [embcli-mistral](packages/embcli-mistral/README.md)
+- [embcli-voyage](packages/embcli-voyage/README.md)
+
 ## Development
 
 ### Prerequisites
@@ -17,18 +29,9 @@ uv venv
 
 ### Run Tests
 
-For `embcli-core` package:
+See the README of each package.
 
-```bash
-uv run --package embcli-core pytest packages/embcli-core/tests
-```
-
-For `embcli-openai` package:
-
-```bash
-OPENAI_API_KEY=<YOUR_OPENAI_KEY> RUN_OPENAI_TESTS=1 uv run --package embcli-openai pytest packages/embcli-openai/tests/
-```
-### Run Linter and Formatter
+### Run Linter and Formatter (all packages)
 
 ```bash
 uv run ruff check --fix
@@ -51,12 +54,14 @@ See [pre-commit](https://pre-commit.com/) for more information.
 
 ### Run Type Checker
 
-```bash
-uv run --package embcli-core pyright packages/embcli-core
-```
+See the README of each package.
 
-## Build
+## Build (all packages)
 
 ```bash
 uv build --all-packages
 ```
+
+## License
+
+Apache License 2.0
