@@ -14,13 +14,14 @@ on:
         default: 'embcli-core'
         type: choice
         options:
-          - embcli-cohere
           - embcli-core
+          - embcli-cohere
           - embcli-gemini
           - embcli-jina
           - embcli-mistral
           - embcli-openai
           - embcli-voyage
+          - all
 
 jobs:
   publish:
@@ -42,8 +43,16 @@ jobs:
         uv venv
   
     - name: Build the package
+      if: inputs.package != 'all'
       run: |
         uv build --package ${{ inputs.package }}
+        echo "Package ${{ inputs.package }} built successfully"
+
+    - name: Build all packages
+      if: inputs.package == 'all'
+      run: |
+        uv build --all-packages
+        echo "All packages built successfully"
                             
     - name: Publish to TestPyPI
       if: inputs.testpypi == true
