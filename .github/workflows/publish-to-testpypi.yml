@@ -23,7 +23,7 @@ on:
           - embcli-voyage
 
 jobs:
-  test:
+  publish:
     runs-on: ubuntu-latest
 
     steps:
@@ -43,7 +43,7 @@ jobs:
   
     - name: Build the package
       run: |
-        uv run --package ${{ inputs.package }} build
+        uv build --package ${{ inputs.package }}
                             
     - name: Publish to TestPyPI
       if: inputs.testpypi == true
