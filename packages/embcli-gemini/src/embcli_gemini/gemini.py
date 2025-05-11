@@ -43,9 +43,7 @@ class GeminiEmbeddingModel(EmbeddingModel):
         if not response.embeddings:
             return
         for embedding in response.embeddings:
-            while embedding.values is None:
-                continue
-            yield embedding.values
+            yield embedding.values if embedding.values else []
 
 
 @embcli_core.hookimpl
