@@ -1,10 +1,19 @@
 # embcli - CLI for Embeddings
 
+A command-line utility tool for generating embeddings using various models and APIs.
+
+This project is a collection of plugins for different embedding models and APIs, allowing users to test and compare their performance from the terminal easily. embcli is designed to be extensible (in a similar way to [`llm`](https://github.com/simonw/llm)), so you can add your own plugins for any embedding model or API you want to use.
+
+## Project Status
+
+Pre-alpha.
+
+embcli is in active development, and new features and plugins are being added regularly. If you have any suggestions or feature requests, please [open an issue on the GitHub repository](https://github.com/mocobeta/embcli/issues).
+
 ## Usage
 
-See the README of each package for usage instructions.
+See the README of each package (plugin) for usage instructions.
 
-- [embcli-core](packages/embcli-core/README.md)
 - [embcli-openai](packages/embcli-openai/README.md)
 - [embcli-cohere](packages/embcli-cohere/README.md)
 - [embcli-gemini](packages/embcli-gemini/README.md)
@@ -61,6 +70,10 @@ See the README of each package.
 ```bash
 uv build --all-packages
 ```
+
+## How is this different from llm command-line tool?
+
+This tool is greatly influenced by llm, but its purpose is slightly different. While the llm command can handle embeddings, its main focus seems not on embeddings (representation models) but on large language models. My motivation for creating this tool is to provide a feature-rich command-line utility for embeddings, for building semantic search and RAG applications.
 
 ## License
 
