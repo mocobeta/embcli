@@ -48,3 +48,25 @@ def test_embed_batch_with_options(voyage_models):
     assert len(embeddings) == len(input_data)
     for emb in embeddings:
         assert len(emb) == 512
+
+
+@skip_if_no_api_key
+def test_embed_batch_for_ingest(voyage_models, mocker):
+    for model in voyage_models:
+        input_data = ["hello", "world"]
+        spy = mocker.spy(model, "embed_batch")
+        embeddings = list(model.embed_batch_for_ingest(input_data, None))
+        assert len(embeddings) > 0
+        # Check if the spy was called with the correct model options
+        spy.assert_called_once_with(input_data, None, input_type="document")
+
+
+@skip_if_no_api_key
+def test_embed_for_search(voyage_models, mocker):
+    for model in voyage_models:
+        input = "hello world"
+        spy = mocker.spy(model, "embed")
+        embedding = list(model.embed_for_search(input))
+        assert len(embedding) > 0
+        # Check if the spy was called with the correct model options
+        spy.assert_called_once_with(input, input_type="query")

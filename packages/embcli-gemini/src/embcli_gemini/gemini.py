@@ -19,7 +19,7 @@ class GeminiEmbeddingModel(EmbeddingModel):
         ModelOption(
             "task_type",
             ModelOptionType.STR,
-            "The type of task for the embedding. See https://ai.google.dev/gemini-api/docs/embeddings#task-types for supported task types.",  # noqa: E501
+            "The type of task for the embedding. Supported task types: 'semantic_similarity', 'classification', 'clustering', 'retrieval_document', 'retrieval_query', 'question_answering', 'fact_verification', 'code_retrieval_query'",  # noqa: E501
         )
     ]
 
@@ -44,6 +44,14 @@ class GeminiEmbeddingModel(EmbeddingModel):
             return
         for embedding in response.embeddings:
             yield embedding.values if embedding.values else []
+
+    def embed_batch_for_ingest(self, input, batch_size, **kwargs):
+        kwargs["task_type"] = "retrieval_document"
+        return self.embed_batch(input, batch_size, **kwargs)
+
+    def embed_for_search(self, input, **kwargs):
+        kwargs["task_type"] = "retrieval_query"
+        return self.embed(input, **kwargs)
 
 
 @embcli_core.hookimpl

@@ -43,6 +43,11 @@ class EmbeddingModel(ABC):
         model_options = self._check_and_convert_options(**kwargs)
         return next(self._embed_one_batch([input], **model_options))
 
+    def embed_for_search(self, input: str, **kwargs) -> list[float]:
+        """Generate an embedding for a single input. Output is supposed to be used for search query."""
+        # This method is a placeholder and can be overridden by subclasses if needed.
+        return self.embed(input, **kwargs)
+
     def embed_batch(self, input: list[str], batch_size: Optional[int], **kwargs) -> Iterator[list[float]]:
         """Generate embeddings for a list of inputs. Inputs are split into batches of size `batch_size`.
         Args:
@@ -59,6 +64,11 @@ class EmbeddingModel(ABC):
             batch_size = self.default_batch_size
         for i in range(0, len(input), batch_size):
             yield from self._embed_one_batch(input[i : i + batch_size], **model_options)
+
+    def embed_batch_for_ingest(self, input: list[str], batch_size: Optional[int], **kwargs) -> Iterator[list[float]]:
+        """Generate embeddings for a list of inputs. Outputs are supposed to be used for ingestion."""
+        # This method is a placeholder and can be overridden by subclasses if needed.
+        return self.embed_batch(input, batch_size, **kwargs)
 
     @abstractmethod
     def _embed_one_batch(self, input: list[str], **kwargs) -> Iterator[list[float]]:

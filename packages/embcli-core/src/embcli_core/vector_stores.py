@@ -20,14 +20,15 @@ class VectorStore(ABC):
             yield items[i : i + batch_size]
 
     def ingest(self, model: EmbeddingModel, collection: str, docs: list[DocumentType], batch_size: int = 100, **kwargs):
-        """Ingest documents into the collection."""
+        """Ingest documents into the collection.
+        Ingestion-specific embeddings are used if the model provides options for generating search documents-optimized embeddings."""  # noqa: E501
         if not docs:
             return
         # Process documents in batches
         for batch_docs in self._batch(docs, batch_size):
             batch_input = [doc.source_text() for doc in batch_docs]
             # Generate embeddings for the batch
-            embeddings = list(model.embed_batch(batch_input, batch_size=batch_size, **kwargs))
+            embeddings = list(model.embed_batch_for_ingest(batch_input, batch_size=batch_size, **kwargs))
             # Index the embeddings with documents
             self._index(collection, embeddings, batch_docs)
 
@@ -37,9 +38,10 @@ class VectorStore(ABC):
         pass
 
     def search(self, model: EmbeddingModel, collection: str, query: str, top_k: int = 5, **kwargs) -> list[HitDocument]:
-        """Search for the top K documents in the collection."""
+        """Search for the top K documents in the collection for the query.
+        Query-specific embedding is used if the model provides options for generating search query-optimized embeddings."""  # noqa: E501
         # Generate embedding for the query
-        query_embedding = model.embed(query, **kwargs)
+        query_embedding = model.embed_for_search(query, **kwargs)
         # Search for the top K documents
         return self._search(collection, query_embedding, top_k)
 

@@ -48,3 +48,25 @@ def test_embed_batch_with_options(gemini_models):
     for emb in embeddings:
         assert isinstance(emb, list)
         assert all(isinstance(x, float) for x in emb)
+
+
+@skip_if_no_api_key
+def test_embed_batch_for_ingest(gemini_models, mocker):
+    for model in gemini_models:
+        input_data = ["hello", "world"]
+        spy = mocker.spy(model, "embed_batch")
+        embeddings = list(model.embed_batch_for_ingest(input_data, None))
+        assert len(embeddings) > 0
+        # Check that the spy was called with the correct model options
+        spy.assert_called_once_with(input_data, None, task_type="retrieval_document")
+
+
+@skip_if_no_api_key
+def test_embed_for_search(gemini_models, mocker):
+    for model in gemini_models:
+        input = "hello world"
+        spy = mocker.spy(model, "embed")
+        embedding = list(model.embed_for_search(input))
+        assert len(embedding) > 0
+        # Check that the spy was called with the correct model options
+        spy.assert_called_once_with(input, task_type="retrieval_query")

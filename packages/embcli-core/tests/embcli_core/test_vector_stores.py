@@ -4,7 +4,7 @@ from embcli_core.vector_stores import available_vector_stores, get_vector_store,
 
 def test_ingest(mock_model, mock_store, mocker):
     spy1 = mocker.spy(mock_store, "_index")
-    spy2 = mocker.spy(mock_model, "embed_batch")
+    spy2 = mocker.spy(mock_model, "embed_batch_for_ingest")
     collection = "test_collection"
     documents = [Document("doc1", "This is a test document."), Document("doc2", "Another test document.")]
     mock_store.ingest(mock_model, collection, documents)
@@ -14,7 +14,7 @@ def test_ingest(mock_model, mock_store, mocker):
 
 def test_ingest_with_batch_size(mock_model, mock_store, mocker):
     spy1 = mocker.spy(mock_store, "_index")
-    spy2 = mocker.spy(mock_model, "embed_batch")
+    spy2 = mocker.spy(mock_model, "embed_batch_for_ingest")
     collection = "test_collection"
     documents = [Document(f"doc{i}", "This is a test document.") for i in range(10)]
     batch_size = 3
@@ -25,7 +25,7 @@ def test_ingest_with_batch_size(mock_model, mock_store, mocker):
 
 def test_search(mock_model, mock_store, mocker):
     spy1 = mocker.spy(mock_store, "_search")
-    spy2 = mocker.spy(mock_model, "embed")
+    spy2 = mocker.spy(mock_model, "embed_for_search")
     collection = "test_collection"
     query = "test query"
     top_k = 3
