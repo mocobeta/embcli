@@ -8,7 +8,7 @@ from embcli_core.models import EmbeddingModel, ModelOption, ModelOptionType
 
 class CohereEmbeddingModel(EmbeddingModel):
     vendor = "cohere"
-    default_batch_size = 100
+    default_batch_size = 50
     model_aliases = [
         ("embed-v4.0", ["embed-v4"]),
         ("embed-english-v3.0", ["embed-en-v3"]),
