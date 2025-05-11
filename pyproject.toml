@@ -7,7 +7,15 @@ requires-python = ">=3.10"
 dependencies = []
 
 [tool.uv.workspace]
-members = ["packages/embcli-core", "packages/embcli-openai", "packages/embcli-gemini", "packages/embcli-cohere", "packages/embcli-jina", "packages/embcli-mistral", "packages/embcli-voyage"]
+members = [
+    "packages/embcli-core",
+    "packages/embcli-openai",
+    "packages/embcli-gemini",
+    "packages/embcli-cohere",
+    "packages/embcli-jina",
+    "packages/embcli-mistral",
+    "packages/embcli-voyage",
+]
 
 [dependency-groups]
 dev = [
@@ -29,3 +37,9 @@ select = ["F", "E", "W", "I"]
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
+
+[[tool.uv.index]]
+name = "testpypi"
+url = "https://test.pypi.org/simple/"
+publish-url = "https://test.pypi.org/legacy/"
+explicit = true
