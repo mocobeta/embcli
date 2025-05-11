@@ -2,6 +2,11 @@
 
 gemini plugin for embcli, a command-line interface for embeddings.
 
+## Reference
+
+- [Gemini Embedding Experimental](https://ai.google.dev/gemini-api/docs/models#gemini-embedding)
+- [Gemini Text Embedding and Embedding](https://ai.google.dev/gemini-api/docs/models#text-embedding)
+
 ## Installation
 
 ```bash

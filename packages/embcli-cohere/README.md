@@ -2,6 +2,10 @@
 
 cohere plugin for embcli, a command-line interface for embeddings.
 
+## Reference
+
+- [Cohere’s Embed Models](https://docs.cohere.com/v2/docs/cohere-embed)
+
 ## Installation
 
 ```bash

@@ -2,6 +2,10 @@
 
 openai plugin for embcli, a command-line interface for embeddings.
 
+## Reference
+
+- [OpenAI Models](https://platform.openai.com/docs/models)
+
 ## Installation
 
 ```bash

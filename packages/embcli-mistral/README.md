@@ -2,6 +2,10 @@
 
 mistral plugin for embcli, a command-line interface for embeddings.
 
+## Reference
+
+- [Mistral Embeddings](https://docs.mistral.ai/capabilities/embeddings/)
+
 ## Installation
 
 ```bash

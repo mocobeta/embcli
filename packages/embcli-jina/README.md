@@ -2,6 +2,10 @@
 
 jina plugin for embcli, a command-line interface for embeddings.
 
+## Reference
+
+- [Jina Models](https://jina.ai/models)
+
 ## Installation
 
 ```bash
