@@ -4,6 +4,21 @@ version = "0.0.2"
 description = "embcli - CLI for Embeddings"
 readme = "README.md"
 authors = [{ name = "Tomoko Uchida", email = "tomoko.uchida.1111@gmail.com" }]
+license = "Apache-2.0"
+keywords = ["cli", "llm", "nlp", "embeddings"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Terminals",
+    "Topic :: Text Processing :: Linguistic",
+    "Topic :: Utilities",
+    "License :: OSI Approved :: Apache Software License",
+]
 requires-python = ">=3.10"
 dependencies = [
     "chromadb>=1.0.8",
@@ -12,6 +27,9 @@ dependencies = [
     "pluggy>=1.5.0",
     "python-dotenv>=1.1.0",
 ]
+
+[project.urls]
+"Repository" = "https://github.com/mocobeta/embcli"
 
 [build-system]
 requires = ["hatchling"]

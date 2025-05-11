@@ -4,8 +4,26 @@ version = "0.0.2"
 description = "voyage plugin for embcli"
 readme = "README.md"
 authors = [{ name = "Tomoko Uchida", email = "tomoko.uchida.1111@gmail.com" }]
+license = "Apache-2.0"
+keywords = ["cli", "llm", "nlp", "embeddings"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Terminals",
+    "Topic :: Text Processing :: Linguistic",
+    "Topic :: Utilities",
+    "License :: OSI Approved :: Apache Software License",
+]
 requires-python = ">=3.10"
 dependencies = ["embcli-core>=0.0.2", "voyageai>=0.3.2"]
+
+[project.urls]
+"Repository" = "https://github.com/mocobeta/embcli"
 
 [tool.uv.sources]
 embcli-core = { workspace = true }
