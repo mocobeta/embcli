@@ -22,7 +22,7 @@ class MistralEmbeddingModel(EmbeddingModel):
         # Call Mistral API to get embeddings
         response = self.client.embeddings.create(model=self.model_id, inputs=input, **kwargs)
         for item in response.data:
-            yield item.embedding
+            yield item.embedding if item.embedding else []
 
 
 @embcli_core.hookimpl
