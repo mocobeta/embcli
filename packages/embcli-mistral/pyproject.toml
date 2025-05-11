@@ -1,0 +1,21 @@
+[project]
+name = "embcli-mistral"
+version = "0.0.1"
+description = "mistral plugin for embcli"
+readme = "README.md"
+authors = [{ name = "Tomoko Uchida", email = "tomoko.uchida.1111@gmail.com" }]
+requires-python = ">=3.10"
+dependencies = [
+    "embcli-core",
+    "mistralai>=1.7.0",
+]
+
+[tool.uv.sources]
+embcli-core = { workspace = true }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.entry-points."embcli"]
+mistral = "embcli_mistral.mistral"
