@@ -281,7 +281,7 @@ def ingest_sample(env_file, model_id, vector_store_vendor, persist_path, collect
         return
     # Ingest documents into the vector store
     try:
-        vector_store.ingest(embedding_model, collection, docs, **kwargs)
+        vector_store.ingest(embedding_model, collection, docs, batch_size=embedding_model.default_batch_size, **kwargs)
         click.echo("Documents ingested successfully.")
         click.echo(f"Vector store: {vector_store.vendor} (collection: {collection})")
         if isinstance(vector_store, VectorStoreLocalFS):
