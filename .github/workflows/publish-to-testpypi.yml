@@ -1,0 +1,54 @@
+name: Publish Package to PyPI
+
+on: 
+  workflow_dispatch:
+    inputs:
+      testpypi:
+        description: 'Publish to TestPyPI'
+        required: false
+        default: false
+        type: boolean
+      package:
+        description: 'Package to publish'
+        required: true
+        default: 'embcli-core'
+        type: choice
+        options:
+          - embcli-cohere
+          - embcli-core
+          - embcli-gemini
+          - embcli-jina
+          - embcli-mistral
+          - embcli-openai
+          - embcli-voyage
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+        cache: 'pip'
+
+    - name: Set up uv
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install uv
+        uv venv
+  
+    - name: Build the package
+      run: |
+        uv run --package ${{ inputs.package }} build
+                            
+    - name: Publish to TestPyPI
+      if: inputs.testpypi == true
+      env:
+        UV_PUBLISH_TOKEN: ${{ secrets.TESTPYPI_TOKEN }}
+      run: |
+        uv publish --index testpypi dist/*
+        echo "Package published to TestPyPI"
