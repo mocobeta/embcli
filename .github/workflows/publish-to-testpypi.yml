@@ -8,6 +8,11 @@ on:
         required: false
         default: false
         type: boolean
+      pypi:
+        description: 'Publish to PyPI'
+        required: false
+        default: false
+        type: boolean
       package:
         description: 'Package to publish'
         required: true
@@ -61,3 +66,11 @@ jobs:
       run: |
         uv publish --index testpypi dist/*
         echo "Package published to TestPyPI"
+    
+    - name: Publish to PyPI
+      if: inputs.pypi == true
+      env:
+        UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
+      run: |
+        uv publish dist/*
+        echo "Package published to PyPI"
