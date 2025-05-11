@@ -1,14 +1,11 @@
 [project]
 name = "embcli-voyage"
-version = "0.0.1"
+version = "0.0.2"
 description = "voyage plugin for embcli"
 readme = "README.md"
 authors = [{ name = "Tomoko Uchida", email = "tomoko.uchida.1111@gmail.com" }]
 requires-python = ">=3.10"
-dependencies = [
-    "embcli-core",
-    "voyageai>=0.3.2",
-]
+dependencies = ["embcli-core>=0.0.2", "voyageai>=0.3.2"]
 
 [tool.uv.sources]
 embcli-core = { workspace = true }

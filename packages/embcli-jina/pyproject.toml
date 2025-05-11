@@ -1,14 +1,11 @@
 [project]
 name = "embcli-jina"
-version = "0.0.1"
+version = "0.0.2"
 description = "jina plugin for embcli"
 readme = "README.md"
 authors = [{ name = "Tomoko Uchida", email = "tomoko.uchida.1111@gmail.com" }]
 requires-python = ">=3.10"
-dependencies = [
-    "embcli-core",
-    "httpx>=0.28.1",
-]
+dependencies = ["embcli-core>=0.0.2", "httpx>=0.28.1"]
 
 [tool.uv.sources]
 embcli-core = { workspace = true }
