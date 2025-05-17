@@ -56,7 +56,7 @@ You can use the `emb` command to index documents and perform semantic search. `e
 
 ```bash
 # index example documents in the current directory.
-emb ingest-sample -m text-004 -c catcafe --corpus cat-names
+emb ingest-sample -m text-004 -c catcafe --corpus cat-names-en
 
 # or, you can give the path to your documents.
 # the documents should be in a CSV file with two columns: id and text. the separator should be comma.
@@ -70,6 +70,15 @@ Score: 0.5167245254962557, Document ID: 46, Text: Bandit: Bandit is a mischievou
 Score: 0.5093414700625404, Document ID: 76, Text: Frankie: Frankie is a boisterous and playful cat, full of charm and mischief. He loves to zoom around the house and engage in energetic play sessions, especially with crinkly toys. Frankie is also very affectionate, often seeking out his humans for cuddles and purrs after his bursts of energy, a fun-loving friend.
 Score: 0.5047165435030156, Document ID: 97, Text: Alfie: Alfie is a cheerful and mischievous little cat, always getting into playful trouble with a charming innocence. He loves exploring small spaces and batting at dangling objects. Alfie is incredibly affectionate, quick to purr and eager for cuddles, a delightful bundle of joy and entertainment for his humans.
 Score: 0.5034822716772406, Document ID: 71, Text: Archie: Archie is a friendly and slightly goofy ginger cat, always up for a bit of fun and a good meal. He is very sociable and loves attention from anyone willing to give it. Archie enjoys playful wrestling and will often follow his humans around, offering cheerful chirps and affectionate head-bumps.
+
+# multilingual search
+emb search -m text-004 -c catcafe -q "一番のいたずら者は誰?"
+Found 5 results:
+Score: 0.45721307081132867, Document ID: 33, Text: Sophie: Sophie is a refined and intelligent cat, perhaps a Russian Blue, with a gentle demeanor. She is observant and thoughtful, often studying her surroundings before acting. Sophie enjoys quiet playtime and affectionate cuddles on her own terms, forming deep and meaningful bonds with her chosen humans with quiet grace.
+Score: 0.45709408404668733, Document ID: 11, Text: Shadow: Shadow is a mysterious black cat, often materializing silently beside you. He enjoys quiet observation from hidden spots, his golden eyes keenly watching everything. Though initially reserved, Shadow forms deep bonds, offering gentle head-bumps and soft purrs to those he trusts, an enigmatic yet loving companion.
+Score: 0.4557563703472538, Document ID: 98, Text: Bianca: Bianca, meaning white, is often a beautiful pure white cat with an air of serene elegance. She enjoys quiet, sunlit naps and gentle affection, her purrs like soft whispers. Bianca is a calming presence, bringing a touch of grace and peacefulness to her home, a truly lovely companion.
+Score: 0.4550888159070766, Document ID: 10, Text: Mochi: Mochi is a delightfully round and fluffy cat, as sweet and soft as her namesake. She is a champion napper, always seeking the warmest, coziest spot for a snooze. A true lap cat, Mochi's gentle purr is a constant, comforting presence, and she adores soft pets and chin scratches.
+Score: 0.4550626224506026, Document ID: 1, Text: Nimbus: Nimbus, with his voluminous, cloud-like white fur, embodies serene gentleness. He is an affectionate companion, delighting in long, quiet cuddle sessions and purring contentedly. Often found observing the world from a sunny windowsill, his calm demeanor makes him a peaceful presence, a truly tranquil friend who enjoys soft pets.
 ```
 
 

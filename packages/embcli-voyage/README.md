@@ -61,7 +61,7 @@ You can use the `emb` command to index documents and perform semantic search. `e
 
 ```bash
 # index example documents in the current directory.
-emb ingest-sample -m voyage-3 -c catcafe --corpus cat-names
+emb ingest-sample -m voyage-3 -c catcafe --corpus cat-names-en
 
 # or, you can give the path to your documents.
 # the documents should be in a CSV file with two columns: id and text. the separator should be comma.
@@ -75,6 +75,15 @@ Score: 0.41704222853043194, Document ID: 46, Text: Bandit: Bandit is a mischievo
 Score: 0.4138587234705962, Document ID: 3, Text: Pippin (Pip): Pippin, or Pip, is a compact dynamo, brimming with mischievous charm and boundless curiosity. He’s an intrepid explorer, always finding new hideouts or investigating forbidden territories with a twinkle in his eye. Quite vocal, Pip will happily chat about his day, his playful antics making him an endearing little rascal.
 Score: 0.4102669442076908, Document ID: 66, Text: Vinnie: Vinnie is a cool and confident cat, often a street-smart tabby with a lot of personality. He is resourceful and independent but also enjoys affection from his trusted humans. Vinnie is a survivor with a soft side, offering gruff purrs and head-butts, a charming rogue with a heart of gold.
 Score: 0.407675485063674, Document ID: 94, Text: Xena: Xena is a warrior princess of a cat, bold, adventurous, and fiercely protective of her territory and toys. She is highly energetic and loves vigorous play, often surprising with her agility. Despite her tough exterior, Xena is deeply loyal and affectionate to her trusted human companions.
+
+# multilingual search
+emb search -m voyage-3 -c catcafe -q "一番のいたずら者は誰?"
+Found 5 results:
+Score: 0.3996864870685445, Document ID: 5, Text: Cosmo: Cosmo, with his wide, knowing eyes, seems to ponder the universe's mysteries. He’s an endearingly quirky character, often found investigating unusual objects or engaging in peculiar solo games. Highly intelligent and observant, Cosmo loves exploring new spaces, and his quiet, thoughtful nature makes him a fascinating and unique companion.
+Score: 0.39843294400750984, Document ID: 83, Text: Monty: Monty is a charming and slightly eccentric cat, full of character and amusing quirks. He might have a favorite unusual napping spot or a peculiar way of playing. Monty is very entertaining and loves attention, often performing his unique antics for his amused human audience, a delightful and unique friend.
+Score: 0.39798067438127693, Document ID: 75, Text: Elwood: Elwood is an endearingly quirky and laid-back cat, often found in amusing sleeping positions. He is friendly and easygoing, enjoying simple pleasures like a good meal and a sunny spot. Elwood is a comforting presence, always ready with a soft purr and a gentle nuzzle, a truly chill companion.
+Score: 0.39575622315523173, Document ID: 24, Text: Gizmo: Gizmo is an endearingly quirky cat, full of curious habits and playful antics. He might bat at imaginary foes or carry his favorite small toy everywhere. Gizmo is incredibly entertaining and loves attention, often performing his unique tricks for his amused human audience, always bringing a smile.
+Score: 0.3932879962838197, Document ID: 50, Text: Dexter: Dexter is a clever and sometimes quirky cat, always up to something interesting. He might have a fascination with running water or a particular toy he carries everywhere. Dexter is highly intelligent and enjoys interactive play, keeping his humans entertained with his unique personality and amusing antics, a truly engaging companion.
 ```
 
 

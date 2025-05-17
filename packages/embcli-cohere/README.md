@@ -58,7 +58,7 @@ You can use the `emb` command to index documents and perform semantic search. `e
 
 ```bash
 # index example documents in the current directory.
-emb ingest-sample -m embed-v4 -c catcafe --corpus cat-names
+emb ingest-sample -m embed-v4 -c catcafe --corpus cat-names-en
 
 # or, you can give the path to your documents.
 # the documents should be in a CSV file with two columns: id and text. the separator should be comma.
@@ -72,6 +72,15 @@ Score: 0.4187830451687781, Document ID: 76, Text: Frankie: Frankie is a boistero
 Score: 0.41594965013771756, Document ID: 46, Text: Bandit: Bandit is a mischievous cat, often with mask-like markings, always on the lookout for his next playful heist of a toy or treat. He is clever and energetic, loving to chase and pounce. Despite his roguish name, Bandit is a loving companion who enjoys a good cuddle after his adventures.
 Score: 0.41532520111462273, Document ID: 28, Text: Loki: Loki is a mischievous and clever cat, always finding new ways to entertain himself, sometimes at his humans' expense. He is a master of stealth and surprise attacks on toys. Despite his playful trickery, Loki is incredibly charming and affectionate, easily winning hearts with his roguish appeal.
 Score: 0.4081888584294111, Document ID: 50, Text: Dexter: Dexter is a clever and sometimes quirky cat, always up to something interesting. He might have a fascination with running water or a particular toy he carries everywhere. Dexter is highly intelligent and enjoys interactive play, keeping his humans entertained with his unique personality and amusing antics, a truly engaging companion.
+
+# multilingual search
+emb search -m embed-v4 -c catcafe -q "一番のいたずら者は誰?"
+Found 5 results:
+Score: 0.4211751179260085, Document ID: 46, Text: Bandit: Bandit is a mischievous cat, often with mask-like markings, always on the lookout for his next playful heist of a toy or treat. He is clever and energetic, loving to chase and pounce. Despite his roguish name, Bandit is a loving companion who enjoys a good cuddle after his adventures.
+Score: 0.41704963047944504, Document ID: 28, Text: Loki: Loki is a mischievous and clever cat, always finding new ways to entertain himself, sometimes at his humans' expense. He is a master of stealth and surprise attacks on toys. Despite his playful trickery, Loki is incredibly charming and affectionate, easily winning hearts with his roguish appeal.
+Score: 0.3999017194050878, Document ID: 76, Text: Frankie: Frankie is a boisterous and playful cat, full of charm and mischief. He loves to zoom around the house and engage in energetic play sessions, especially with crinkly toys. Frankie is also very affectionate, often seeking out his humans for cuddles and purrs after his bursts of energy, a fun-loving friend.
+Score: 0.3997923784831019, Document ID: 97, Text: Alfie: Alfie is a cheerful and mischievous little cat, always getting into playful trouble with a charming innocence. He loves exploring small spaces and batting at dangling objects. Alfie is incredibly affectionate, quick to purr and eager for cuddles, a delightful bundle of joy and entertainment for his humans.
+Score: 0.3969699024640684, Document ID: 24, Text: Gizmo: Gizmo is an endearingly quirky cat, full of curious habits and playful antics. He might bat at imaginary foes or carry his favorite small toy everywhere. Gizmo is incredibly entertaining and loves attention, often performing his unique tricks for his amused human audience, always bringing a smile.
 ```
 
 ## Development

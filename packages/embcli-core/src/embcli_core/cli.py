@@ -243,8 +243,19 @@ def ingest(env_file, model_id, vector_store_vendor, persist_path, collection, fi
 @click.option("--collection", "-c", required=True, help="Collection name where to store the embeddings")
 @click.option(
     "--corpus",
-    default="cat-names",
-    type=click.Choice(["cat-names"]),
+    default="cat-names-en",
+    type=click.Choice(
+        [
+            "cat-names-en",
+            "cat-names-ja",
+            "dishes-en",
+            "dishes-ja",
+            "tourist-spots-en",
+            "tourist-spots-ja",
+            "movies-en",
+            "movies-ja",
+        ]
+    ),
     help="Smaple corpus name to use",
     show_default=True,
 )
@@ -273,12 +284,14 @@ def ingest_sample(env_file, model_id, vector_store_vendor, persist_path, collect
 
     # Get the data to ingest
     docs = []
-    if corpus == "cat-names":
-        with resources.path("embcli_core.synth_data", "fake_cat_names.csv") as file_path:
+    file = corpus + ".csv"
+    try:
+        with resources.path("embcli_core.synth_data", file) as file_path:
             docs.extend(load_from_csv(str(file_path), **kwargs))
-    else:
-        click.echo(f"Error: Unsupported corpus '{corpus}'.", err=True)
+    except FileNotFoundError:
+        click.echo(f"Error: Corpus '{corpus}' not found.", err=True)
         return
+
     # Ingest documents into the vector store
     try:
         vector_store.ingest(embedding_model, collection, docs, batch_size=embedding_model.default_batch_size, **kwargs)

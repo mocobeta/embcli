@@ -59,7 +59,7 @@ You can use the `emb` command to index documents and perform semantic search. `e
 
 ```bash
 # index example documents in the current directory.
-emb ingest-sample -m jina-v3 -c catcafe --corpus cat-names
+emb ingest-sample -m jina-v3 -c catcafe --corpus cat-names-en
 
 # or, you can give the path to your documents.
 # the documents should be in a CSV file with two columns: id and text. the separator should be comma.
@@ -73,6 +73,15 @@ Score: 0.4291541094385421, Document ID: 46, Text: Bandit: Bandit is a mischievou
 Score: 0.4137949268906759, Document ID: 20, Text: Pepper: Pepper is a feisty and energetic grey tabby with a spicy personality. She is quick-witted and loves to engage in playful stalking and pouncing games. Pepper is also fiercely independent but will show her affection with sudden bursts of purring and head-butts, keeping her humans on their toes.
 Score: 0.40369800611316564, Document ID: 35, Text: Lucy: Lucy is a sweet-natured and playful cat, often a ginger or calico, with a bright personality. She loves attention and will often seek out her humans for cuddles and playtime. Lucy is very expressive, using chirps and meows to communicate her desires, her joyful spirit lighting up the household.
 Score: 0.4031877012247693, Document ID: 3, Text: Pippin (Pip): Pippin, or Pip, is a compact dynamo, brimming with mischievous charm and boundless curiosity. He’s an intrepid explorer, always finding new hideouts or investigating forbidden territories with a twinkle in his eye. Quite vocal, Pip will happily chat about his day, his playful antics making him an endearing little rascal.
+
+# multilingual search
+emb search -m jina-v3 -c catcafe -q "一番のいたずら者は誰?"
+Found 5 results:
+Score: 0.41762481997209167, Document ID: 12, Text: Leo: Leo, with his magnificent mane-like ruff, carries himself with regal confidence. He is a natural leader, often surveying his domain from the highest point in the room. Affectionate on his own terms, Leo enjoys a good chin scratch and will reward loyalty with his rumbling purr and majestic presence.
+Score: 0.40111028920595193, Document ID: 46, Text: Bandit: Bandit is a mischievous cat, often with mask-like markings, always on the lookout for his next playful heist of a toy or treat. He is clever and energetic, loving to chase and pounce. Despite his roguish name, Bandit is a loving companion who enjoys a good cuddle after his adventures.
+Score: 0.37882908929187215, Document ID: 20, Text: Pepper: Pepper is a feisty and energetic grey tabby with a spicy personality. She is quick-witted and loves to engage in playful stalking and pouncing games. Pepper is also fiercely independent but will show her affection with sudden bursts of purring and head-butts, keeping her humans on their toes.
+Score: 0.3777527161730029, Document ID: 22, Text: Simba: Simba, true to his namesake, possesses a brave and noble spirit, often seen patrolling his territory. He is a confident and affectionate leader of his household pride. While he enjoys playful roughhousing, Simba is also a gentle giant, offering comforting purrs and loyal companionship to his beloved humans.
+Score: 0.37738051225556507, Document ID: 3, Text: Pippin (Pip): Pippin, or Pip, is a compact dynamo, brimming with mischievous charm and boundless curiosity. He’s an intrepid explorer, always finding new hideouts or investigating forbidden territories with a twinkle in his eye. Quite vocal, Pip will happily chat about his day, his playful antics making him an endearing little rascal.
 ```
 
 ## Development
