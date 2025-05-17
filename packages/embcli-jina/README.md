@@ -1,7 +1,7 @@
 # embcli-jina
 
 [![PyPI](https://img.shields.io/pypi/v/embcli-jina?label=PyPI)](https://pypi.org/project/embcli-jina/)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/mocobeta/embcli/ci-jina.yml)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/mocobeta/embcli/ci-jina.yml?logo=github&label=tests)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/embcli-jina)
 ![PyPI - License](https://img.shields.io/pypi/l/embcli-jina)
 
