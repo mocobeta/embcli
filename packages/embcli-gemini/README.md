@@ -1,7 +1,7 @@
 # embcli-gemini
 
 [![PyPI](https://img.shields.io/pypi/v/embcli-gemini?label=PyPI)](https://pypi.org/project/embcli-gemini/)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/mocobeta/embcli/ci-gemini.yml)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/mocobeta/embcli/ci-gemini.yml?logo=github&label=tests)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/embcli-gemini)
 ![PyPI - License](https://img.shields.io/pypi/l/embcli-gemini)
 

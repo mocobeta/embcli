@@ -1,7 +1,7 @@
 # embcli-mistral
 
 [![PyPI](https://img.shields.io/pypi/v/embcli-mistral?label=PyPI)](https://pypi.org/project/embcli-mistral/)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/mocobeta/embcli/ci-mistral.yml)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/mocobeta/embcli/ci-mistral.yml?logo=github&label=tests)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/embcli-mistral)
 ![PyPI - License](https://img.shields.io/pypi/l/embcli-mistral)
 
