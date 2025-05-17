@@ -27,6 +27,15 @@ class MockVectorStore(VectorStoreLocalFS):
         hits = [HitDocument(score=random.uniform(0, 1), doc=doc) for doc in docs]
         return hits
 
+    def list_collections(self) -> list[str]:
+        """List all collections."""
+        return list(self.cache.keys())
+
+    def delete_collection(self, collection: str):
+        """Delete a collection."""
+        if collection in self.cache:
+            del self.cache[collection]
+
 
 @embcli_core.hookimpl
 def vector_store() -> tuple[type[MockVectorStore], Callable[[dict], VectorStore]]:

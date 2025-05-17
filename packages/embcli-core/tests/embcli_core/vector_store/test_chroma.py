@@ -60,3 +60,25 @@ def test_search_success():
 
         assert len(results) == top_k
         assert all(isinstance(hit.score, float) for hit in results)
+
+
+def test_list_delete_collections(mock_model):
+    with tempfile.TemporaryDirectory() as tmpdir:
+        store = ChromaVectorStore(persist_path=tmpdir)
+        collection1 = "collection1"
+        collection2 = "collection2"
+        docs = [Document(id=f"id{i}", text=f"text{i}") for i in range(10)]
+
+        store.ingest(model=mock_model, collection=collection1, docs=docs)
+        store.ingest(model=mock_model, collection=collection2, docs=docs)
+
+        collections = store.list_collections()
+        assert len(collections) == 2
+        assert collection1 in collections
+        assert collection2 in collections
+
+        # Delete one collection
+        store.delete_collection(collection1)
+        collections = store.list_collections()
+        assert len(collections) == 1
+        assert collection2 in collections
