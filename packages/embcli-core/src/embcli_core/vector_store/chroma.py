@@ -39,6 +39,15 @@ class ChromaVectorStore(VectorStoreLocalFS):
             hits.append(HitDocument(score=score, doc=doc))
         return hits
 
+    def list_collections(self) -> list[str]:
+        """List all collections."""
+        collections = self.client.list_collections()
+        return [collection.name for collection in collections]
+
+    def delete_collection(self, collection: str):
+        """Delete a collection."""
+        self.client.delete_collection(name=collection)
+
 
 @hookimpl
 def vector_store() -> tuple[type[ChromaVectorStore], Callable[[dict], ChromaVectorStore]]:

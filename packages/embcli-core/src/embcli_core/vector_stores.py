@@ -50,6 +50,16 @@ class VectorStore(ABC):
         """Search for the top K documents."""
         pass
 
+    @abstractmethod
+    def list_collections(self) -> list[str]:
+        """List all collections."""
+        pass
+
+    @abstractmethod
+    def delete_collection(self, collection: str):
+        """Delete a collection."""
+        pass
+
 
 class VectorStoreLocalFS(VectorStore):
     """Local file system vector store."""

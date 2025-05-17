@@ -349,3 +349,66 @@ def search(env_file, model_id, vector_store_vendor, persist_path, collection, qu
             click.echo(f"Score: {hit.score}, Document ID: {hit.doc.id}, Text: {hit.doc.text}")
     except Exception as e:
         click.echo(f"Error searching documents: {str(e)}", err=True)
+
+
+@cli.command()
+@click.option("--env-file", "-e", default=".env", help="Path to the .env file")
+@click.option(
+    "vector_store_vendor",
+    "--vector-store",
+    default="chroma",
+    help="Vector store to use for storing embeddings",
+    show_default=True,
+)
+@click.option("--persist-path", required=False, help="Path to persist the vector store")
+def collections(env_file, vector_store_vendor, persist_path):
+    """List collections in the vector store."""
+    register_vector_stores(pm())
+    load_env(env_file)
+
+    # Initialize the vector store
+    args = {"persist_path": persist_path} if persist_path else {}
+    vector_store = get_vector_store(vector_store_vendor, args)
+    if not vector_store:
+        click.echo(f"Error: Unknown vector store '{vector_store_vendor}'.", err=True)
+        return
+
+    # List collections in the vector store
+    try:
+        collections = vector_store.list_collections()
+        click.echo("Collections:")
+        for collection in collections:
+            click.echo(f"- {collection}")
+    except Exception as e:
+        click.echo(f"Error listing collections: {str(e)}", err=True)
+
+
+@cli.command()
+@click.option("--env-file", "-e", default=".env", help="Path to the .env file")
+@click.option(
+    "vector_store_vendor",
+    "--vector-store",
+    default="chroma",
+    help="Vector store to use for storing embeddings",
+    show_default=True,
+)
+@click.option("--persist-path", required=False, help="Path to persist the vector store")
+@click.option("--collection", "-c", required=True, help="Collection name to delete")
+def delete_collection(env_file, vector_store_vendor, persist_path, collection):
+    """Delete a collection from the vector store."""
+    register_vector_stores(pm())
+    load_env(env_file)
+
+    # Initialize the vector store
+    args = {"persist_path": persist_path} if persist_path else {}
+    vector_store = get_vector_store(vector_store_vendor, args)
+    if not vector_store:
+        click.echo(f"Error: Unknown vector store '{vector_store_vendor}'.", err=True)
+        return
+
+    # Delete the collection from the vector store
+    try:
+        vector_store.delete_collection(collection)
+        click.echo(f"Collection '{collection}' deleted successfully.")
+    except Exception as e:
+        click.echo(f"Error deleting collection: {str(e)}", err=True)
