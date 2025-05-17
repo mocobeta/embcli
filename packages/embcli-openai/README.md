@@ -1,5 +1,10 @@
 # embcli-openai
 
+[![PyPI](https://img.shields.io/pypi/v/embcli-openai?label=PyPI)](https://pypi.org/project/embcli-openai/)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/mocobeta/embcli/ci-openai.yml)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/embcli-openai)
+![PyPI - License](https://img.shields.io/pypi/l/embcli-openai)
+
 openai plugin for embcli, a command-line interface for embeddings.
 
 ## Reference

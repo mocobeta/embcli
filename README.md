@@ -1,5 +1,10 @@
 # embcli - CLI for Embeddings
 
+[![PyPI](https://img.shields.io/pypi/v/embcli-core?label=PyPI)](https://pypi.org/project/embcli-core/)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/mocobeta/embcli/ci.yml)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/embcli-core)
+![PyPI - License](https://img.shields.io/pypi/l/embcli-core)
+
 A command-line utility tool for generating embeddings using various models and APIs.
 
 This project is a collection of plugins for different embedding models and APIs, allowing users to test and compare their performance from the terminal easily. embcli is designed to be extensible (in a similar way to [`llm`](https://github.com/simonw/llm)), so you can add your own plugins for any embedding model or API you want to use.

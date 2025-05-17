@@ -1,5 +1,10 @@
 # embcli - CLI for Embeddings
 
+[![PyPI](https://img.shields.io/pypi/v/embcli-core?label=PyPI)](https://pypi.org/project/embcli-core/)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/mocobeta/embcli/ci.yml)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/embcli-core)
+![PyPI - License](https://img.shields.io/pypi/l/embcli-core)
+
 Core library for embcli, a command-line interface for embeddings.
 
 ## Development
