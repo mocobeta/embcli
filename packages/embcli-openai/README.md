@@ -55,7 +55,7 @@ You can use the `emb` command to index documents and perform semantic search. `e
 
 ```bash
 # index example documents in the current directory.
-emb ingest-sample -m 3-small -c catcafe --corpus cat-names
+emb ingest-sample -m 3-small -c catcafe --corpus cat-names-en
 
 # or, you can give the path to your documents.
 # the documents should be in a CSV file with two columns: id and text. the separator should be comma.
@@ -69,6 +69,15 @@ Score: 0.41092058398810277, Document ID: 72, Text: Bea: Bea is a sweet and gentl
 Score: 0.4099998098731923, Document ID: 25, Text: Nala: Nala is a graceful and queenly cat, often a beautiful cream or light tan color. She moves with quiet dignity and observes her surroundings with intelligent eyes. Nala is affectionate but discerning, choosing her moments for cuddles, and her loyalty to her family is unwavering, a truly regal companion.
 Score: 0.40864073184452354, Document ID: 97, Text: Alfie: Alfie is a cheerful and mischievous little cat, always getting into playful trouble with a charming innocence. He loves exploring small spaces and batting at dangling objects. Alfie is incredibly affectionate, quick to purr and eager for cuddles, a delightful bundle of joy and entertainment for his humans.
 Score: 0.4081247525728411, Document ID: 46, Text: Bandit: Bandit is a mischievous cat, often with mask-like markings, always on the lookout for his next playful heist of a toy or treat. He is clever and energetic, loving to chase and pounce. Despite his roguish name, Bandit is a loving companion who enjoys a good cuddle after his adventures.
+
+# multilingual search
+emb search -m 3-small -c catcafe -q "一番のいたずら者は誰?"
+Found 5 results:
+Score: 0.4058837655019257, Document ID: 46, Text: Bandit: Bandit is a mischievous cat, often with mask-like markings, always on the lookout for his next playful heist of a toy or treat. He is clever and energetic, loving to chase and pounce. Despite his roguish name, Bandit is a loving companion who enjoys a good cuddle after his adventures.
+Score: 0.38563176205909494, Document ID: 83, Text: Monty: Monty is a charming and slightly eccentric cat, full of character and amusing quirks. He might have a favorite unusual napping spot or a peculiar way of playing. Monty is very entertaining and loves attention, often performing his unique antics for his amused human audience, a delightful and unique friend.
+Score: 0.38370634192984265, Document ID: 10, Text: Mochi: Mochi is a delightfully round and fluffy cat, as sweet and soft as her namesake. She is a champion napper, always seeking the warmest, coziest spot for a snooze. A true lap cat, Mochi's gentle purr is a constant, comforting presence, and she adores soft pets and chin scratches.
+Score: 0.3807527373583866, Document ID: 3, Text: Pippin (Pip): Pippin, or Pip, is a compact dynamo, brimming with mischievous charm and boundless curiosity. He’s an intrepid explorer, always finding new hideouts or investigating forbidden territories with a twinkle in his eye. Quite vocal, Pip will happily chat about his day, his playful antics making him an endearing little rascal.
+Score: 0.38047150645954153, Document ID: 40, Text: Jack: Jack is a charming and roguish cat, often a black and white tuxedo, full of personality. He is clever and resourceful, always finding new ways to entertain himself. Jack enjoys playful interactions and can be quite vocal, always ready with a friendly meow or a playful swat at a toy.
 ```
 
 ## Development

@@ -30,5 +30,5 @@ def plugin_manager():
 
 @pytest.fixture
 def test_csv_file() -> str:
-    file_path = resources.path("embcli_core.synth_data", "fake_cat_names.csv")
+    file_path = resources.path("embcli_core.synth_data", "cat-names-en.csv")
     return str(file_path)
