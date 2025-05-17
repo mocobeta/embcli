@@ -1,5 +1,10 @@
 # embcli-jina
 
+[![PyPI](https://img.shields.io/pypi/v/embcli-jina?label=PyPI)](https://pypi.org/project/embcli-jina/)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/mocobeta/embcli/ci-jina.yml)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/embcli-jina)
+![PyPI - License](https://img.shields.io/pypi/l/embcli-jina)
+
 jina plugin for embcli, a command-line interface for embeddings.
 
 ## Reference
