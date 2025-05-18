@@ -15,7 +15,28 @@ Pre-alpha. embcli is in active development, and new features and plugins are bei
 
 ## Usage
 
-See the README of each package (plugin) for usage instructions.
+`emb --help` shows the basic usage of the command-line tool.
+
+```bash
+emb --help
+Usage: emb [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  collections        List collections in the vector store.
+  delete-collection  Delete a collection from the vector store.
+  embed              Generate embeddings for the provided text or file...
+  ingest             Ingest documents into the vector store.
+  ingest-sample      Ingest example documents into the vector store.
+  models             List available models.
+  search             Search for documents in the vector store for the query.
+  simscore           Calculate similarity score between two texts.
+  vector-stores      List available vector stores.
+```
+
+See README of each package (plugin) for usage instructions for specific models.
 
 - [embcli-openai](packages/embcli-openai/README.md)
 - [embcli-cohere](packages/embcli-cohere/README.md)
