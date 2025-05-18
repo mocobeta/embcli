@@ -25,6 +25,7 @@ on:
           - embcli-jina
           - embcli-mistral
           - embcli-openai
+          - embcli-sbert
           - embcli-voyage
           - all
 

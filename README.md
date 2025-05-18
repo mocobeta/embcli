@@ -23,6 +23,7 @@ See the README of each package (plugin) for usage instructions.
 - [embcli-jina](packages/embcli-jina/README.md)
 - [embcli-mistral](packages/embcli-mistral/README.md)
 - [embcli-voyage](packages/embcli-voyage/README.md)
+- [embcli-sbert](packages/embcli-sbert/README.md)
 
 ## Development
 
