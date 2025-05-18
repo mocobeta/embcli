@@ -14,3 +14,4 @@ repos:
   rev: 0.7.5
   hooks:
     - id: uv-lock
+      args: [ --check ]
