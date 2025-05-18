@@ -33,7 +33,8 @@ members = [
     "packages/embcli-cohere",
     "packages/embcli-jina",
     "packages/embcli-mistral",
-    "packages/embcli-voyage", "packages/embcli-sbert",
+    "packages/embcli-voyage",
+    "packages/embcli-sbert",
 ]
 
 [dependency-groups]
