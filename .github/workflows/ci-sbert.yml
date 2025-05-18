@@ -1,4 +1,4 @@
-name: CI for SentenceTransformer Moedls
+name: CI for SentenceTransformer Models
 
 on: workflow_dispatch
 
