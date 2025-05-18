@@ -16,10 +16,34 @@ def test_embed_command_model_id(plugin_manager, mocker):
     assert all(isinstance(val, float) for val in embeddings)
 
 
+def test_embed_command_model_id_local(plugin_manager, mocker):
+    mocker.patch("embcli_core.cli._pm", plugin_manager)
+    runner = CliRunner()
+    result = runner.invoke(embed, ["--model", "local-embedding-mock/mymodel", "flying cat"])
+    assert result.exit_code == 0
+
+    embeddings = json.loads(result.output)
+    assert isinstance(embeddings, list)
+    assert len(embeddings) == 10
+    assert all(isinstance(val, float) for val in embeddings)
+
+
 def test_embed_command_model_alias(plugin_manager, mocker):
     mocker.patch("embcli_core.cli._pm", plugin_manager)
     runner = CliRunner()
     result = runner.invoke(embed, ["--model", "mock1", "flying cat"])
+    assert result.exit_code == 0
+
+    embeddings = json.loads(result.output)
+    assert isinstance(embeddings, list)
+    assert len(embeddings) == 10
+    assert all(isinstance(val, float) for val in embeddings)
+
+
+def test_embed_command_model_alias_local(plugin_manager, mocker):
+    mocker.patch("embcli_core.cli._pm", plugin_manager)
+    runner = CliRunner()
+    result = runner.invoke(embed, ["--model", "local-mock/mymodel", "flying cat"])
     assert result.exit_code == 0
 
     embeddings = json.loads(result.output)

@@ -19,3 +19,8 @@ def test_models_command(plugin_manager, mocker):
     assert "Options:" in result.output
     assert "option1 (int) - Model option 1" in result.output
     assert "option2 (str) - Model option 2" in result.output
+
+    assert "MockLocalEmbeddingModel" in result.output
+    assert "Vendor: mock-local" in result.output
+    assert "local-embedding-mock (aliases: local-mock)" in result.output
+    assert "See https://example.com/models.html" in result.output
