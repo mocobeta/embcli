@@ -1,6 +1,6 @@
 [project]
 name = "embcli"
-version = "0.0.7"
+version = "0.0.8-dev"
 description = "embcli - CLI for Embeddings"
 readme = "README.md"
 authors = [{ name = "Tomoko Uchida", email = "tomoko.uchida.1111@gmail.com" }]
