@@ -34,6 +34,7 @@ members = [
     "packages/embcli-jina",
     "packages/embcli-mistral",
     "packages/embcli-voyage",
+    "packages/embcli-sbert",
 ]
 
 [dependency-groups]

@@ -83,9 +83,13 @@ def embed(env_file, model_id, file, options, text):
         return
 
     # Initialize the model
-    embedding_model = get_model(model_id)
-    if not embedding_model:
-        click.echo(f"Error: Unknown model id or alias '{model_id}'.", err=True)
+    try:
+        embedding_model = get_model(model_id)
+        if not embedding_model:
+            click.echo(f"Error: Unknown model id or alias '{model_id}'.", err=True)
+            return
+    except ValueError as e:
+        click.echo(f"Error: {str(e)}", err=True)
         return
 
     # Convert options to kwargs
