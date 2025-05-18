@@ -2,6 +2,14 @@ import pytest
 from embcli_core.models import avaliable_models, get_model, register
 
 
+def test_initialize_model(mock_model, mock_local_model):
+    assert mock_model.model_id == "embedding-mock-1"
+
+    assert mock_local_model.model_id == "local-embedding-mock"
+    assert mock_local_model.local_model_id == "mymodel"
+    assert mock_local_model.model_model_path == "/path/to/mymodel"
+
+
 def test_check_and_convert_options(mock_model):
     options = {"option1": "5", "option2": "test", "options3": "extra"}
     converted_options = mock_model._check_and_convert_options(**options)

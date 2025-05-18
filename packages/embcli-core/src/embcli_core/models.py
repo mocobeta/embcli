@@ -93,6 +93,16 @@ class EmbeddingModel(ABC):
         return converted_options
 
 
+class LocalEmbeddingModel(EmbeddingModel):
+    model_aliases = []
+    local_model_list: str
+
+    def __init__(self, model_id: str, **kwargs):
+        super().__init__(model_id)
+        self.local_model_id = kwargs.get("local_model_id", None)
+        self.model_model_path = kwargs.get("local_model_path", None)
+
+
 __models: dict[str, Type[EmbeddingModel]] = {}
 __model_factories: dict[str, Callable[[str], EmbeddingModel]] = {}
 __model_aliases: dict[str, str] = {}
@@ -126,6 +136,16 @@ def get_model(model_id_or_alias: str) -> Optional[EmbeddingModel]:
     Returns:
         Optional[EmbeddingModel]: The model class, or None if not found.
     """
+    cols = model_id_or_alias.split("/", 1)
+    if len(cols) == 2:
+        # if the model_id_or_alias contains a slash, it is a local model
+        # and the second part is the local model's actual model ID
+        # e.g. sentence-transformers/all-MiniLM-L6-v2
+        model_id_or_alias = cols[0]
+        kwargs = {"local_model_id": cols[1]}
+    else:
+        # remote model
+        kwargs = {}
     model_id: str
     if model_id_or_alias in __models:
         model_id = model_id_or_alias
@@ -136,4 +156,4 @@ def get_model(model_id_or_alias: str) -> Optional[EmbeddingModel]:
 
     assert model_id in __model_factories
     factory = __model_factories[model_id]
-    return factory(model_id)
+    return factory(model_id, **kwargs)

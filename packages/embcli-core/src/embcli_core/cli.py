@@ -49,6 +49,8 @@ def models():
         click.echo("    Models:")
         for model_id, aliases in model_cls.model_aliases:
             click.echo(f"    * {model_id} (aliases: {', '.join(aliases)})")
+        if hasattr(model_cls, "local_model_list"):
+            click.echo(f"    See {model_cls.local_model_list} for available models.")  # type: ignore
         click.echo("    Model Options:")
         for option in model_cls.valid_options:
             click.echo(f"    * {option.name} ({option.type.value}) - {option.description}")
