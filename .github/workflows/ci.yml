@@ -40,7 +40,11 @@ jobs:
     - name: Lint with ruff
       run: |
         uv run ruff check .
-        
+    
+    - name: Lockfile version check
+      run: |
+        uv lock --check
+
     - name: Type check with pyright in embcli-core
       run: |
         uv run --package embcli-core pyright packages/embcli-core/
