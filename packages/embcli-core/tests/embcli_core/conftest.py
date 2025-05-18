@@ -2,12 +2,19 @@ from importlib import resources
 
 import pytest
 
-from . import mock_embedding_model, mock_vector_store
+from . import mock_embedding_model, mock_local_embedding_model, mock_vector_store
 
 
 @pytest.fixture
 def mock_model():
     return mock_embedding_model.MockEmbeddingModel("embedding-mock-1")
+
+
+@pytest.fixture
+def mock_local_model():
+    return mock_local_embedding_model.MockLocalEmbeddingModel(
+        "local-embedding-mock", local_model_id="mymodel", local_model_path="/path/to/mymodel"
+    )
 
 
 @pytest.fixture
@@ -24,6 +31,7 @@ def plugin_manager():
     pm = pluggy.PluginManager("embcli")
     pm.add_hookspecs(hookspecs)
     pm.register(mock_embedding_model)
+    pm.register(mock_local_embedding_model)
     pm.register(mock_vector_store)
     return pm
 
