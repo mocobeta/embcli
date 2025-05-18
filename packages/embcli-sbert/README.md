@@ -42,9 +42,6 @@ emb embed -m sbert/all-MiniLM-L6-v2 "Embeddings are essential for semantic searc
 # get an embedding model by a community model.
 emb embed -m sbert/intfloat/multilingual-e5-small "Embeddings are essential for semantic search and RAG apps."
 
-# get an embedding for an input text by all-MiniLM-L6-v2 model with dimensions=512.
-#emb embed -m sbert/all-MiniLM-L6-v2 "Embeddings are essential for semantic search and RAG apps." -o dimensions 512
-
 # calculate similarity score between two texts by all-MiniLM-L6-v2. the default metric is cosine similarity.
 emb simscore -m sbert/all-MiniLM-L6-v2 "The cat drifts toward sleep." "Sleep dances in the cat's eyes."
 0.8031787421988659
