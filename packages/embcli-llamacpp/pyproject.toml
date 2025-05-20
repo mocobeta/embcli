@@ -1,6 +1,6 @@
 [project]
 name = "embcli-llamacpp"
-version = "0.0.2-dev"
+version = "0.0.3-dev"
 description = "llama-cpp-python plugin for embcli"
 readme = "README.md"
 authors = [{ name = "Tomoko Uchida", email = "tomoko.uchida.1111@gmail.com" }]
