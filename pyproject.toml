@@ -35,6 +35,7 @@ members = [
     "packages/embcli-mistral",
     "packages/embcli-voyage",
     "packages/embcli-sbert",
+    "packages/embcli-llamacpp",
 ]
 
 [dependency-groups]
