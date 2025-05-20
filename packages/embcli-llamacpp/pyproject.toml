@@ -20,10 +20,7 @@ classifiers = [
     "License :: OSI Approved :: Apache Software License",
 ]
 requires-python = ">=3.10"
-dependencies = [
-    "embcli-core>=0.0.7",
-    "llama-cpp-python>=0.3.9",
-]
+dependencies = ["embcli-core>=0.0.8", "llama-cpp-python>=0.3.9"]
 
 [project.urls]
 "Repository" = "https://github.com/mocobeta/embcli"
