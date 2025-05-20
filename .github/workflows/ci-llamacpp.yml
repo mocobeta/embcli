@@ -45,6 +45,6 @@ jobs:
         
     - name: Test with pytest in embcli-llamacpp
       env:
-        RUN_LLAMA_TESTS: "1"
+        RUN_LLAMACPP_TESTS: "1"
       run: |
         uv run --package embcli-llamacpp pytest packages/embcli-llamacpp/tests
