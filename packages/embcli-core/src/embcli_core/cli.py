@@ -69,10 +69,11 @@ def vector_stores():
 @cli.command()
 @click.option("--env-file", "-e", default=".env", help="Path to the .env file")
 @click.option("model_id", "--model", "-m", required=True, help="Model id or alias to use for embedding")
+@click.option("--model-path", "-p", required=False, help="Path to the local model")
 @click.option("--file", "-f", type=click.Path(exists=True), help="File containing text to embed")
 @click.option("options", "--option", "-o", type=(str, str), multiple=True, help="key/value options for the model")
 @click.argument("text", required=False)
-def embed(env_file, model_id, file, options, text):
+def embed(env_file, model_id, model_path, file, options, text):
     """Generate embeddings for the provided text or file content."""
     register_models(pm())
     load_env(env_file)
@@ -84,7 +85,7 @@ def embed(env_file, model_id, file, options, text):
 
     # Initialize the model
     try:
-        embedding_model = get_model(model_id)
+        embedding_model = get_model(model_id, model_path)
         if not embedding_model:
             click.echo(f"Error: Unknown model id or alias '{model_id}'.", err=True)
             return
@@ -115,6 +116,7 @@ def embed(env_file, model_id, file, options, text):
 @cli.command()
 @click.option("--env-file", "-e", default=".env", help="Path to the .env file")
 @click.option("model_id", "--model", "-m", required=True, help="Model id or alias to use for embedding")
+@click.option("--model-path", "-p", required=False, help="Path to the local model")
 @click.option(
     "--similarity",
     "-s",
@@ -128,7 +130,7 @@ def embed(env_file, model_id, file, options, text):
 @click.option("options", "--option", "-o", type=(str, str), multiple=True, help="key/value options for the model")
 @click.argument("text1", required=False)
 @click.argument("text2", required=False)
-def simscore(env_file, model_id, similarity, file1, file2, options, text1, text2):
+def simscore(env_file, model_id, model_path, similarity, file1, file2, options, text1, text2):
     """Calculate similarity score between two texts."""
     register_models(pm())
     load_env(env_file)
@@ -139,7 +141,7 @@ def simscore(env_file, model_id, similarity, file1, file2, options, text1, text2
         return
 
     # Initialize the model
-    embedding_model = get_model(model_id)
+    embedding_model = get_model(model_id, model_path)
     if not embedding_model:
         click.echo(f"Error: Unknown model id or alias '{model_id}'.", err=True)
         return
@@ -178,6 +180,7 @@ def simscore(env_file, model_id, similarity, file1, file2, options, text1, text2
 @cli.command()
 @click.option("--env-file", "-e", default=".env", help="Path to the .env file")
 @click.option("model_id", "--model", "-m", required=True, help="Model id or alias to use for embedding")
+@click.option("--model-path", "-p", required=False, help="Path to the local model")
 @click.option(
     "vector_store_vendor",
     "--vector-store",
@@ -193,7 +196,18 @@ def simscore(env_file, model_id, similarity, file1, file2, options, text1, text2
 )
 @click.option("--batch-size", default=100, type=int, help="Batch size for embedding", show_default=True)
 @click.option("options", "--option", "-o", type=(str, str), multiple=True, help="key/value options for the model")
-def ingest(env_file, model_id, vector_store_vendor, persist_path, collection, file, input_format, batch_size, options):
+def ingest(
+    env_file,
+    model_id,
+    model_path,
+    vector_store_vendor,
+    persist_path,
+    collection,
+    file,
+    input_format,
+    batch_size,
+    options,
+):
     """Ingest documents into the vector store.
     Ingestion-specific embeddings are used if the model provides options for generating search documents-optimized embeddings."""  # noqa: E501
     register_models(pm())
@@ -201,7 +215,7 @@ def ingest(env_file, model_id, vector_store_vendor, persist_path, collection, fi
     load_env(env_file)
 
     # Initialize the model
-    embedding_model = get_model(model_id)
+    embedding_model = get_model(model_id, model_path)
     if not embedding_model:
         click.echo(f"Error: Unknown model id or alias '{model_id}'.", err=True)
         return
@@ -238,6 +252,7 @@ def ingest(env_file, model_id, vector_store_vendor, persist_path, collection, fi
 @cli.command()
 @click.option("--env-file", "-e", default=".env", help="Path to the .env file")
 @click.option("model_id", "--model", "-m", required=True, help="Model id or alias to use for embedding")
+@click.option("--model-path", "-p", required=False, help="Path to the local model")
 @click.option(
     "vector_store_vendor",
     "--vector-store",
@@ -266,14 +281,14 @@ def ingest(env_file, model_id, vector_store_vendor, persist_path, collection, fi
     show_default=True,
 )
 @click.option("options", "--option", "-o", type=(str, str), multiple=True, help="key/value options for the model")
-def ingest_sample(env_file, model_id, vector_store_vendor, persist_path, collection, corpus, options):
+def ingest_sample(env_file, model_id, model_path, vector_store_vendor, persist_path, collection, corpus, options):
     """Ingest example documents into the vector store."""
     register_models(pm())
     register_vector_stores(pm())
     load_env(env_file)
 
     # Initialize the model
-    embedding_model = get_model(model_id)
+    embedding_model = get_model(model_id, model_path)
     if not embedding_model:
         click.echo(f"Error: Unknown model id or alias '{model_id}'.", err=True)
         return
@@ -312,6 +327,7 @@ def ingest_sample(env_file, model_id, vector_store_vendor, persist_path, collect
 @cli.command()
 @click.option("--env-file", "-e", default=".env", help="Path to the .env file")
 @click.option("model_id", "--model", "-m", required=True, help="Model id or alias to use for embedding")
+@click.option("--model-path", "-p", required=False, help="Path to the local model")
 @click.option(
     "vector_store_vendor",
     "--vector-store",
@@ -324,7 +340,7 @@ def ingest_sample(env_file, model_id, vector_store_vendor, persist_path, collect
 @click.option("--query", "-q", required=True, help="Query text to search for")
 @click.option("--top-k", "-k", default=5, type=int, help="Number of top results to return", show_default=True)
 @click.option("options", "--option", "-o", type=(str, str), multiple=True, help="key/value options for the model")
-def search(env_file, model_id, vector_store_vendor, persist_path, collection, query, top_k, options):
+def search(env_file, model_id, model_path, vector_store_vendor, persist_path, collection, query, top_k, options):
     """Search for documents in the vector store for the query.
     Query-specific embedding is used if the model provides options for generating search query-optimized embeddings."""  # noqa: E501
     register_models(pm())
@@ -332,7 +348,7 @@ def search(env_file, model_id, vector_store_vendor, persist_path, collection, qu
     load_env(env_file)
 
     # Initialize the model
-    embedding_model = get_model(model_id)
+    embedding_model = get_model(model_id, model_path)
     if not embedding_model:
         click.echo(f"Error: Unknown model id or alias '{model_id}'.", err=True)
         return
