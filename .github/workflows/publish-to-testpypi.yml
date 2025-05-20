@@ -23,6 +23,7 @@ on:
           - embcli-cohere
           - embcli-gemini
           - embcli-jina
+          - embcli-llamacpp
           - embcli-mistral
           - embcli-openai
           - embcli-sbert
