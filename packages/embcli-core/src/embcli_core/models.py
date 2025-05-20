@@ -100,7 +100,7 @@ class LocalEmbeddingModel(EmbeddingModel):
     def __init__(self, model_id: str, **kwargs):
         super().__init__(model_id)
         self.local_model_id = kwargs.get("local_model_id", None)
-        self.model_model_path = kwargs.get("local_model_path", None)
+        self.local_model_path = kwargs.get("local_model_path", None)
 
 
 __models: dict[str, Type[EmbeddingModel]] = {}
