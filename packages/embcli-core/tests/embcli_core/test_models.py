@@ -7,7 +7,7 @@ def test_initialize_model(mock_model, mock_local_model):
 
     assert mock_local_model.model_id == "local-embedding-mock"
     assert mock_local_model.local_model_id == "mymodel"
-    assert mock_local_model.model_model_path == "/path/to/mymodel"
+    assert mock_local_model.local_model_path == "/path/to/mymodel"
 
 
 def test_check_and_convert_options(mock_model):
