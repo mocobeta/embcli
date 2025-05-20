@@ -74,6 +74,30 @@ def test_simscore_command_no_input():
     assert "Error: Please provide either two texts or two files to compare." in result.output
 
 
+def test_simscore_command_local_model(plugin_manager, mocker):
+    mocker.patch("embcli_core.cli._pm", plugin_manager)
+    runner = CliRunner()
+    result = runner.invoke(simscore, ["--model", "local-mock/mymodel", "flying cat", "sleepy kitten"])
+    assert result.exit_code == 0
+
+    score = float(result.output.strip())
+    assert isinstance(score, float)
+    assert float(result.output.strip())
+
+
+def test_simscore_command_local_model_path(plugin_manager, mocker):
+    mocker.patch("embcli_core.cli._pm", plugin_manager)
+    runner = CliRunner()
+    result = runner.invoke(
+        simscore, ["--model", "local-mock", "--model-path", "/path/to/mymodel", "flying cat", "sleepy kitten"]
+    )
+    assert result.exit_code == 0
+
+    score = float(result.output.strip())
+    assert isinstance(score, float)
+    assert float(result.output.strip())
+
+
 def simscore_command_unknown_model(plugin_manager, mocker):
     """Test error handling when an unknown model is provided."""
     mocker.patch("embcli_core.cli._pm", plugin_manager)
