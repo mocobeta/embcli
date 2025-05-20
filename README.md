@@ -38,13 +38,19 @@ Commands:
 
 See README of each package (plugin) for usage instructions for specific models.
 
+### Proprietary Models
+
 - [embcli-openai](packages/embcli-openai/README.md)
 - [embcli-cohere](packages/embcli-cohere/README.md)
 - [embcli-gemini](packages/embcli-gemini/README.md)
 - [embcli-jina](packages/embcli-jina/README.md)
 - [embcli-mistral](packages/embcli-mistral/README.md)
 - [embcli-voyage](packages/embcli-voyage/README.md)
+
+### Open Source Models
+
 - [embcli-sbert](packages/embcli-sbert/README.md)
+- [embcli-llamacpp](packages/embcli-llamacpp/README.md)
 
 ## Development
 
