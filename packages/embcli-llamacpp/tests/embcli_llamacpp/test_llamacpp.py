@@ -5,8 +5,8 @@ from embcli_llamacpp import llamacpp
 from embcli_llamacpp.llamacpp import embedding_model
 
 skip_if_no_envvar_to_run = pytest.mark.skipif(
-    not os.environ.get("RUN_LLAMA_TESTS") == "1",
-    reason="RUN_LLAMA_TESTS environment variable not set",
+    not os.environ.get("RUN_LLAMACPP_TESTS") == "1",
+    reason="RUN_LLAMACPP_TESTS environment variable not set",
 )
 
 
