@@ -595,7 +595,7 @@ requires-dist = [
 
 [[package]]
 name = "embcli-llamacpp"
-version = "0.0.2"
+version = "0.0.3.dev0"
 source = { editable = "packages/embcli-llamacpp" }
 dependencies = [
     { name = "embcli-core" },
