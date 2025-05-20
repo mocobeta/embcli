@@ -1,5 +1,5 @@
 import pytest
-from embcli_core.models import avaliable_models, get_model, register
+from embcli_core.models import LocalEmbeddingModel, avaliable_models, get_model, register
 
 
 def test_initialize_model(mock_model, mock_local_model):
@@ -7,7 +7,7 @@ def test_initialize_model(mock_model, mock_local_model):
 
     assert mock_local_model.model_id == "local-embedding-mock"
     assert mock_local_model.local_model_id == "mymodel"
-    assert mock_local_model.model_model_path == "/path/to/mymodel"
+    assert mock_local_model.local_model_path == "/path/to/mymodel"
 
 
 def test_check_and_convert_options(mock_model):
@@ -113,3 +113,24 @@ def test_register(mocker):
     assert get_model("text-emb-2") == mock_model_instance
     assert get_model("textemb2") == mock_model_instance
     assert get_model("emb2") == mock_model_instance
+
+
+def test_get_model(plugin_manager):
+    model = get_model("mock1")
+    assert model is not None
+    assert model.vendor == "mock"
+    assert model.model_id == "embedding-mock-1"
+
+    local_model = get_model("local-mock/mymodel")
+    assert local_model is not None
+    assert isinstance(local_model, LocalEmbeddingModel)
+    assert local_model.vendor == "mock-local"
+    assert local_model.model_id == "local-embedding-mock"
+    assert local_model.local_model_id == "mymodel"
+
+    local_model_path = get_model("local-mock", model_path="/path/to/mymodel")
+    assert local_model_path is not None
+    assert isinstance(local_model_path, LocalEmbeddingModel)
+    assert local_model_path.vendor == "mock-local"
+    assert local_model_path.model_id == "local-embedding-mock"
+    assert local_model_path.local_model_path == "/path/to/mymodel"

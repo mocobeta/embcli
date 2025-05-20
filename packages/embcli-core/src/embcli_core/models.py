@@ -100,7 +100,7 @@ class LocalEmbeddingModel(EmbeddingModel):
     def __init__(self, model_id: str, **kwargs):
         super().__init__(model_id)
         self.local_model_id = kwargs.get("local_model_id", None)
-        self.model_model_path = kwargs.get("local_model_path", None)
+        self.local_model_path = kwargs.get("local_model_path", None)
 
 
 __models: dict[str, Type[EmbeddingModel]] = {}
@@ -129,7 +129,7 @@ def avaliable_models() -> list[Type[EmbeddingModel]]:
     return list(set(__models.values()))
 
 
-def get_model(model_id_or_alias: str) -> Optional[EmbeddingModel]:
+def get_model(model_id_or_alias: str, model_path: Optional[str] = None) -> Optional[EmbeddingModel]:
     """Get a model class by its ID or alias.
     Args:
         model_id_or_alias (str): The model ID or alias.
@@ -143,6 +143,9 @@ def get_model(model_id_or_alias: str) -> Optional[EmbeddingModel]:
         # e.g. sentence-transformers/all-MiniLM-L6-v2
         model_id_or_alias = cols[0]
         kwargs = {"local_model_id": cols[1]}
+    elif model_path:
+        # if the model_path is provided, it is a local model
+        kwargs = {"local_model_path": model_path}
     else:
         # remote model
         kwargs = {}
