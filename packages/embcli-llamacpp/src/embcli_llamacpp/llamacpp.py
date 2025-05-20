@@ -1,4 +1,5 @@
-from contextlib import contextmanager, redirect_stderr, redirect_stdout
+import sys
+from contextlib import contextmanager
 from os import devnull
 from typing import Iterator
 
@@ -11,8 +12,17 @@ from llama_cpp import Llama
 def suppress_stdout_stderr():
     """A context manager that redirects stdout and stderr to devnull"""
     with open(devnull, "w") as fnull:
-        with redirect_stderr(fnull) as err, redirect_stdout(fnull) as out:
-            yield (err, out)
+        original_stdout = sys.stdout
+        original_stderr = sys.stderr
+        try:
+            sys.stdout = fnull
+            sys.stderr = fnull
+            yield
+        finally:
+            sys.stdout = original_stdout
+            sys.stderr = original_stderr
+        # with redirect_stderr(fnull) as err, redirect_stdout(fnull) as out:
+        #    yield (err, out)
 
 
 class LlamaCppModel(LocalEmbeddingModel):
