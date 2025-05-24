@@ -3,7 +3,6 @@
 [![PyPI](https://img.shields.io/pypi/v/embcli-voyage?label=PyPI)](https://pypi.org/project/embcli-voyage/)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/mocobeta/embcli/ci-voyage.yml?logo=github&label=tests)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/embcli-voyage)
-![PyPI - License](https://img.shields.io/pypi/l/embcli-voyage)
 
 voyage plugin for embcli, a command-line interface for embeddings.
 

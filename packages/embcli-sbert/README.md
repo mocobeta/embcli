@@ -3,7 +3,6 @@
 [![PyPI](https://img.shields.io/pypi/v/embcli-sbert?label=PyPI)](https://pypi.org/project/embcli-sbert/)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/mocobeta/embcli/ci-sbert.yml?logo=github&label=tests)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/embcli-sbert)
-![PyPI - License](https://img.shields.io/pypi/l/embcli-sbert)
 
 sbert (sentence-transformers) plugin for embcli, a command-line interface for embeddings.
 
