@@ -1,0 +1,14 @@
+site_name: embcli - CLI for Embeddings v0.0.8
+repo_url: https://github.com/mocobeta/embcli
+edit_uri: blob/main/docs/docs/
+copyright: Copyright &copy; 2025 Tomoko Uchida
+theme: 'windmill'
+markdown_extensions:
+  - toc:
+      permalink: true
+nav:
+  - 'index.md'
+  - 'usage.md'
+  - 'vector_search.md'
+  - 'model_plugins.md'
+  - 'release_notes.md'
