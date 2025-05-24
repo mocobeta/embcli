@@ -4,7 +4,7 @@ version = "0.0.6-dev"
 description = "mistral plugin for embcli"
 readme = "README.md"
 authors = [{ name = "Tomoko Uchida", email = "tomoko.uchida.1111@gmail.com" }]
-license = "Apache-2.0"
+license = { file = "LICENSE.txt" }
 keywords = ["cli", "llm", "nlp", "embeddings"]
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
@@ -17,7 +17,6 @@ classifiers = [
     "Topic :: Terminals",
     "Topic :: Text Processing :: Linguistic",
     "Topic :: Utilities",
-    "License :: OSI Approved :: Apache Software License",
 ]
 requires-python = ">=3.10"
 dependencies = ["embcli-core>=0.0.5", "mistralai>=1.7.0"]
