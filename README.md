@@ -3,7 +3,6 @@
 [![PyPI](https://img.shields.io/pypi/v/embcli-core?label=PyPI)](https://pypi.org/project/embcli-core/)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/mocobeta/embcli/ci.yml?logo=github&label=tests)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/embcli-core)
-![PyPI - License](https://img.shields.io/pypi/l/embcli-core)
 
 ## Overview
 
@@ -11,48 +10,21 @@
 
 embcli is designed to be extensible (in a similar way to [llm utility](https://github.com/simonw/llm)), so you can add your own plugins for any embedding model or API you want to use.
 
+## Documentation and Tutorials
+
+- [Quick Start](https://embcli.mocobeta.dev/)
+- [Basic Command Usage](https://embcli.mocobeta.dev/#basic_usage/)
+- [Vector Search Usage](https://embcli.mocobeta.dev/#vector_search/)
+
 ## Project Status
 
 Pre-alpha. embcli is in active development, and new features and plugins are being added regularly.
 
-## Usage
+## Supported Models
 
-`emb --help` shows the basic usage of the command-line tool.
+embcli supports a variety of embedding models, both proprietary and open source. Each model is provided as a plugin, which can be installed separately. The `emb` command provides a unified interface for all models.
 
-```bash
-emb --help
-Usage: emb [OPTIONS] COMMAND [ARGS]...
-
-Options:
-  --help  Show this message and exit.
-
-Commands:
-  collections        List collections in the vector store.
-  delete-collection  Delete a collection from the vector store.
-  embed              Generate embeddings for the provided text or file...
-  ingest             Ingest documents into the vector store.
-  ingest-sample      Ingest example documents into the vector store.
-  models             List available models.
-  search             Search for documents in the vector store for the query.
-  simscore           Calculate similarity score between two texts.
-  vector-stores      List available vector stores.
-```
-
-See README of each package (plugin) for usage instructions for specific models.
-
-### Proprietary Models
-
-- [embcli-openai](packages/embcli-openai/README.md)
-- [embcli-cohere](packages/embcli-cohere/README.md)
-- [embcli-gemini](packages/embcli-gemini/README.md)
-- [embcli-jina](packages/embcli-jina/README.md)
-- [embcli-mistral](packages/embcli-mistral/README.md)
-- [embcli-voyage](packages/embcli-voyage/README.md)
-
-### Open Source Models
-
-- [embcli-sbert](packages/embcli-sbert/README.md)
-- [embcli-llamacpp](packages/embcli-llamacpp/README.md)
+See [Model Plugins](https://embcli.mocobeta.dev/#model_plugins/) for the full list of available models.
 
 ## Development
 
@@ -104,9 +76,19 @@ See the README of each package.
 uv build --all-packages
 ```
 
+## Build documentation
+
+```bash
+uv run mkdocs build -f docs/mkdocs.yml
+```
+
 ## How is this different from llm command-line tool?
 
 This tool is greatly influenced by llm, but its purpose is slightly different. While the llm command can handle embeddings, its main focus may not on embeddings (representation models) but on large language models. My motivation for creating this tool is to provide a feature-rich command-line utility for embeddings, for building semantic search, RAG applications, and other downstream tasks.
+
+## Release Notes
+
+https://embcli.mocobeta.dev/#release_notes/
 
 ## License
 

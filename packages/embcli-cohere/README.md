@@ -3,7 +3,6 @@
 [![PyPI](https://img.shields.io/pypi/v/embcli-cohere?label=PyPI)](https://pypi.org/project/embcli-cohere/)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/mocobeta/embcli/ci-cohere.yml?logo=github&label=tests)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/embcli-cohere)
-![PyPI - License](https://img.shields.io/pypi/l/embcli-cohere)
 
 cohere plugin for embcli, a command-line interface for embeddings.
 

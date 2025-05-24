@@ -3,7 +3,6 @@
 [![PyPI](https://img.shields.io/pypi/v/embcli-llamacpp?label=PyPI)](https://pypi.org/project/embcli-llamacpp/)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/mocobeta/embcli/ci-llamacpp.yml?logo=github&label=tests)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/embcli-llamacpp)
-![PyPI - License](https://img.shields.io/pypi/l/embcli-llamacpp)
 
 llama-cpp plugin for embcli, a command-line interface for embeddings. This is a thin wrapper around llama-cpp-python.
 
