@@ -86,6 +86,10 @@ uv run mkdocs build -f docs/mkdocs.yml
 
 This tool is greatly influenced by llm, but its purpose is slightly different. While the llm command can handle embeddings, its main focus may not on embeddings (representation models) but on large language models. My motivation for creating this tool is to provide a feature-rich command-line utility for embeddings, for building semantic search, RAG applications, and other downstream tasks.
 
+## Release Notes
+
+https://embcli.mocobeta.dev/#release_notes/
+
 ## License
 
 Apache License 2.0
