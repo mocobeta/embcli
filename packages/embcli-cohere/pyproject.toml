@@ -4,7 +4,7 @@ version = "0.0.6-dev"
 description = "cohere plugin for embcli"
 readme = "README.md"
 authors = [{ name = "Tomoko Uchida", email = "tomoko.uchida.1111@gmail.com" }]
-license = { file = "LICENSE.txt" }
+license = { text = "Apache-2.0" }
 keywords = ["cli", "llm", "nlp", "embeddings"]
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
