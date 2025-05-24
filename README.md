@@ -5,9 +5,11 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/embcli-core)
 ![PyPI - License](https://img.shields.io/pypi/l/embcli-core)
 
-A command-line utility tool for generating embeddings using various models and APIs.
+## Overview
 
-This project is a collection of plugins for different embedding models and APIs, allowing users to test and compare their performance from the terminal easily. embcli is designed to be extensible (in a similar way to [`llm`](https://github.com/simonw/llm)), so you can add your own plugins for any embedding model or API you want to use.
+`embcli` is a command-line interface with a collection of plugins that provide access to various embedding models and vector stores, allowing users to test and compare their performance from the terminal easily. It provides a unified interface for various embedding models, making it easy to generate embeddings, calculate similarity scores, perform document indexing and search, and more!
+
+embcli is designed to be extensible (in a similar way to [llm utility](https://github.com/simonw/llm)), so you can add your own plugins for any embedding model or API you want to use.
 
 ## Project Status
 
@@ -104,7 +106,7 @@ uv build --all-packages
 
 ## How is this different from llm command-line tool?
 
-This tool is greatly influenced by llm, but its purpose is slightly different. While the llm command can handle embeddings, its main focus seems not on embeddings (representation models) but on large language models. My motivation for creating this tool is to provide a feature-rich command-line utility for embeddings, for building semantic search and RAG applications.
+This tool is greatly influenced by llm, but its purpose is slightly different. While the llm command can handle embeddings, its main focus may not on embeddings (representation models) but on large language models. My motivation for creating this tool is to provide a feature-rich command-line utility for embeddings, for building semantic search, RAG applications, and other downstream tasks.
 
 ## License
 
