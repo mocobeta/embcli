@@ -2,7 +2,7 @@
 
 `embcli` provides a set of commands to perform vector search operations using vector stores.
 
-We assume you have installed the [embcli-openai](model_plugins.md#openai-models) plugin and have a OpenAI API key to go through this tutorial.
+We assume you have installed the [embcli-openai](https://pypi.org/project/embcli-openai/) plugin and have an OpenAI API key to go through this tutorial.
 
 ```bash
 pip install embcli-openai
@@ -27,6 +27,9 @@ ChromaVectorStore
 
 `emb ingest-sample` command indexes vectors from the specified sample corpus into a vector store collection.
 
+**Note:** if the model provides options for generating documents-optimized embeddings, those will be implicitly used for ingestion.
+For example, for the Gemini embedding models, `task_type=retrieval_document` option will be added.
+
 ```bash
 emb ingest-sample --help
 Usage: emb ingest-sample [OPTIONS]
@@ -37,6 +40,7 @@ Options:
   -e, --env-file TEXT             Path to the .env file
   -m, --model TEXT                Model id or alias to use for embedding
                                   [required]
+  -p, --model-path TEXT           Path to the local model
   --vector-store TEXT             Vector store to use for storing embeddings
                                   [default: chroma]
   --persist-path TEXT             Path to persist the vector store
@@ -53,11 +57,15 @@ Options:
 
 `--model`/`-m` option specifies the model to use for embedding.
 
+### `--model-path` option
+
+`--model-path`/`-p` option specifies the path to the local model. This is required for plugins that support local models, such as `embcli-llamacpp`.
+
 ### `--collection` option (required)
 
 `--collection`/`-c` option specifies the collection name where to store the embeddings. If the collection does not exist, it will be created.
 
-To index a sample corpus (default is `cat-names-en`) in a vector store collection named `catcafe` using `text-embedding-3-small` model, run the following command:
+To index a sample corpus (default is `cat-names-en`) in `catcafe` collection using `text-embedding-3-small` model, run the following command:
 
 ```bash
 emb ingest-sample -m 3-small -c catcafe
@@ -106,11 +114,14 @@ emb ingest-sample -m 3-small -c menu --corpus dishes-en
 
 ### `--option` option
 
-To pass additional options to the model, use the `--option`/`-o` option. The options are model-specific, so please refer [`emb models`](#models-command) command for available options for a specific model.
+To pass additional options to the model, use the `--option`/`-o` option. The options are model-specific, so please refer `emb models` command for available options for a specific model.
 
 ## `ingest` command
 
-Similar to `ingest-sample`, `emb ingest` command indexes vectors from a corpus (text file) into a vector store collection.
+Similar to `emb ingest-sample`, `emb ingest` command indexes vectors from a corpus into a vector store collection but allows you to use your own corpus file.
+
+**Note:** if the model provides options for generating documents-optimized embeddings, those will be implicitly used for ingestion.
+For example, for the Gemini embedding models, `task_type=retrieval_document` option will be added.
 
 ```bash
 emb ingest --help
@@ -124,6 +135,7 @@ Options:
   -e, --env-file TEXT          Path to the .env file
   -m, --model TEXT             Model id or alias to use for embedding
                                [required]
+  -p, --model-path TEXT        Path to the local model
   --vector-store TEXT          Vector store to use for storing embeddings
                                [default: chroma]
   --persist-path TEXT          Path to persist the vector store
@@ -138,7 +150,8 @@ Options:
 
 ### `--file` option (required)
 
-`--file`/`-f` option specifies the file containing text to embed. The file should be in CSV format with a single column containing the text to embed. See [provided sample corpus files](https://github.com/mocobeta/embcli/tree/main/packages/embcli-core/src/embcli_core/synth_data) for reference.
+`--file`/`-f` option specifies the file containing text to embed. The file should be in CSV format with two columns. The first column is the document ID and the second column is the text to embed.
+See [provided sample corpus files](https://github.com/mocobeta/embcli/tree/main/packages/embcli-core/src/embcli_core/synth_data) for reference.
 
 To index a text file named `my-corpus.csv` in a vector store collection named `mycollection` using `text-embedding-3-small` model, run the following command:
 
@@ -166,13 +179,16 @@ Persist path: ./chroma
 emb ingest -m 3-small -c mycollection -f my-corpus.csv --batch-size 50
 ```
 
-### other options
+### Other options
 
 For other options common options to `ingest-sample`, refer to [emb ingest-sample command](#ingest-sample-command).
 
 ## `search` command
 
-`emb search` command searches for documents in the vector store collection for a query.
+`emb search` command searches for documents in a collection for a query.
+
+**Note:** if the model provides options for generating query-optimized embeddings, those will be implicitly used for searching.
+For example, for the Gemini embedding models, `task_type=retrieval_query` option will be added.
 
 ```bash
 emb search --help
@@ -186,6 +202,7 @@ Options:
   -e, --env-file TEXT          Path to the .env file
   -m, --model TEXT             Model id or alias to use for embedding
                                [required]
+  -p, --model-path TEXT        Path to the local model
   --vector-store TEXT          Vector store to use for storing embeddings
                                [default: chroma]
   --persist-path TEXT          Path to persist the vector store
@@ -203,6 +220,10 @@ Options:
 
 **Important**: Make sure you use the same model that was used to index the collection (unless you use a diffrent model with intention). Otherwise the results may not be accurate.
 
+### `--model-path` option
+
+`--model-path`/`-p` option specifies the path to the local model. This is required for plugins that support local models, such as `embcli-llamacpp`.
+
 ### `--collection` option (required)
 
 `--collection`/`-c` option specifies the collection name where the embeddings are stored. The collection should already exist.
@@ -211,7 +232,7 @@ Options:
 
 `--query`/`-q` option specifies the query text to search for. The query text will be embedded using the specified model.
 
-Assuming you have `menu` collection indexed with `text-embedding-3-small` moddel. To search for documents in the `menu` collection, you can use the following command:
+Assuming you have `menu` collection indexed with `text-embedding-3-small` moddel. To search for documents in the `menu` collection, run the following command:
 
 ```bash
 emb search -m 3-small -c menu -q "May I have some sweets?🍨"
@@ -247,12 +268,13 @@ emb search -m 3-small -c menu -q "May I have some sweets?🍨" -k 10
 To search in `menu` collection in a different path from the default, run the following command:
 
 ```bash
-emb search -m 3-small -c menu -q "May I have some sweets?🍨" --persist-path /path/to/my-vector-store
+emb search -m 3-small -c menu -q "May I have some sweets?🍨" \
+--persist-path /path/to/my-vector-store
 ```
 
 ### `--option` option
 
-To pass additional options to the model, use the `--option`/`-o` option. The options are model-specific, so please refer [`emb models`](#models-command) command for available options for a specific model.
+To pass additional options to the model, use the `--option`/`-o` option. The options are model-specific, so please refer `emb models` command for available options for a specific model.
 
 ## `collections` command
 
@@ -278,7 +300,7 @@ To list collectoins in the default vector store, run the following command:
 emb collections
 ```
 
-The output will show the name of vector store and the list of collections:
+The output will show the list of collection names:
 
 ```
 Collections:

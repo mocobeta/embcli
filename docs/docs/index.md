@@ -1,22 +1,32 @@
-# embcli - CLI for Embeddings
+# embcli - CLI for Embedding
 
-embcli is a command-line interface for embeddings. It provides a unified interface for various embedding models, making it easy to generate embeddings, calculate similarity scores, perform document indexing and search, and more!
+## Overview
 
-## Quick start
+`embcli` is a command-line interface with a collection of plugins that provide access to various embedding models and vector stores, allowing users to test and compare their performance from the terminal easily. It provides a unified interface for various embedding models, making it easy to generate embeddings, calculate similarity scores, perform document indexing and search, and more!
+
+embcli is designed to be extensible (in a similar way to [llm utility](https://github.com/simonw/llm)), so you can add your own plugins for any embedding model or API you want to use.
+
+## Project Status
+
+Pre-alpha. embcli is in active development, and new features and plugins are being added regularly.
+
+## Quick Start
 
 ### Installation
 
-Install `embcli-sbert` plugin to use sentence-transformers models.
+Install `embcli-sbert` plugin to use [sentence-transformers](https://www.sbert.net/) models.
 
 ```bash
 pip install embcli-sbert
 ```
 
-[Model Plugins](model_plugins.md) shows the full list of available model plugins.
+[Model Plugins](model_plugins.md) shows the full list of available models.
 
 ### emb command
 
-A plugin contains `emb` command, which provides a unified interface for embedding models. `--help` option shows the general usage of `emb` command.
+A model plugin contains `emb` command, which provides a unified interface for embedding models.
+
+`emb --help` shows the general usage of `emb` command.
 
 ```bash
 emb --help
@@ -38,7 +48,7 @@ Commands:
   vector-stores      List available vector stores.
 ```
 
-### Try out the Embedding Models
+### Try it out
 
 Get an embedding for an input text by a sentence-transformers model (all-MiniLM-L6-v2).
 

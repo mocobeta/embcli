@@ -1,6 +1,6 @@
 # Basic Command Usage
 
-We assume you have installed the [embcli-openai](model_plugins.md#openai-models) plugin and have a OpenAI API key to go through this tutorial.
+We assume you have installed the [embcli-openai](model_plugins.md#openai-models) plugin and have an OpenAI API key to go through this tutorial.
 
 ```bash
 pip install embcli-openai
@@ -55,6 +55,7 @@ Options:
   -e, --env-file TEXT          Path to the .env file
   -m, --model TEXT             Model id or alias to use for embedding
                                [required]
+  -p, --model-path TEXT        Path to the local model
   -f, --file PATH              File containing text to embed
   -o, --option <TEXT TEXT>...  key/value options for the model
   --help                       Show this message and exit.
@@ -79,6 +80,17 @@ You can also use an alias for the model. For example, `text-embedding-3-small` h
 
 ```bash
 emb embed -m 3-small "Have you taken a coffee break?☕"
+```
+
+### `--model-path` option
+
+`--model-path`/`-p` option specifies the path to a local model. This is required for plugins that support local models, such as `embcli-llamacpp`.
+
+To get an embedding for an input text by running the GGUF converted model:
+
+```bash
+emb embed -m llamacpp -p ./all-MiniLM-L6-v2.F16.gguf \
+"Owls can rotate their necks 270 degrees without injury🦉"
 ```
 
 ### `--file` option
@@ -119,6 +131,7 @@ Options:
   -e, --env-file TEXT             Path to the .env file
   -m, --model TEXT                Model id or alias to use for embedding
                                   [required]
+  -p, --model-path TEXT           Path to the local model
   -s, --similarity [dot|cosine|euclidean|manhattan]
                                   Similarity function to use  [default:
                                   cosine]
@@ -143,6 +156,10 @@ The output will be a float value calculated by the specified metric (default is 
 ```
 0.5505237095494223
 ```
+
+### `--model-path` option
+
+`--model-path`/`-p` option specifies the path to a local model. This is required for plugins that support local models, such as `embcli-llamacpp`.
 
 ### `--similarity` option
 

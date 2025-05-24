@@ -8,7 +8,7 @@ markdown_extensions:
       permalink: true
 nav:
   - 'index.md'
-  - 'usage.md'
+  - 'basic_usage.md'
   - 'vector_search.md'
   - 'model_plugins.md'
   - 'release_notes.md'

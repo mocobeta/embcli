@@ -1,6 +1,6 @@
 # Model Plugins
 
-A model plugin is a Python package that is for a specific embedding model. All model plugins contain the same set of commands, and multiple model plugins can be installed in the same environment.
+A model plugin is a Python package for a specific embedding model or model vendor. All model plugins contain the same set of commands, and multiple model plugins can be simultaneously installed in the same environment.
 
 ## Proprietary Models
 
@@ -101,10 +101,10 @@ GeminiEmbeddingModel
     * task_type (str) - The type of task for the embedding. Supported task types: 'semantic_similarity', 'classification', 'clustering', 'retrieval_document', 'retrieval_query', 'question_answering', 'fact_verification', 'code_retrieval_query'
 ```
 
-**Example usage:** get an embedding for an input text by text-embedding-004 model with an option task_type=retrieval_query.
+**Example usage:** get an embedding for an input text by text-embedding-004 model with an option task_type=classification.
 
 ```bash
-emb embed -m text-004 -o task_type retrieval_query \
+emb embed -m text-004 -o task_type classification \
 "Owls can rotate their necks 270 degrees without injury🦉"
 ```
 
@@ -238,16 +238,19 @@ SentenceTransformerModel
 ```
 
 **Example usage:** get an embedding for an input text by an original sentence-transformers model (e.g. all-MiniLM-L6-v2) or a community model.
+Unlike proprietary models, you need to add `sbert/` to the model prefix.
 
 ```bash
+# Use an original sentence-transformers model
 emb embed -m sbert/all-MiniLM-L6-v2 
 "Owls can rotate their necks 270 degrees without injury🦉"
 
+# Use a community model
 emb embed -m sbert/intfloat/multilingual-e5-small \
 "Owls can rotate their necks 270 degrees without injury🦉"
 ```
 
-## LllamaCpp Models
+### llama.cpp Models
 
 The [embcli-llamacpp](https://pypi.org/project/embcli-llamacpp/) plugin provides access to locally installed models via [llama.cpp](https://github.com/ggml-org/llama.cpp) and [llama-cpp-python](https://github.com/abetlen/llama-cpp-python).
 
