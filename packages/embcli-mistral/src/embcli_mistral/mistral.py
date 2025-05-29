@@ -2,15 +2,21 @@ import os
 from typing import Iterator
 
 import embcli_core
-from embcli_core.models import EmbeddingModel
+from embcli_core.models import EmbeddingModel, ModelOption, ModelOptionType
 from mistralai import Mistral
 
 
 class MistralEmbeddingModel(EmbeddingModel):
     vendor = "mistral"
     default_batch_size = 100
-    model_aliases = [("mistral-embed", [])]
-    valid_options = []
+    model_aliases = [("mistral-embed", []), ("codestral-embed", [])]
+    valid_options = [
+        ModelOption(
+            name="output_dimension",
+            type=ModelOptionType.INT,
+            description="The dimesions of the output embedding, defaults to 1536 and has a maximum value of 3072. Only supprted in codestral-embed model.",  # noqa: E501
+        )
+    ]
 
     def __init__(self, model_id: str):
         super().__init__(model_id)
