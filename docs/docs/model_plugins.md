@@ -2,11 +2,9 @@
 
 A model plugin is a Python package for a specific embedding model or model vendor. All model plugins contain the same set of commands, and multiple model plugins can be simultaneously installed in the same environment.
 
-## Proprietary Models
+## [embcli-openai](https://pypi.org/project/embcli-openai/) for OpenAI Models
 
-### OpenAI Models
-
-The [embcli-openai](https://pypi.org/project/embcli-openai/) plugin provides access to [OpenAI's embedding models](https://platform.openai.com/docs/models).
+The `embcli-openai` plugin provides access to [OpenAI's embedding models](https://platform.openai.com/docs/models).
 
 You need an OpenAI API key to use this plugin. Set the `OPENAI_API_KEY` environment variable in a `.env` file in the current directory, or specify the path to the env file using the `-e` option.
 
@@ -38,9 +36,9 @@ emb embed -m 3-small -o dimensions 512 \
 "Owls can rotate their necks 270 degrees without injury🦉"
 ```
 
-### Cohere Models
+## [embcli-cohere](https://pypi.org/project/embcli-cohere/) for Cohere Models
 
-The [embcli-cohere](https://pypi.org/project/embcli-cohere/) plugin provides access to [Cohere's embedding models](https://docs.cohere.com/v2/docs/cohere-embed).
+The `embcli-cohere` plugin provides access to [Cohere's embedding models](https://docs.cohere.com/v2/docs/cohere-embed).
 
 You need a Cohere API key to use this plugin. Set the `COHERE_API_KEY` environment variable in a `.env` file in the current directory, or specify the path to the env file using the `-e` option.
 
@@ -75,9 +73,9 @@ emb embed -m embed-v4 -o input_type search_query \
 "Owls can rotate their necks 270 degrees without injury🦉"
 ```
 
-### Gemini Models
+## [embcli-gemini](https://pypi.org/project/embcli-gemini/) for Gemini Models
 
-The [embcli-gemini](https://pypi.org/project/embcli-gemini/) plugin provides access to [Gemini's embedding models](https://ai.google.dev/gemini-api/docs/models#text-embedding).
+The `embcli-gemini` plugin provides access to [Gemini's embedding models](https://ai.google.dev/gemini-api/docs/models#text-embedding).
 
 You need a Gemini API key to use this plugin. Set the `GEMINI_API_KEY` environment variable in a `.env` file in the current directory, or specify the path to the env file using the `-e` option.
 
@@ -108,9 +106,9 @@ emb embed -m text-004 -o task_type classification \
 "Owls can rotate their necks 270 degrees without injury🦉"
 ```
 
-### Jina Models
+## [embcli-jina](https://pypi.org/project/embcli-jina/) for Jina Models
 
-The [embcli-jina](https://pypi.org/project/embcli-jina/) plugin provides access to [Jina's embedding models](https://jina.ai/models).
+The `embcli-jina` plugin provides access to [Jina's embedding models](https://jina.ai/models).
 
 You need a Jina API key to use this plugin. Set the `JINA_API_KEY` environment variable in a `.env` file in the current directory, or specify the path to the env file using the `-e` option.
 
@@ -146,9 +144,9 @@ emb embed -m jina-v3 -o dimensions 512 \
 "Owls can rotate their necks 270 degrees without injury🦉"
 ```
 
-### Mistral Models
+## [embcli-mistral](https://pypi.org/project/embcli-mistral/) for Mistral Models
 
-The [embcli-mistral](https://pypi.org/project/embcli-mistral/) plugin provides access to [Mistral's embedding models](https://docs.mistral.ai/capabilities/embeddings/).
+The `embcli-mistral` plugin provides access to [Mistral's embedding models](https://docs.mistral.ai/capabilities/embeddings/).
 
 You need a Mistral API key to use this plugin. Set the `MISTRAL_API_KEY` environment variable in a `.env` file in the current directory, or specify the path to the env file using the `-e` option.
 
@@ -177,9 +175,9 @@ emb embed -m mistral-embed \
 "Owls can rotate their necks 270 degrees without injury🦉"
 ```
 
-### VoyageAI Models
+## [embcli-voyage](https://pypi.org/project/embcli-voyage/) VoyageAI Models
 
-The [embcli-voyage](https://pypi.org/project/embcli-voyage/) plugin provides access to [VoyageAI's embedding models](https://docs.voyageai.com/docs/embeddings).
+The `embcli-voyage` plugin provides access to [VoyageAI's embedding models](https://docs.voyageai.com/docs/embeddings).
 
 You need a VoyageAI API key to use this plugin. Set the `VOYAGE_API_KEY` environment variable in a `.env` file in the current directory, or specify the path to the env file using the `-e` option.
 
@@ -217,11 +215,9 @@ emb embed -m voyage-3-large -o input_type query -o output_dimension 512 \
 "Owls can rotate their necks 270 degrees without injury🦉"
 ```
 
-## Open Source Models / Local Models
+## [embcli-sbert](https://pypi.org/project/embcli-sbert/) for Sentence Transformers Models
 
-### Sentence Transformers (SBERT) Models
-
-The [embcli-sbert](https://pypi.org/project/embcli-sbert/) plugin provides access to [Sentence Transformers](https://www.sbert.net/) models.
+The `embcli-sbert` plugin provides access to [Sentence Transformers](https://www.sbert.net/) models.
 
 **Installation:** `pip install embcli-sbert`
 
@@ -250,9 +246,9 @@ emb embed -m sbert/intfloat/multilingual-e5-small \
 "Owls can rotate their necks 270 degrees without injury🦉"
 ```
 
-### llama.cpp Models
+## [embcli-llamacpp](https://pypi.org/project/embcli-llamacpp/) for llama.cpp Models
 
-The [embcli-llamacpp](https://pypi.org/project/embcli-llamacpp/) plugin provides access to locally installed models via [llama.cpp](https://github.com/ggml-org/llama.cpp) and [llama-cpp-python](https://github.com/abetlen/llama-cpp-python).
+The `embcli-llamacpp` plugin provides access to locally installed models via [llama.cpp](https://github.com/ggml-org/llama.cpp) and [llama-cpp-python](https://github.com/abetlen/llama-cpp-python).
 
 You need to have `gguf` model files in your local machine. See [this tutorial](https://github.com/ggml-org/llama.cpp/discussions/7712) for instructions on how to convert original Hugging Face transformer models to `gguf` format.
 
