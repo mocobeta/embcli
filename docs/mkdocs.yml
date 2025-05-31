@@ -11,4 +11,5 @@ nav:
   - 'basic_usage.md'
   - 'vector_search.md'
   - 'model_plugins.md'
+  - 'multimodal_model_plugins.md'
   - 'release_notes.md'

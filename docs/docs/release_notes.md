@@ -1,5 +1,6 @@
 # Release Notes
 
+- [embcli-clip Version 0.0.1](https://github.com/mocobeta/embcli/releases/tag/clip-0.0.1) (2025-05-31)
 - [embcli-core Version 0.0.9](https://github.com/mocobeta/embcli/releases/tag/core-0.0.9) (2025-05-31)
 - [embcli-mistral Version 0.0.6](https://github.com/mocobeta/embcli/releases/tag/mistral-0.0.6) (2025-05-29)
 - [embcli-llama Version 0.0.2](https://github.com/mocobeta/embcli/releases/tag/llamacpp-0.0.2) (2025-05-20)
