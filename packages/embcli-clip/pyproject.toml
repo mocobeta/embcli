@@ -1,6 +1,6 @@
 [project]
 name = "embcli-clip"
-version = "0.0.1-dev"
+version = "0.0.1"
 description = "clip plugin for embcli"
 readme = "README.md"
 authors = [{ name = "Tomoko Uchida", email = "tomoko.uchida.1111@gmail.com" }]
