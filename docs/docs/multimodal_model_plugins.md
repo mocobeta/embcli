@@ -20,6 +20,12 @@ CLIPModel
     Model Options:
 ```
 
+**Example usage:** get an embedding for an input text by an original CLIP model.
+
+```bash
+emb embed -m clip "Owls can rotate their necks 270 degrees without injury🦉"
+```
+
 **Example usage:** get an embedding for an input image by an original CLIP model.
 
 ```bash
