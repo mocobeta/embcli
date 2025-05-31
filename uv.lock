@@ -504,7 +504,7 @@ wheels = [
 
 [[package]]
 name = "embcli"
-version = "0.0.9.dev1"
+version = "0.0.10.dev0"
 source = { virtual = "." }
 
 [package.dev-dependencies]
@@ -546,7 +546,7 @@ requires-dist = [
 
 [[package]]
 name = "embcli-core"
-version = "0.0.9.dev2"
+version = "0.0.10.dev0"
 source = { editable = "packages/embcli-core" }
 dependencies = [
     { name = "chromadb" },
