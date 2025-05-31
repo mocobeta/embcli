@@ -49,8 +49,10 @@ def models():
         click.echo("    Models:")
         for model_id, aliases in model_cls.model_aliases:
             click.echo(f"    * {model_id} (aliases: {', '.join(aliases)})")
+        if hasattr(model_cls, "default_local_model"):
+            click.echo(f"    Default Local Model: {model_cls.default_local_model}")  # type: ignore
         if hasattr(model_cls, "local_model_list"):
-            click.echo(f"    See {model_cls.local_model_list} for available models.")  # type: ignore
+            click.echo(f"    See {model_cls.local_model_list} for available local models.")  # type: ignore
         click.echo("    Model Options:")
         for option in model_cls.valid_options:
             click.echo(f"    * {option.name} ({option.type.value}) - {option.description}")
@@ -142,16 +144,18 @@ def embed(env_file, model_id, model_path, file, image_file, options, text):
 )
 @click.option("--file1", "-f1", type=click.Path(exists=True), help="First file containing text to compare")
 @click.option("--file2", "-f2", type=click.Path(exists=True), help="Second file containing text to compare")
+@click.option("image_file1", "--image1", type=click.Path(exists=True), help="First image file to compare")
+@click.option("image_file2", "--image2", type=click.Path(exists=True), help="Second image file to compare")
 @click.option("options", "--option", "-o", type=(str, str), multiple=True, help="key/value options for the model")
 @click.argument("text1", required=False)
 @click.argument("text2", required=False)
-def simscore(env_file, model_id, model_path, similarity, file1, file2, options, text1, text2):
-    """Calculate similarity score between two texts."""
+def simscore(env_file, model_id, model_path, similarity, file1, file2, image_file1, image_file2, options, text1, text2):
+    """Calculate similarity score between two inputs."""
     register_models(pm())
     load_env(env_file)
 
     # Ensure we have either text or file input for both texts
-    if (not text1 and not file1) or (not text2 and not file2):
+    if (not text1 and not file1 and not image_file1) or (not text2 and not file2 and not image_file2):
         click.echo("Error: Please provide either two texts or two files to compare.", err=True)
         return
 
@@ -160,6 +164,13 @@ def simscore(env_file, model_id, model_path, similarity, file1, file2, options, 
     if not embedding_model:
         click.echo(f"Error: Unknown model id or alias '{model_id}'.", err=True)
         return
+
+    multimodal_embedding_model: Optional[MultimodalEmbeddingModel] = None
+    if image_file1 or image_file2:
+        if not isinstance(embedding_model, MultimodalEmbeddingModel):
+            click.echo("Error: Image embedding is only supported by multimodal models.", err=True)
+            return
+        multimodal_embedding_model = embedding_model
 
     # Convert options to kwargs
     kwargs = dict(options)
@@ -178,9 +189,17 @@ def simscore(env_file, model_id, model_path, similarity, file1, file2, options, 
         input_text2 = text2
 
     try:
-        # Generate embeddings for both texts
-        embedding1 = embedding_model.embed(input_text1, **kwargs)
-        embedding2 = embedding_model.embed(input_text2, **kwargs)
+        # Generate embeddings for both inputs
+        if image_file1:
+            assert multimodal_embedding_model is not None, "Multimodal model should be initialized for image embedding"
+            embedding1 = multimodal_embedding_model.embed_image(image_file1, **kwargs)
+        else:
+            embedding1 = embedding_model.embed(input_text1, **kwargs)
+        if image_file2:
+            assert multimodal_embedding_model is not None, "Multimodal model should be initialized for image embedding"
+            embedding2 = multimodal_embedding_model.embed_image(image_file2, **kwargs)
+        else:
+            embedding2 = embedding_model.embed(input_text2, **kwargs)
 
         # Calculate similarity
         sim_func = SimilarityFunction(similarity).get_similarity_function()
@@ -352,20 +371,31 @@ def ingest_sample(env_file, model_id, model_path, vector_store_vendor, persist_p
 )
 @click.option("--persist-path", required=False, help="Path to persist the vector store")
 @click.option("--collection", "-c", required=True, help="Collection name where the embeddings are stored")
-@click.option("--query", "-q", required=True, help="Query text to search for")
+@click.option("--query", "-q", required=False, help="Query text to search for")
+@click.option("image_file", "--image", type=click.Path(exists=True), help="Image file to search for")
 @click.option("--top-k", "-k", default=5, type=int, help="Number of top results to return", show_default=True)
 @click.option("options", "--option", "-o", type=(str, str), multiple=True, help="key/value options for the model")
-def search(env_file, model_id, model_path, vector_store_vendor, persist_path, collection, query, top_k, options):
+def search(
+    env_file, model_id, model_path, vector_store_vendor, persist_path, collection, query, image_file, top_k, options
+):
     """Search for documents in the vector store for the query.
     Query-specific embedding is used if the model provides options for generating search query-optimized embeddings."""  # noqa: E501
     register_models(pm())
     register_vector_stores(pm())
     load_env(env_file)
 
+    if not query and not image_file:
+        click.echo("Error: Please provide either a query text or an image file to search for.", err=True)
+        return
+
     # Initialize the model
-    embedding_model = get_model(model_id, model_path)
-    if not embedding_model:
-        click.echo(f"Error: Unknown model id or alias '{model_id}'.", err=True)
+    try:
+        embedding_model = get_model(model_id, model_path)
+        if not embedding_model:
+            click.echo(f"Error: Unknown model id or alias '{model_id}'.", err=True)
+            return
+    except ValueError as e:
+        click.echo(f"Error: {str(e)}", err=True)
         return
 
     # Initialize the vector store
@@ -380,7 +410,14 @@ def search(env_file, model_id, model_path, vector_store_vendor, persist_path, co
 
     # Search for documents in the vector store
     try:
-        results = vector_store.search(embedding_model, collection, query, top_k, **kwargs)
+        if image_file:
+            if not isinstance(embedding_model, MultimodalEmbeddingModel):
+                click.echo("Error: searching with images is only supported by multimodal models.", err=True)
+                return
+            multimodal_embedding_model: MultimodalEmbeddingModel = embedding_model
+            results = vector_store.search_image(multimodal_embedding_model, collection, image_file, top_k, **kwargs)
+        else:
+            results = vector_store.search(embedding_model, collection, query, top_k, **kwargs)
         click.echo(f"Found {len(results)} results:")
         for hit in results:
             click.echo(f"Score: {hit.score}, Document ID: {hit.doc.id}, Text: {hit.doc.text}")
