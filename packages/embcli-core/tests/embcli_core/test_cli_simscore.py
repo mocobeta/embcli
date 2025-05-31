@@ -30,7 +30,52 @@ def test_simscore_command_with_files(plugin_manager, mocker, tmp_path):
 
     score = float(result.output.strip())
     assert isinstance(score, float)
-    assert float(result.output.strip())
+
+
+def test_simscore_command_with_images(plugin_manager, mocker, tmp_path):
+    mocker.patch("embcli_core.cli._pm", plugin_manager)
+
+    # Create a temporary image files
+    test_image1 = tmp_path / "test_image1.jpg"
+    test_image1.write_bytes(b"This is a test image content")
+    test_image2 = tmp_path / "test_image2.jpg"
+    test_image2.write_bytes(b"This is another test image content")
+
+    runner = CliRunner()
+    result = runner.invoke(
+        simscore, ["--model", "multimodal-mock-1", "--image1", str(test_image1), "--image2", str(test_image2)]
+    )
+    assert result.exit_code == 0
+
+    score = float(result.output.strip())
+    assert isinstance(score, float)
+
+
+def test_simscore_command_with_mixed_inputs(plugin_manager, mocker, tmp_path):
+    mocker.patch("embcli_core.cli._pm", plugin_manager)
+
+    # Create a temporary text file
+    test_file = tmp_path / "test_file.txt"
+    test_file.write_text("This is a test text from a file")
+    # Create a temporary image file
+    test_image = tmp_path / "test_image.jpg"
+    test_image.write_bytes(b"This is a test image content")
+
+    runner = CliRunner()
+    result = runner.invoke(
+        simscore, ["--model", "multimodal-mock-1", "--file1", str(test_file), "--image2", str(test_image)]
+    )
+    assert result.exit_code == 0
+
+    score = float(result.output.strip())
+    assert isinstance(score, float)
+
+    result = runner.invoke(
+        simscore, ["--model", "multimodal-mock-1", "--image1", str(test_image), "--file2", str(test_file)]
+    )
+    assert result.exit_code == 0
+    score = float(result.output.strip())
+    assert isinstance(score, float)
 
 
 def test_simscore_command_with_similarity_option(plugin_manager, mocker):
