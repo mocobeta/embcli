@@ -18,6 +18,11 @@ class ModelOption:
     description: str = ""
 
 
+class Modality(Enum):
+    TEXT = "text"
+    IMAGE = "image"
+
+
 class EmbeddingModel(ABC):
     """Abstract base class for embedding models."""
 
@@ -94,6 +99,56 @@ class EmbeddingModel(ABC):
 
 
 class LocalEmbeddingModel(EmbeddingModel):
+    model_aliases = []
+    local_model_list: str
+
+    def __init__(self, model_id: str, **kwargs):
+        super().__init__(model_id)
+        self.local_model_id = kwargs.get("local_model_id", None)
+        self.local_model_path = kwargs.get("local_model_path", None)
+
+
+class MultimodalEmbeddingModel(EmbeddingModel):
+    """Abstract base class for multimodal embedding models."""
+
+    def _embed_one_batch(self, input: list[str], **kwargs):
+        # call the multimodal embedding method with text modality
+        return self._embed_one_batch_multimodal(input, Modality.TEXT, **kwargs)
+
+    def embed_image(self, image_path: str, **kwargs) -> list[float]:
+        """Generate an embedding for a single image input.
+        Args:
+            image_path (str): The path to the image file to embed.
+            **kwargs: Additional keyword arguments for the embedding model.
+        Returns:
+            list[float]: The generated embedding.
+        """
+        model_options = self._check_and_convert_options(**kwargs)
+        return next(self._embed_one_batch_multimodal([image_path], Modality.IMAGE, **model_options))
+
+    def embed_image_batch(self, input: list[str], batch_size: Optional[int], **kwargs) -> Iterator[list[float]]:
+        """Generate embeddings for a list of image inputs.
+        Args:
+            input (list[str]): The list of image file paths to embed.
+            batch_size (Optional[int]): The size of each batch. If None, the default batch size is used.
+            **kwargs: Additional keyword arguments for the embedding model.
+        Returns:
+            Iterator[list[float]]: An iterator that yields the generated embeddings for each batch.
+        """
+        model_options = self._check_and_convert_options(**kwargs)
+        if not input:
+            return iter([])
+        if batch_size is None:
+            batch_size = self.default_batch_size
+        for i in range(0, len(input), batch_size):
+            yield from self._embed_one_batch_multimodal(input[i : i + batch_size], Modality.IMAGE, **model_options)
+
+    @abstractmethod
+    def _embed_one_batch_multimodal(self, input: list[str], modality: Modality, **kwargs) -> Iterator[list[float]]:
+        """Generate embeddings for a batch of inputs with specified modality."""
+
+
+class LocalMultimodalEmbeddingModel(MultimodalEmbeddingModel):
     model_aliases = []
     local_model_list: str
 
