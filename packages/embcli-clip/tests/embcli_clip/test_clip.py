@@ -12,13 +12,22 @@ skip_if_no_envvar_to_run = pytest.mark.skipif(
 
 
 @skip_if_no_envvar_to_run
-def test_factory_create_valid_model():
+def test_initialize_model_default_local_model_id():
     _, create = embedding_model()
-    kwargs = {"local_model_id": "openai/clip-vit-base-patch32"}
-    model = create("clip", **kwargs)
+    model = create("clip")
     assert isinstance(model, CLIPModel)
     assert model.model_id == "clip"
     assert model.local_model_id == "openai/clip-vit-base-patch32"
+
+
+@skip_if_no_envvar_to_run
+def test_factory_create_valid_model():
+    _, create = embedding_model()
+    kwargs = {"local_model_id": "openai/clip-vit-base-patch16"}
+    model = create("clip", **kwargs)
+    assert isinstance(model, CLIPModel)
+    assert model.model_id == "clip"
+    assert model.local_model_id == "openai/clip-vit-base-patch16"
 
 
 @skip_if_no_envvar_to_run
@@ -26,13 +35,6 @@ def test_factory_create_invalid_model():
     _, create = embedding_model()
     with pytest.raises(ValueError):
         create("invalid-model-id")
-
-
-@skip_if_no_envvar_to_run
-def test_initialize_model_no_local_model_id():
-    _, create = embedding_model()
-    with pytest.raises(ValueError):
-        create("clip")
 
 
 @skip_if_no_envvar_to_run

@@ -12,15 +12,14 @@ class CLIPModel(LocalMultimodalEmbeddingModel):
     vendor = "clip"
     default_batch_size = 100
     model_aliases = [("clip", [])]
+    default_local_model_id = "openai/clip-vit-base-patch32"
     valid_options = []
     local_model_list = "https://huggingface.co/openai?search_models=clip"
 
     def __init__(self, model_id: str, **kwargs):
         super().__init__(model_id, **kwargs)
         if self.local_model_id is None:
-            raise ValueError(
-                "mode id must contain actual CLIP model to be used. e.g. openai/clip-vit-base-patch32"  # noqa: E501
-            )
+            self.local_model_id = self.default_local_model_id
         self.device = "gpu" if torch.cuda.is_available() else "cpu"
         self.model = HFClipModel.from_pretrained(self.local_model_id)
 
@@ -37,7 +36,7 @@ class CLIPModel(LocalMultimodalEmbeddingModel):
             case Modality.IMAGE:
                 # Process image input
                 images = [Image.open(img_path) for img_path in input]
-                processor = AutoProcessor.from_pretrained(self.local_model_id)
+                processor = AutoProcessor.from_pretrained(self.local_model_id, use_fast=True)
                 inputs = processor(images=images, return_tensors="pt").to(self.model.device)
                 outputs = self.model.get_image_features(**inputs)
             case _:
