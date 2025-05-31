@@ -34,6 +34,17 @@ def test_search(mock_model, mock_store, mocker):
     assert spy2.call_count == 1
 
 
+def test_search_image(mock_multimodal_model, mock_store, mocker):
+    spy1 = mocker.spy(mock_store, "_search")
+    spy2 = mocker.spy(mock_multimodal_model, "embed_image")
+    collection = "test_collection"
+    image_file = "path/to/image.jpg"
+    top_k = 3
+    mock_store.search_image(mock_multimodal_model, collection, image_file, top_k=top_k)
+    assert spy1.call_count == 1
+    assert spy2.call_count == 1
+
+
 def test_register(mocker):
     mock_vector_store_cls = mocker.Mock()  # Mocking the vector store class
     mock_vector_store_cls.vendor = "mock"

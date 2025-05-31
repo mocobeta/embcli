@@ -371,20 +371,31 @@ def ingest_sample(env_file, model_id, model_path, vector_store_vendor, persist_p
 )
 @click.option("--persist-path", required=False, help="Path to persist the vector store")
 @click.option("--collection", "-c", required=True, help="Collection name where the embeddings are stored")
-@click.option("--query", "-q", required=True, help="Query text to search for")
+@click.option("--query", "-q", required=False, help="Query text to search for")
+@click.option("image_file", "--image", type=click.Path(exists=True), help="Image file to search for")
 @click.option("--top-k", "-k", default=5, type=int, help="Number of top results to return", show_default=True)
 @click.option("options", "--option", "-o", type=(str, str), multiple=True, help="key/value options for the model")
-def search(env_file, model_id, model_path, vector_store_vendor, persist_path, collection, query, top_k, options):
+def search(
+    env_file, model_id, model_path, vector_store_vendor, persist_path, collection, query, image_file, top_k, options
+):
     """Search for documents in the vector store for the query.
     Query-specific embedding is used if the model provides options for generating search query-optimized embeddings."""  # noqa: E501
     register_models(pm())
     register_vector_stores(pm())
     load_env(env_file)
 
+    if not query and not image_file:
+        click.echo("Error: Please provide either a query text or an image file to search for.", err=True)
+        return
+
     # Initialize the model
-    embedding_model = get_model(model_id, model_path)
-    if not embedding_model:
-        click.echo(f"Error: Unknown model id or alias '{model_id}'.", err=True)
+    try:
+        embedding_model = get_model(model_id, model_path)
+        if not embedding_model:
+            click.echo(f"Error: Unknown model id or alias '{model_id}'.", err=True)
+            return
+    except ValueError as e:
+        click.echo(f"Error: {str(e)}", err=True)
         return
 
     # Initialize the vector store
@@ -399,7 +410,14 @@ def search(env_file, model_id, model_path, vector_store_vendor, persist_path, co
 
     # Search for documents in the vector store
     try:
-        results = vector_store.search(embedding_model, collection, query, top_k, **kwargs)
+        if image_file:
+            if not isinstance(embedding_model, MultimodalEmbeddingModel):
+                click.echo("Error: searching with images is only supported by multimodal models.", err=True)
+                return
+            multimodal_embedding_model: MultimodalEmbeddingModel = embedding_model
+            results = vector_store.search_image(multimodal_embedding_model, collection, image_file, top_k, **kwargs)
+        else:
+            results = vector_store.search(embedding_model, collection, query, top_k, **kwargs)
         click.echo(f"Found {len(results)} results:")
         for hit in results:
             click.echo(f"Score: {hit.score}, Document ID: {hit.doc.id}, Text: {hit.doc.text}")

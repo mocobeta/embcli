@@ -546,7 +546,7 @@ requires-dist = [
 
 [[package]]
 name = "embcli-core"
-version = "0.0.9.dev0"
+version = "0.0.9.dev2"
 source = { editable = "packages/embcli-core" }
 dependencies = [
     { name = "chromadb" },

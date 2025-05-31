@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Callable, Iterator, Optional, TypeVar
 
 from .document import DocumentType, HitDocument
-from .models import EmbeddingModel
+from .models import EmbeddingModel, MultimodalEmbeddingModel
 
 T = TypeVar("T")
 
@@ -42,6 +42,15 @@ class VectorStore(ABC):
         Query-specific embedding is used if the model provides options for generating search query-optimized embeddings."""  # noqa: E501
         # Generate embedding for the query
         query_embedding = model.embed_for_search(query, **kwargs)
+        # Search for the top K documents
+        return self._search(collection, query_embedding, top_k)
+
+    def search_image(
+        self, model: MultimodalEmbeddingModel, collection: str, image_file: str, top_k: int = 5, **kwargs
+    ) -> list[HitDocument]:
+        """Search for the top K documents in the collection for the image."""
+        # Generate embedding for the image
+        query_embedding = model.embed_image(image_file, **kwargs)
         # Search for the top K documents
         return self._search(collection, query_embedding, top_k)
 
