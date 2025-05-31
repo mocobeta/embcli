@@ -532,7 +532,7 @@ dev = [
 
 [[package]]
 name = "embcli-clip"
-version = "0.0.1.dev0"
+version = "0.0.2.dev0"
 source = { editable = "packages/embcli-clip" }
 dependencies = [
     { name = "embcli-core" },

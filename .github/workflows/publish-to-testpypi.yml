@@ -20,6 +20,7 @@ on:
         type: choice
         options:
           - embcli-core
+          - embcli-clip
           - embcli-cohere
           - embcli-gemini
           - embcli-jina
