@@ -8,7 +8,7 @@ import pluggy
 from dotenv import load_dotenv
 
 from .document_loader import load_from_csv
-from .models import avaliable_models, get_model
+from .models import MultimodalEmbeddingModel, avaliable_models, get_model
 from .plugins import get_plugin_manager, register_models, register_vector_stores
 from .similarities import SimilarityFunction
 from .vector_stores import VectorStoreLocalFS, available_vector_stores, get_vector_store
@@ -71,15 +71,16 @@ def vector_stores():
 @click.option("model_id", "--model", "-m", required=True, help="Model id or alias to use for embedding")
 @click.option("--model-path", "-p", required=False, help="Path to the local model")
 @click.option("--file", "-f", type=click.Path(exists=True), help="File containing text to embed")
+@click.option("image_file", "--image", type=click.Path(exists=True), help="Image file to embed")
 @click.option("options", "--option", "-o", type=(str, str), multiple=True, help="key/value options for the model")
 @click.argument("text", required=False)
-def embed(env_file, model_id, model_path, file, options, text):
+def embed(env_file, model_id, model_path, file, image_file, options, text):
     """Generate embeddings for the provided text or file content."""
     register_models(pm())
     load_env(env_file)
 
     # Ensure we have either text or file input
-    if not text and not file:
+    if not text and not file and not image_file:
         click.echo("Error: Please provide either text or a file to embed.", err=True)
         return
 
@@ -96,18 +97,32 @@ def embed(env_file, model_id, model_path, file, options, text):
     # Convert options to kwargs
     kwargs = dict(options)
 
-    # Get the input text
+    # Generate image embedding if an image file is provided
+    if image_file:
+        if not isinstance(embedding_model, MultimodalEmbeddingModel):
+            click.echo("Error: Image embedding is only supported by multimodal models.", err=True)
+            return
+        multimodal_embedding_model: MultimodalEmbeddingModel = embedding_model
+        try:
+            embedding = multimodal_embedding_model.embed_image(image_file, **kwargs)
+            output_json = json.dumps(embedding)
+            click.echo(output_json)
+            return
+        except Exception as e:
+            click.echo(f"Error generating image embedding: {str(e)}", err=True)
+            return
+
+    # Generate text embedding
+
     if file:
         with open(file, "r", encoding="utf-8") as f:
             input_text = f.read()
     else:
         input_text = text
 
-    # Generate embeddings
     try:
-        embeddings = embedding_model.embed(input_text, **kwargs)
-
-        output_json = json.dumps(embeddings)
+        embedding = embedding_model.embed(input_text, **kwargs)
+        output_json = json.dumps(embedding)
         click.echo(output_json)
     except Exception as e:
         click.echo(f"Error generating embeddings: {str(e)}", err=True)
