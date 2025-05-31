@@ -165,7 +165,9 @@ MistralEmbeddingModel
     Vendor: mistral
     Models:
     * mistral-embed (aliases: )
+    * codestral-embed (aliases: )
     Model Options:
+    * output_dimension (int) - The dimesions of the output embedding, defaults to 1536 and has a maximum value of 3072. Only supprted in codestral-embed model.
 ```
 
 **Example usage:** get an embedding for an input text by mistral-embed model.
