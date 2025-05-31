@@ -12,14 +12,14 @@ class CLIPModel(LocalMultimodalEmbeddingModel):
     vendor = "clip"
     default_batch_size = 100
     model_aliases = [("clip", [])]
-    default_local_model_id = "openai/clip-vit-base-patch32"
+    default_local_model = "openai/clip-vit-base-patch32"
     valid_options = []
     local_model_list = "https://huggingface.co/openai?search_models=clip"
 
     def __init__(self, model_id: str, **kwargs):
         super().__init__(model_id, **kwargs)
         if self.local_model_id is None:
-            self.local_model_id = self.default_local_model_id
+            self.local_model_id = self.default_local_model
         self.device = "gpu" if torch.cuda.is_available() else "cpu"
         self.model = HFClipModel.from_pretrained(self.local_model_id)
 

@@ -16,7 +16,7 @@ skip_if_no_envvar_to_run = pytest.mark.skipif(
 def test_embed_command_text(plugin_manager, mocker):
     mocker.patch("embcli_core.cli._pm", plugin_manager)
     runner = CliRunner()
-    result = runner.invoke(embed, ["--model", "clip/openai/clip-vit-base-patch32", "flying cat"])
+    result = runner.invoke(embed, ["--model", "clip", "flying cat"])
     assert result.exit_code == 0
 
     embeddings = json.loads(result.output)
@@ -30,7 +30,7 @@ def test_embed_command_image(plugin_manager, mocker):
     mocker.patch("embcli_core.cli._pm", plugin_manager)
     runner = CliRunner()
     image_path = files("tests.embcli_clip").joinpath("flying_cat.jpeg")
-    result = runner.invoke(embed, ["--model", "clip/openai/clip-vit-base-patch32", "--image", str(image_path)])
+    result = runner.invoke(embed, ["--model", "clip", "--image", str(image_path)])
     assert result.exit_code == 0
 
     embeddings = json.loads(result.output)
