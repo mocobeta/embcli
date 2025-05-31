@@ -24,3 +24,13 @@ def test_models_command(plugin_manager, mocker):
     assert "Vendor: mock-local" in result.output
     assert "local-embedding-mock (aliases: local-mock)" in result.output
     assert "See https://example.com/models.html" in result.output
+
+    assert "MockMultimodalEmbeddingModel" in result.output
+    assert "Vendor: mock-multimodal" in result.output
+    assert "multimodal-mock-1 (aliases: mm-mock1)" in result.output
+    assert "multimodal-mock-2 (aliases: mm-mock2)" in result.output
+
+    assert "MockLocalMultimodalEmbeddingModel" in result.output
+    assert "Vendor: mock-local-multimodal" in result.output
+    assert "local-multimodal-embedding-mock (aliases: local-mm-mock)" in result.output
+    assert "See https://example.com/models.html" in result.output
