@@ -1,6 +1,6 @@
 [project]
 name = "embcli-jina"
-version = "0.1.0"
+version = "0.1.1-dev"
 description = "jina plugin for embcli"
 readme = "README.md"
 authors = [{ name = "Tomoko Uchida", email = "tomoko.uchida.1111@gmail.com" }]
