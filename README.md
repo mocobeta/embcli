@@ -22,7 +22,7 @@ Alpha. embcli is in active development, and new features and plugins are being a
 
 ## Supported Models
 
-embcli supports a variety of embedding models, both proprietary and open source. Each model is provided as a plugin, which can be installed separately. The `emb` command provides a unified interface for all models.
+embcli supports a variety of embedding models, both proprietary and open source. Each model is provided as a plugin, which can be installed separately. The `emb` command provides a unified interface for all plugins.
 
 See [Model Plugins](https://embcli.mocobeta.dev/#model_plugins/) and [Multimodal Model Plugins](https://embcli.mocobeta.dev/#multimodal_model_plugins/) for the full list of supported models.
 
