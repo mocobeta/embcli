@@ -20,7 +20,7 @@ Install `embcli-sbert` plugin to use [sentence-transformers](https://www.sbert.n
 pip install embcli-sbert
 ```
 
-[Model Plugins](model_plugins.md) shows the full list of available models.
+[Model Plugins](model_plugins.md) and [Multimodal Model Plugins](multimodal_model_plugins.md) shows the full list of available models.
 
 ### emb command
 
