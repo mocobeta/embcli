@@ -29,6 +29,7 @@ dependencies = [
 
 [project.urls]
 "Repository" = "https://github.com/mocobeta/embcli"
+"Homepage" = "https://embcli.mocobeta.dev/"
 
 [build-system]
 requires = ["hatchling"]

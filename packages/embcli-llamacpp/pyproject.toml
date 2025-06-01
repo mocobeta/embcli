@@ -23,6 +23,7 @@ dependencies = ["embcli-core>=0.1.0", "llama-cpp-python>=0.3.9"]
 
 [project.urls]
 "Repository" = "https://github.com/mocobeta/embcli"
+"Homepage" = "https://embcli.mocobeta.dev/"
 
 [tool.uv.sources]
 embcli-core = { workspace = true }
