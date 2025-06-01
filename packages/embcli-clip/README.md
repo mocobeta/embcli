@@ -40,6 +40,7 @@ CLIPModel
     Vendor: clip
     Models:
     * clip (aliases: )
+    Default Local Model: openai/clip-vit-base-patch32
     See https://huggingface.co/openai?search_models=clip for available local models.
     Model Options:
 

@@ -20,15 +20,22 @@ CLIPModel
     Model Options:
 ```
 
-**Example usage:** get an embedding for an input text by an original CLIP model.
+**Example usage:** get an embedding for an input text by a CLIP model.
 
 ```bash
+# get an embedding for an input text by a CLIP model.
+# the default model is `openai/clip-vit-base-patch32`.
 emb embed -m clip "Owls can rotate their necks 270 degrees without injury🦉"
 ```
 
-**Example usage:** get an embedding for an input image by an original CLIP model.
+**Example usage:** get an embedding for an input image by a CLIP model.
 
 ```bash
 # Assume you have an image file `gingercat.jpeg` in the current directory.
+# get an embedding for an input image by the original CLIP model.
 emb embed -m clip --image gingercat.jpeg
+
+# get an embedding model by a community model.
+emb embed -m clip/laion/CLIP-ViT-H-14-laion2B-s32B-b79K --image gingercat.jpeg
+
 ```
