@@ -47,12 +47,23 @@ VoyageEmbeddingModel
     * input_type (str) - Type of the input text. Options: 'None', 'query', 'document' Defaults to 'None'.
     * truncation (bool) - Whether to truncate the input texts to fit within the context length. Defaults to True.
     * output_dimension (int) - The number of dimensions for resulting output embeddings.
+VoyageMultimodalEmbeddingModel
+    Vendor: voyage
+    Models:
+    * voyage-multimodal-3 (aliases: voyage-mm-3)
+    Model Options:
+    * input_type (str) - Type of the input text. Options: 'None', 'query', 'document' Defaults to 'None'.
+    * truncation (bool) - Whether to truncate the input texts to fit within the context length. Defaults to True.
 
 # get an embedding for an input text by voyage-3 model.
 emb embed -m voyage-3 "Embeddings are essential for semantic search and RAG apps."
 
 # get an embedding for an input text by voyage-3 model with input_type=query.
 emb embed -m voyage-3 "Embeddings are essential for semantic search and RAG apps." -o input_type query
+
+# get an embedding for an image by voyage-multimodal-3 model.
+# assume you have an image file named `gingercat.jpeg` in the current directory.
+emb embed -m voyage-mm-3 --image gingercat.jpeg
 
 # calculate similarity score between two texts by voyage-3 model. the default metric is cosine similarity.
 emb simscore -m voyage-3 "The cat drifts toward sleep." "Sleep dances in the cat's eyes."
