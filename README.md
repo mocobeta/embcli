@@ -18,13 +18,13 @@ embcli is designed to be extensible (in a similar way to [llm utility](https://g
 
 ## Project Status
 
-Pre-alpha. embcli is in active development, and new features and plugins are being added regularly.
+Alpha. embcli is in active development, and new features and plugins are being added regularly.
 
 ## Supported Models
 
 embcli supports a variety of embedding models, both proprietary and open source. Each model is provided as a plugin, which can be installed separately. The `emb` command provides a unified interface for all models.
 
-See [Model Plugins](https://embcli.mocobeta.dev/#model_plugins/) for the full list of available models.
+See [Model Plugins](https://embcli.mocobeta.dev/#model_plugins/) and [Multimodal Model Plugins](https://embcli.mocobeta.dev/#multimodal_model_plugins/) for the full list of supported models.
 
 ## Development
 
