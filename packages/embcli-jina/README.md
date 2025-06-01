@@ -45,12 +45,23 @@ JinaEmbeddingModel
     * truncate (bool) - When enabled, the model will automatically drop the tail that extends beyond the maximum context length allowed by the model instead of throwing an error. Only supported in jina-embeddings-v3.
     * dimensions (int) - The number of dimensions the resulting output embeddings should have. Only supported in jina-embeddings-v3 and jina-colbert-v2.
     * input_type (str) - The type of input to the model. Supported types: 'query', 'document' Only supported in jina-corebert-v2.
+JinaClipModel
+    Vendor: jina
+    Models:
+    * jina-clip-v2 (aliases: )
+    Model Options:
+    * task (str) - Downstream task for which the embeddings are used. Supported tasks: 'retrieval.query', 'retrieval.passage'.
+    * dimensions (int) - The number of dimensions the resulting output embeddings should have.
 
 # get an embedding for an input text by jina-embeddings-v3 model.
 emb embed -m jina-v3 "Embeddings are essential for semantic search and RAG apps."
 
 # get an embedding for an input text by jina-embeddings-v3 model model with dimensions=512.
 emb embed -m jina-v3 "Embeddings are essential for semantic search and RAG apps." -o dimensions 512
+
+# get an embedding for an image input by jina-clip-v2 model.
+# assume you have an image file named `gingercat.jpg` in the current directory.
+emb embed -m jina-clip-v2 --image gingercat.jpeg
 
 # calculate similarity score between two texts by jina-embeddings-v3 model model. the default metric is cosine similarity.
 emb simscore -m jina-v3 "The cat drifts toward sleep." "Sleep dances in the cat's eyes."
