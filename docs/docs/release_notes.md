@@ -1,5 +1,6 @@
 # Release Notes
 
+- [embcli-voyage Version 0.1.1](https://github.com/mocobeta/embcli/releases/tag/voyage-0.1.1) (2025-06-01)
 - [embcli-jina Version 0.1.1](https://github.com/mocobeta/embcli/releases/tag/jina-0.1.1) (2025-06-01)
 - [(all plugins) Version 0.1.0](https://github.com/mocobeta/embcli/releases/tag/0.1.0) (2025-06-01)
 - [embcli-clip Version 0.0.1](https://github.com/mocobeta/embcli/releases/tag/clip-0.0.1) (2025-05-31)

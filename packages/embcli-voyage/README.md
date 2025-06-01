@@ -9,6 +9,7 @@ voyage plugin for embcli, a command-line interface for embeddings.
 ## Reference
 
 - [VoyageAI Text Embeddings](https://docs.voyageai.com/docs/embeddings)
+- [VoyageAI Multimodal Embeddings](https://docs.voyageai.com/docs/multimodal-embeddings)
 
 ## Installation
 
