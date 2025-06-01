@@ -27,10 +27,12 @@ def test_factory_create_invalid_model():
 
 
 @skip_if_no_envvar_to_run
-def test_initialize_model_no_local_model_id():
+def test_initialize_model_default_local_model_id():
     _, create = embedding_model()
-    with pytest.raises(ValueError):
-        create("sentence-transformers")
+    model = create("sentence-transformers")
+    assert isinstance(model, SentenceTransformerModel)
+    assert model.model_id == "sentence-transformers"
+    assert model.local_model_id == "all-MiniLM-L6-v2"
 
 
 @skip_if_no_envvar_to_run

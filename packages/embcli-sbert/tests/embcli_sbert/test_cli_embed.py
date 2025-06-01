@@ -25,10 +25,13 @@ def test_embed_command(plugin_manager, mocker):
 
 
 @skip_if_no_envvar_to_run
-def test_embed_command_no_local_model_id(plugin_manager, mocker):
+def test_embed_command_default_local_model_id(plugin_manager, mocker):
     mocker.patch("embcli_core.cli._pm", plugin_manager)
     runner = CliRunner()
     result = runner.invoke(embed, ["--model", "sbert", "flying cat"])
     assert result.exit_code == 0
 
-    assert "model id must contain actual SentenceTransformer model to be used." in result.output
+    embeddings = json.loads(result.output)
+    assert isinstance(embeddings, list)
+    assert len(embeddings) == 384
+    assert all(isinstance(val, float) for val in embeddings)
