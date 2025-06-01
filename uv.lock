@@ -602,7 +602,7 @@ requires-dist = [
 
 [[package]]
 name = "embcli-jina"
-version = "0.1.1.dev0"
+version = "0.1.1"
 source = { editable = "packages/embcli-jina" }
 dependencies = [
     { name = "embcli-core" },
