@@ -50,28 +50,28 @@ Commands:
 
 ### Try it out
 
-Get an embedding for an input text by a sentence-transformers model (all-MiniLM-L6-v2).
+Get an embedding for an input text by a sentence-transformers model. `all-MiniLM-L6-v2` is used as the default model.
 
 ```bash
-emb embed -m sbert/all-MiniLM-L6-v2 \
+emb embed -m sbert \
 "Owls can rotate their necks 270 degrees without injury🦉"
 ```
 
 Calculate similarity score between two text embeddings by all-MiniLM-L6-v2. The default metric is cosine similarity.
 
 ```bash
-emb simscore -m sbert/all-MiniLM-L6-v2 \
+emb simscore -m sbert \
 "The cat drifts toward sleep." "Sleep dances in the cat's eyes."
 ```
 
 Index a sample corpus in a Chroma vector store collection. The default database path is `./chroma.db`.
 
 ```bash
-emb ingest-sample -m sbert/all-MiniLM-L6-v2 -c catcafe --corpus cat-names-en
+emb ingest-sample -m sbert -c catcafe --corpus cat-names-en
 ```
 
 Search documents for a query in the indexed Chroma collection.
 
 ```bash
-emb search -m sbert/all-MiniLM-L6-v2 -c catcafe -q "Who's the most agile?"
+emb search -m sbert -c catcafe -q "Who's the most agile?"
 ```

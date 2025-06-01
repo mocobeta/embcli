@@ -231,6 +231,7 @@ SentenceTransformerModel
     Vendor: sbert
     Models:
     * sentence-transformers (aliases: sbert)
+    Default Local Model: all-MiniLM-L6-v2
     See https://sbert.net/docs/sentence_transformer/pretrained_models.html for available models.
     Model Options:
 ```
@@ -239,8 +240,12 @@ SentenceTransformerModel
 Unlike proprietary models, you need to add `sbert/` to the model prefix.
 
 ```bash
-# Use an original sentence-transformers model
-emb embed -m sbert/all-MiniLM-L6-v2 
+# Use the default sentence-transformers model, all-MiniLM-L6-v2.
+emb embed -m sbert \
+"Owls can rotate their necks 270 degrees without injury🦉"
+
+# Use another sentence-transformers model
+emb embed -m sbert/all-mpnet-base-v2 \
 "Owls can rotate their necks 270 degrees without injury🦉"
 
 # Use a community model
