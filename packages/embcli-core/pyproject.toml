@@ -1,13 +1,13 @@
 [project]
 name = "embcli-core"
-version = "0.0.10-dev"
+version = "0.1.0"
 description = "embcli - CLI for Embeddings"
 readme = "README.md"
 authors = [{ name = "Tomoko Uchida", email = "tomoko.uchida.1111@gmail.com" }]
 license = { text = "Apache-2.0" }
 keywords = ["cli", "llm", "nlp", "embeddings"]
 classifiers = [
-    "Development Status :: 2 - Pre-Alpha",
+    "Development Status :: 3 - Alpha",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
