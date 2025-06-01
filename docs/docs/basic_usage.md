@@ -1,4 +1,4 @@
-# Basic Command Usage
+# Basic Usage
 
 We assume you have installed the [embcli-openai](model_plugins.md#openai-models) plugin and have an OpenAI API key to go through this tutorial.
 
@@ -57,6 +57,7 @@ Options:
                                [required]
   -p, --model-path TEXT        Path to the local model
   -f, --file PATH              File containing text to embed
+  --image PATH                 Image file to embed
   -o, --option <TEXT TEXT>...  key/value options for the model
   --help                       Show this message and exit.
 ```
@@ -106,6 +107,10 @@ To boil water, pour it into a kettle or saucepan and heat it on the stove or wit
 emb embed -m 3-small -f coffee.txt
 ```
 
+### `--image` option
+
+To generate an embedding for an image, use the `--image` option. The image file should be in a format supported by the model (e.g., JPEG, PNG). See [Multimodal Usage](multimodal_usage.md) for more details on multimodal models.
+
 ### `--option` option
 
 To pass additional options to the model, use the `--option`/`-o` option. The options are model-specific, so please refer [`emb models`](#models-command) command for available options for a specific model.
@@ -125,7 +130,7 @@ emb embed -m 3-small -o dimensions 512 "Have you taken a coffee break?☕"
 emb simscore --help
 Usage: emb simscore [OPTIONS] [TEXT1] [TEXT2]
 
-  Calculate similarity score between two texts.
+  Calculate similarity score between two inputs.
 
 Options:
   -e, --env-file TEXT             Path to the .env file
@@ -137,6 +142,8 @@ Options:
                                   cosine]
   -f1, --file1 PATH               First file containing text to compare
   -f2, --file2 PATH               Second file containing text to compare
+  --image1 PATH                   First image file to compare
+  --image2 PATH                   Second image file to compare
   -o, --option <TEXT TEXT>...     key/value options for the model
   --help                          Show this message and exit.
 ```
@@ -187,6 +194,10 @@ Per far bollire l'acqua, versala in un bollitore o in un pentolino e riscaldala 
 
 emb simscore -m 3-small -f1 coffee.txt -f2 caffe.txt
 ```
+
+### `--image1` and `--image2` options
+
+To calculate the similarity score between two images or between an image and a text, use the `--image1` and `--image2` options. The image files should be in a format supported by the model (e.g., JPEG, PNG). See [Multimodal Usage](multimodal_usage.md) for more details on multimodal models.
 
 ### `--option` option
 

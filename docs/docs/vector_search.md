@@ -208,7 +208,8 @@ Options:
   --persist-path TEXT          Path to persist the vector store
   -c, --collection TEXT        Collection name where the embeddings are stored
                                [required]
-  -q, --query TEXT             Query text to search for  [required]
+  -q, --query TEXT             Query text to search for
+  --image PATH                 Image file to search for
   -k, --top-k INTEGER          Number of top results to return  [default: 5]
   -o, --option <TEXT TEXT>...  key/value options for the model
   --help                       Show this message and exit.
@@ -228,7 +229,7 @@ Options:
 
 `--collection`/`-c` option specifies the collection name where the embeddings are stored. The collection should already exist.
 
-### `--query` option (required)
+### `--query` option
 
 `--query`/`-q` option specifies the query text to search for. The query text will be embedded using the specified model.
 
@@ -248,6 +249,10 @@ Score: 0.4234538039730697, Document ID: 35, Text: Baklava (Middle East/Balkans):
 Score: 0.42317725372218157, Document ID: 23, Text: Dim Sum (China): Variety of bite sized portions typically served in steamer baskets or small plates with tea. Includes steamed buns dumplings rice rolls savory sweet items. Ideal for social brunch.
 Score: 0.4212782104868374, Document ID: 79, Text: Belgian Waffles (Belgium): Known for lightness crisp exterior. Brussels waffles larger rectangular Liege waffles denser caramelized pearl sugar. Served various sweet toppings.
 ```
+
+### `--image` option
+
+`--image` option specifies the image file to search for. The image will be embedded using the specified model. This is useful for multimodal models that support image inputs. See [Multimodal Usage](multimodal_usage.md) for more details on multimodal models.
 
 ### `--top-k` option
 
