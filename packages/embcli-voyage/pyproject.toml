@@ -1,6 +1,6 @@
 [project]
 name = "embcli-voyage"
-version = "0.1.1-dev"
+version = "0.1.1-dev1"
 description = "voyage plugin for embcli"
 readme = "README.md"
 authors = [{ name = "Tomoko Uchida", email = "tomoko.uchida.1111@gmail.com" }]
@@ -18,11 +18,7 @@ classifiers = [
     "Topic :: Utilities",
 ]
 requires-python = ">=3.10"
-dependencies = [
-    "embcli-core>=0.1.0",
- "pillow>=11.2.1",
- "voyageai>=0.3.2",
-]
+dependencies = ["embcli-core>=0.1.0", "pillow>=11.2.1", "voyageai>=0.3.2"]
 
 [project.urls]
 "Repository" = "https://github.com/mocobeta/embcli"
@@ -37,3 +33,4 @@ build-backend = "hatchling.build"
 
 [project.entry-points."embcli"]
 voyage = "embcli_voyage.voyage"
+voyage-multimodal = "embcli_voyage.voyage_multimodal"
