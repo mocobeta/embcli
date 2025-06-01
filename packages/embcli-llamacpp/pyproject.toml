@@ -1,13 +1,13 @@
 [project]
 name = "embcli-llamacpp"
-version = "0.0.3-dev"
+version = "0.1.1-dev"
 description = "llama-cpp-python plugin for embcli"
 readme = "README.md"
 authors = [{ name = "Tomoko Uchida", email = "tomoko.uchida.1111@gmail.com" }]
 license = { text = "Apache-2.0" }
 keywords = ["cli", "llm", "nlp", "embeddings"]
 classifiers = [
-    "Development Status :: 2 - Pre-Alpha",
+    "Development Status :: 3 - Alpha",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -19,10 +19,11 @@ classifiers = [
     "Topic :: Utilities",
 ]
 requires-python = ">=3.10"
-dependencies = ["embcli-core>=0.0.8", "llama-cpp-python>=0.3.9"]
+dependencies = ["embcli-core>=0.1.0", "llama-cpp-python>=0.3.9"]
 
 [project.urls]
 "Repository" = "https://github.com/mocobeta/embcli"
+"Homepage" = "https://embcli.mocobeta.dev/"
 
 [tool.uv.sources]
 embcli-core = { workspace = true }
