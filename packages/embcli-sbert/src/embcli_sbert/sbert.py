@@ -10,15 +10,14 @@ class SentenceTransformerModel(LocalEmbeddingModel):
     vendor = "sbert"
     default_batch_size = 100
     model_aliases = [("sentence-transformers", ["sbert"])]
+    default_local_model = "all-MiniLM-L6-v2"
     valid_options = []
     local_model_list = "https://sbert.net/docs/sentence_transformer/pretrained_models.html"
 
     def __init__(self, model_id: str, **kwargs):
         super().__init__(model_id, **kwargs)
         if self.local_model_id is None:
-            raise ValueError(
-                "model id must contain actual SentenceTransformer model to be used. e.g. sentece-transformers/all-MiniLM-L6-v2"  # noqa: E501
-            )
+            self.local_model_id = self.default_local_model
         device = "gpu" if torch.cuda.is_available() else "cpu"
         self.model = SentenceTransformer(self.local_model_id, device=device)
 
