@@ -677,16 +677,18 @@ requires-dist = [
 
 [[package]]
 name = "embcli-voyage"
-version = "0.1.1.dev0"
+version = "0.1.1.dev1"
 source = { editable = "packages/embcli-voyage" }
 dependencies = [
     { name = "embcli-core" },
+    { name = "pillow" },
     { name = "voyageai" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "embcli-core", editable = "packages/embcli-core" },
+    { name = "pillow", specifier = ">=11.2.1" },
     { name = "voyageai", specifier = ">=0.3.2" },
 ]
 

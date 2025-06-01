@@ -47,5 +47,6 @@ jobs:
       env:
         VOYAGE_API_KEY: ${{ secrets.VOYAGE_API_KEY }}
         RUN_VOYAGE_TESTS: "1"
+        RUN_VOYAGE_MM_TESTS: "1"
       run: |
         uv run --package embcli-voyage pytest packages/embcli-voyage/tests
