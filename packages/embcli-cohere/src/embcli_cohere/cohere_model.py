@@ -38,7 +38,7 @@ class CohereEmbeddingModel(EmbeddingModel):
         super().__init__(model_id)
         self.client = ClientV2(api_key=os.environ.get("COHERE_API_KEY"))
 
-    def _embed_one_batch(self, input: list[str], **kwargs) -> Iterator[list[float | int]]:
+    def _embed_one_batch(self, input: list[str], **kwargs) -> Iterator[list[float] | list[int]]:
         if not input:
             return
         # Call Cohere API to get embeddings

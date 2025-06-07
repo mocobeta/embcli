@@ -43,7 +43,7 @@ class JinaClipModel(MultimodalEmbeddingModel):
 
     def _embed_one_batch_multimodal(
         self, input: list[str], modality: Modality, **kwargs
-    ) -> Iterator[list[float | int]]:
+    ) -> Iterator[list[float] | list[int]]:
         if not input:
             return
 

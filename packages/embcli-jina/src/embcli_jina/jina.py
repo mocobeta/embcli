@@ -59,7 +59,7 @@ class JinaEmbeddingModel(EmbeddingModel):
         self.endpoint = self.model_endoints[model_id]
         self.api_key = os.environ.get("JINA_API_KEY")
 
-    def _embed_one_batch(self, input: list[str], **kwargs) -> Iterator[list[float | int]]:
+    def _embed_one_batch(self, input: list[str], **kwargs) -> Iterator[list[float] | list[int]]:
         if not input:
             return
         # Call Jina API to get embeddings

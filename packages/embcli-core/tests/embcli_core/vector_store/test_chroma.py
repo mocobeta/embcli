@@ -20,7 +20,7 @@ def test_index_success_and_data_persistence():
         docs = [Document(id="id1", text="text1"), Document(id="id2", text="text2")]
 
         collection_name = "test_collection"
-        store._index(collection_name, embeddings, docs)
+        store._index(collection_name, embeddings, docs)  # type: ignore
 
         # Verify data was inserted by querying the collection directly
         collection = store.client.get_or_create_collection(name=collection_name)
@@ -42,7 +42,7 @@ def test_index_embedding_doc_length_mismatch():
         docs = [Document(id="id1", text="text1"), Document(id="id2", text="text2")]
 
         with pytest.raises(AssertionError, match="Number of embeddings must match number of documents"):
-            store._index("test_collection", embeddings, docs)
+            store._index("test_collection", embeddings, docs)  # type: ignore
 
 
 def test_search_success():
@@ -52,7 +52,7 @@ def test_search_success():
         docs = [Document(id=f"id{i}", text=f"text{i}") for i in range(10)]
 
         collection_name = "test_collection"
-        store._index(collection_name, embeddings, docs)
+        store._index(collection_name, embeddings, docs)  # type: ignore
 
         query_embedding = [random.uniform(0, 1) for _ in range(10)]
         top_k = 3

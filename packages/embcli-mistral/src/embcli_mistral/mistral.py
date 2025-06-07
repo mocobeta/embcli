@@ -27,7 +27,7 @@ class MistralEmbeddingModel(EmbeddingModel):
         super().__init__(model_id)
         self.client = Mistral(api_key=os.environ.get("MISTRAL_API_KEY"))
 
-    def _embed_one_batch(self, input: list[str], **kwargs) -> Iterator[list[float | int]]:
+    def _embed_one_batch(self, input: list[str], **kwargs) -> Iterator[list[float] | list[int]]:
         if not input:
             return
         # Call Mistral API to get embeddings

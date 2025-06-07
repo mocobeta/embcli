@@ -13,7 +13,9 @@ class MockLocalMultimodalEmbeddingModel(LocalMultimodalEmbeddingModel):
     valid_options = []
     local_model_list = "https://example.com/models.html"
 
-    def _embed_one_batch_multimodal(self, input: list[str], modality: Modality, **kwargs) -> Iterator[list[float]]:
+    def _embed_one_batch_multimodal(
+        self, input: list[str], modality: Modality, **kwargs
+    ) -> Iterator[list[float] | list[int]]:
         for _ in input:
             vector = [random.uniform(-1, 1) for _ in range(10)]
             vector = np.array(vector) / np.linalg.norm(vector)

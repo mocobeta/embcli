@@ -15,7 +15,7 @@ class ChromaVectorStore(VectorStoreLocalFS):
         super().__init__(persist_path)
         self.client = chromadb.PersistentClient(path=self.persist_path)
 
-    def _index(self, collection: str, embeddings: list[list[float]], docs: list[DocumentType]):
+    def _index(self, collection: str, embeddings: list[list[float] | list[int]], docs: list[DocumentType]):
         assert len(embeddings) == len(docs), "Number of embeddings must match number of documents"
         # Create or get the collection
         chroma_collection = self.client.get_or_create_collection(name=collection)
@@ -25,7 +25,7 @@ class ChromaVectorStore(VectorStoreLocalFS):
             documents=[doc.source_text() for doc in docs],
         )
 
-    def _search(self, collection: str, query_embedding: list[float], top_k: int) -> list[HitDocument]:
+    def _search(self, collection: str, query_embedding: list[float] | list[int], top_k: int) -> list[HitDocument]:
         chroma_collection = self.client.get_or_create_collection(name=collection)
         results = chroma_collection.query(
             query_embeddings=[query_embedding], n_results=top_k, include=["documents", "distances"]

@@ -14,13 +14,13 @@ class MockVectorStore(VectorStoreLocalFS):
         super().__init__(persist_path)
         self.cache = {}
 
-    def _index(self, collection: str, embeddings: list[list[float]], docs: list[DocumentType]):
+    def _index(self, collection: str, embeddings: list[list[float] | list[int]], docs: list[DocumentType]):
         self.cache[collection] = {
             "embeddings": embeddings,
             "documents": docs,
         }
 
-    def _search(self, collection: str, query_embedding: list[float], top_k: int) -> list[HitDocument]:
+    def _search(self, collection: str, query_embedding: list[float] | list[int], top_k: int) -> list[HitDocument]:
         if collection not in self.cache:
             return []
         docs = random.sample(self.cache[collection]["documents"], top_k)

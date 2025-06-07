@@ -45,7 +45,7 @@ class VoyageEmbeddingModel(EmbeddingModel):
         super().__init__(model_id)
         self.client = Client(api_key=os.environ.get("VOYAGE_API_KEY"))
 
-    def _embed_one_batch(self, input: list[str], **kwargs) -> Iterator[list[float | int]]:
+    def _embed_one_batch(self, input: list[str], **kwargs) -> Iterator[list[float] | list[int]]:
         if not input:
             return
         # Call Voyage API to get embeddings
