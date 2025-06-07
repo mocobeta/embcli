@@ -15,14 +15,19 @@ class MistralEmbeddingModel(EmbeddingModel):
             name="output_dimension",
             type=ModelOptionType.INT,
             description="The dimesions of the output embedding, defaults to 1536 and has a maximum value of 3072. Only supprted in codestral-embed model.",  # noqa: E501
-        )
+        ),
+        ModelOption(
+            name="output_dtype",
+            type=ModelOptionType.STR,
+            description="The precision and format of the output embedding. Supported values are 'float' (default), 'int8', 'uint8', 'binary', and 'ubinary'. Only supported in codestral-embed model.",  # noqa: E501
+        ),
     ]
 
     def __init__(self, model_id: str):
         super().__init__(model_id)
         self.client = Mistral(api_key=os.environ.get("MISTRAL_API_KEY"))
 
-    def _embed_one_batch(self, input: list[str], **kwargs) -> Iterator[list[float]]:
+    def _embed_one_batch(self, input: list[str], **kwargs) -> Iterator[list[float | int]]:
         if not input:
             return
         # Call Mistral API to get embeddings
