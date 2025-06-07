@@ -66,12 +66,14 @@ JinaClipModel
     Model Options:
     * task (str) - Downstream task for which the embeddings are used. Supported tasks: 'retrieval.query', 'retrieval.passage'.
     * dimensions (int) - The number of dimensions the resulting output embeddings should have.
+    * embedding_type (str) - The type of embeddings to return. Options include 'float', 'binary', 'ubinary'. Default is 'float'.
 ```
 
-**Example usage:** get an embedding for an input text by jina-clip-v2 model model with an option dimensions=512.
+**Example usage:** get an embedding for an input text by jina-clip-v2 model model with an option dimensions=512 and embedding_type=binary.
 
 ```bash
 emb embed -m jina-clip-v2 -o dimensions 512 \
+-o embedding_type binary \
 "Owls can rotate their necks 270 degrees without injury🦉"
 ```
 
