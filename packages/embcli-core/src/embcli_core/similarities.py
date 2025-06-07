@@ -4,14 +4,14 @@ from typing import Callable
 import numpy as np
 
 
-def dot_product(a: list[float], b: list[float]) -> float:
+def dot_product(a: list[float | int], b: list[float | int]) -> float:
     """
     Compute the dot product between two vectors.
     """
     return float(np.dot(a, b))
 
 
-def cosine_similarity(a: list[float], b: list[float]) -> float:
+def cosine_similarity(a: list[float | int], b: list[float | int]) -> float:
     """
     Compute the cosine similarity between two vectors.
     """
@@ -22,14 +22,14 @@ def cosine_similarity(a: list[float], b: list[float]) -> float:
     return float(np.dot(a, b) / (norm_a * norm_b))
 
 
-def euclidean_distance(a: list[float], b: list[float]) -> float:
+def euclidean_distance(a: list[float | int], b: list[float | int]) -> float:
     """
     Compute the Euclidean distance between two vectors.
     """
     return float(np.linalg.norm(np.array(a) - np.array(b)))
 
 
-def manhattan_distance(a: list[float], b: list[float]) -> float:
+def manhattan_distance(a: list[float | int], b: list[float | int]) -> float:
     """
     Compute the Manhattan distance between two vectors.
     """
@@ -42,7 +42,7 @@ class SimilarityFunction(Enum):
     EUCLIDEAN = "euclidean"
     MANHATTAN = "manhattan"
 
-    def get_similarity_function(self) -> Callable[[list[float], list[float]], float]:
+    def get_similarity_function(self) -> Callable[[list[float | int], list[float | int]], float]:
         """
         Get the similarity function based on the enum value.
         """

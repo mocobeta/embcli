@@ -37,30 +37,30 @@ class EmbeddingModel(ABC):
     def __str__(self):
         return f"{self.__class__.__name__}(vendor={self.vendor}, model_id={self.model_id})"
 
-    def embed(self, input: str, **kwargs) -> list[float]:
+    def embed(self, input: str, **kwargs) -> list[float | int]:
         """Generate an embedding for a single input.
         Args:
             input (str): The input string to embed.
             **kwargs: Additional keyword arguments for the embedding model.
         Returns:
-            list[float]: The generated embedding.
+            list[float|int]: The generated embedding.
         """
         model_options = self._check_and_convert_options(**kwargs)
         return next(self._embed_one_batch([input], **model_options))
 
-    def embed_for_search(self, input: str, **kwargs) -> list[float]:
+    def embed_for_search(self, input: str, **kwargs) -> list[float | int]:
         """Generate an embedding for a single input. Output is supposed to be used for search query."""
         # This method is a placeholder and can be overridden by subclasses if needed.
         return self.embed(input, **kwargs)
 
-    def embed_batch(self, input: list[str], batch_size: Optional[int], **kwargs) -> Iterator[list[float]]:
+    def embed_batch(self, input: list[str], batch_size: Optional[int], **kwargs) -> Iterator[list[float | int]]:
         """Generate embeddings for a list of inputs. Inputs are split into batches of size `batch_size`.
         Args:
             input (list[str]): The list of input strings to embed.
             batch_size (Optional[int]): The size of each batch. If None, the default batch size is used.
             **kwargs: Additional keyword arguments for the embedding model.
         Returns:
-            Iterator[list[float]]: An iterator that yields the generated embeddings for each batch.
+            Iterator[list[float|int]]: An iterator that yields the generated embeddings for each batch.
         """
         model_options = self._check_and_convert_options(**kwargs)
         if not input:
@@ -70,13 +70,15 @@ class EmbeddingModel(ABC):
         for i in range(0, len(input), batch_size):
             yield from self._embed_one_batch(input[i : i + batch_size], **model_options)
 
-    def embed_batch_for_ingest(self, input: list[str], batch_size: Optional[int], **kwargs) -> Iterator[list[float]]:
+    def embed_batch_for_ingest(
+        self, input: list[str], batch_size: Optional[int], **kwargs
+    ) -> Iterator[list[float | int]]:
         """Generate embeddings for a list of inputs. Outputs are supposed to be used for ingestion."""
         # This method is a placeholder and can be overridden by subclasses if needed.
         return self.embed_batch(input, batch_size, **kwargs)
 
     @abstractmethod
-    def _embed_one_batch(self, input: list[str], **kwargs) -> Iterator[list[float]]:
+    def _embed_one_batch(self, input: list[str], **kwargs) -> Iterator[list[float | int]]:
         """Generate embeddings for a batch of inputs."""
 
     def _check_and_convert_options(self, **kwargs) -> dict[str, Any]:
@@ -115,25 +117,25 @@ class MultimodalEmbeddingModel(EmbeddingModel):
         # call the multimodal embedding method with text modality
         return self._embed_one_batch_multimodal(input, Modality.TEXT, **kwargs)
 
-    def embed_image(self, image_path: str, **kwargs) -> list[float]:
+    def embed_image(self, image_path: str, **kwargs) -> list[float | int]:
         """Generate an embedding for a single image input.
         Args:
             image_path (str): The path to the image file to embed.
             **kwargs: Additional keyword arguments for the embedding model.
         Returns:
-            list[float]: The generated embedding.
+            list[float|int]: The generated embedding.
         """
         model_options = self._check_and_convert_options(**kwargs)
         return next(self._embed_one_batch_multimodal([image_path], Modality.IMAGE, **model_options))
 
-    def embed_image_batch(self, input: list[str], batch_size: Optional[int], **kwargs) -> Iterator[list[float]]:
+    def embed_image_batch(self, input: list[str], batch_size: Optional[int], **kwargs) -> Iterator[list[float | int]]:
         """Generate embeddings for a list of image inputs.
         Args:
             input (list[str]): The list of image file paths to embed.
             batch_size (Optional[int]): The size of each batch. If None, the default batch size is used.
             **kwargs: Additional keyword arguments for the embedding model.
         Returns:
-            Iterator[list[float]]: An iterator that yields the generated embeddings for each batch.
+            Iterator[list[float|int]]: An iterator that yields the generated embeddings for each batch.
         """
         model_options = self._check_and_convert_options(**kwargs)
         if not input:
@@ -144,7 +146,9 @@ class MultimodalEmbeddingModel(EmbeddingModel):
             yield from self._embed_one_batch_multimodal(input[i : i + batch_size], Modality.IMAGE, **model_options)
 
     @abstractmethod
-    def _embed_one_batch_multimodal(self, input: list[str], modality: Modality, **kwargs) -> Iterator[list[float]]:
+    def _embed_one_batch_multimodal(
+        self, input: list[str], modality: Modality, **kwargs
+    ) -> Iterator[list[float | int]]:
         """Generate embeddings for a batch of inputs with specified modality."""
 
 
