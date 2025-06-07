@@ -33,7 +33,7 @@ class VectorStore(ABC):
             self._index(collection, embeddings, batch_docs)
 
     @abstractmethod
-    def _index(self, collection: str, embeddings: list[list[float]], docs: list[DocumentType]):
+    def _index(self, collection: str, embeddings: list[list[float] | list[int]], docs: list[DocumentType]):
         """Index the embeddings with documents."""
         pass
 
@@ -55,7 +55,7 @@ class VectorStore(ABC):
         return self._search(collection, query_embedding, top_k)
 
     @abstractmethod
-    def _search(self, collection: str, query_embedding: list[float], top_k: int) -> list[HitDocument]:
+    def _search(self, collection: str, query_embedding: list[float] | list[int], top_k: int) -> list[HitDocument]:
         """Search for the top K documents."""
         pass
 

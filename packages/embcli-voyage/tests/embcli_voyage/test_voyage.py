@@ -51,6 +51,48 @@ def test_embed_batch_with_options(voyage_models):
 
 
 @skip_if_no_api_key
+def test_embed_batch_with_output_dtype(voyage_models):
+    model = voyage_models[0]
+    input_data = ["hello", "world"]
+
+    # Test with output_dtype as int8
+    options = {"output_dtype": "int8"}
+    embeddings = list(model.embed_batch(input_data, None, **options))
+    assert len(embeddings) == len(input_data)
+    for emb in embeddings:
+        assert isinstance(emb, list)
+        assert all(isinstance(x, int) for x in emb)
+        assert all(-128 <= x <= 127 for x in emb)  # int8 range
+
+    # Test with output_dtype as uint8
+    options = {"output_dtype": "uint8"}
+    embeddings = list(model.embed_batch(input_data, None, **options))
+    assert len(embeddings) == len(input_data)
+    for emb in embeddings:
+        assert isinstance(emb, list)
+        assert all(isinstance(x, int) for x in emb)
+        assert all(0 <= x <= 255 for x in emb)
+
+    # Test with output_dtype as binary
+    options = {"output_dtype": "binary"}
+    embeddings = list(model.embed_batch(input_data, None, **options))
+    assert len(embeddings) == len(input_data)
+    for emb in embeddings:
+        assert isinstance(emb, list)
+        assert all(isinstance(x, int) for x in emb)
+        assert all(-128 <= x <= 127 for x in emb)
+
+    # Test with output_dtype as ubinary
+    options = {"output_dtype": "ubinary"}
+    embeddings = list(model.embed_batch(input_data, None, **options))
+    assert len(embeddings) == len(input_data)
+    for emb in embeddings:
+        assert isinstance(emb, list)
+        assert all(isinstance(x, int) for x in emb)
+        assert all(0 <= x <= 255 for x in emb)
+
+
+@skip_if_no_api_key
 def test_embed_batch_for_ingest(voyage_models, mocker):
     for model in voyage_models:
         input_data = ["hello", "world"]

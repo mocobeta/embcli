@@ -11,6 +11,8 @@ class VoyageEmbeddingModel(EmbeddingModel):
     default_batch_size = 100
     model_aliases = [
         ("voyage-3-large", []),
+        ("voyage-3.5", []),
+        ("voyage-3.5-lite", []),
         ("voyage-3", []),
         ("voyage-3-lite", []),
         ("voyage-code-3", []),
@@ -32,13 +34,18 @@ class VoyageEmbeddingModel(EmbeddingModel):
         ModelOption(
             "output_dimension", ModelOptionType.INT, "The number of dimensions for resulting output embeddings. "
         ),
+        ModelOption(
+            "output_dtype",
+            ModelOptionType.STR,
+            description="The data type for the embeddings to be returned. Options: float, int8, uint8, binary, ubinary. float is supported for all models. int8, uint8, binary, and ubinary are supported by voyage-3-large, voyage-3.5, voyage-3.5-lite, and voyage-code-3.",  # noqa: E501
+        ),
     ]
 
     def __init__(self, model_id: str):
         super().__init__(model_id)
         self.client = Client(api_key=os.environ.get("VOYAGE_API_KEY"))
 
-    def _embed_one_batch(self, input: list[str], **kwargs) -> Iterator[list[float]]:
+    def _embed_one_batch(self, input: list[str], **kwargs) -> Iterator[list[float] | list[int]]:
         if not input:
             return
         # Call Voyage API to get embeddings

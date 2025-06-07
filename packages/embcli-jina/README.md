@@ -45,6 +45,7 @@ JinaEmbeddingModel
     * truncate (bool) - When enabled, the model will automatically drop the tail that extends beyond the maximum context length allowed by the model instead of throwing an error. Only supported in jina-embeddings-v3.
     * dimensions (int) - The number of dimensions the resulting output embeddings should have. Only supported in jina-embeddings-v3 and jina-colbert-v2.
     * input_type (str) - The type of input to the model. Supported types: 'query', 'document' Only supported in jina-corebert-v2.
+    * embedding_type (str) - The type of embeddings to return. Options include 'float', 'binary', 'ubinary'. Default is 'float'.
 JinaClipModel
     Vendor: jina
     Models:
@@ -52,12 +53,16 @@ JinaClipModel
     Model Options:
     * task (str) - Downstream task for which the embeddings are used. Supported tasks: 'retrieval.query', 'retrieval.passage'.
     * dimensions (int) - The number of dimensions the resulting output embeddings should have.
+    * embedding_type (str) - The type of embeddings to return. Options include 'float', 'binary', 'ubinary'. Default is 'float'.
 
 # get an embedding for an input text by jina-embeddings-v3 model.
 emb embed -m jina-v3 "Embeddings are essential for semantic search and RAG apps."
 
 # get an embedding for an input text by jina-embeddings-v3 model model with dimensions=512.
 emb embed -m jina-v3 "Embeddings are essential for semantic search and RAG apps." -o dimensions 512
+
+# get an embedding for an input text by jina-embeddings-v3 model model with embedding_type=binary.
+emb embed -m jina-v3 "Embeddings are essential for semantic search and RAG apps." -o embedding_type binary
 
 # get an embedding for an image input by jina-clip-v2 model.
 # assume you have an image file named `gingercat.jpg` in the current directory.

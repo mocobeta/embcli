@@ -47,6 +47,11 @@ class JinaEmbeddingModel(EmbeddingModel):
             ModelOptionType.STR,
             "The type of input to the model. Supported types: 'query', 'document' Only supported in jina-corebert-v2.",
         ),
+        ModelOption(
+            "embedding_type",
+            ModelOptionType.STR,
+            "The type of embeddings to return. Options include 'float', 'binary', 'ubinary'. Default is 'float'.",  # noqa: E501
+        ),
     ]
 
     def __init__(self, model_id):
@@ -54,7 +59,7 @@ class JinaEmbeddingModel(EmbeddingModel):
         self.endpoint = self.model_endoints[model_id]
         self.api_key = os.environ.get("JINA_API_KEY")
 
-    def _embed_one_batch(self, input: list[str], **kwargs) -> Iterator[list[float]]:
+    def _embed_one_batch(self, input: list[str], **kwargs) -> Iterator[list[float] | list[int]]:
         if not input:
             return
         # Call Jina API to get embeddings
@@ -73,6 +78,8 @@ class JinaEmbeddingModel(EmbeddingModel):
                 data["input_type"] = kwargs["input_type"]
             if "dimensions" in kwargs:
                 data["dimensions"] = kwargs["dimensions"]
+        if "embedding_type" in kwargs:
+            data["embedding_type"] = kwargs["embedding_type"]
 
         timeout = COLBERT_TIMEOUT_SEC if self.model_id == "jina-colbert-v2" else None
         response = httpx.post(self.endpoint, headers=headers, json=data, timeout=timeout)

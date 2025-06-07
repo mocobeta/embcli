@@ -68,6 +68,27 @@ def test_embed_batch_with_options(jina_models, mocker):
 
 
 @skip_if_no_api_key
+def test_embed_batch_embedding_types(jina_models):
+    input_data = ["hello", "world"]
+    for model in jina_models:
+        # Test binary embedding type
+        options = {"embedding_type": "binary"}
+        embeddings = list(model.embed_batch(input_data, None, **options))
+        for emb in embeddings:
+            assert isinstance(emb, list)
+            assert all(isinstance(x, int) for x in emb)
+            assert all(-128 <= x <= 127 for x in emb)
+
+        # Test ubinary embedding type
+        options = {"embedding_type": "ubinary"}
+        embeddings = list(model.embed_batch(input_data, None, **options))
+        for emb in embeddings:
+            assert isinstance(emb, list)
+            assert all(isinstance(x, int) for x in emb)
+            assert all(0 <= x <= 255 for x in emb)
+
+
+@skip_if_no_api_key
 def test_embed_batch_for_ingest(jina_models, mocker):
     mocker.patch("embcli_jina.jina.COLBERT_TIMEOUT_SEC", 30)
     for model in jina_models:

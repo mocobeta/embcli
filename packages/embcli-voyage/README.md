@@ -38,6 +38,8 @@ VoyageEmbeddingModel
     Vendor: voyage
     Models:
     * voyage-3-large (aliases: )
+    * voyage-3.5 (aliases: )
+    * voyage-3.5-lite (aliases: )
     * voyage-3 (aliases: )
     * voyage-3-lite (aliases: )
     * voyage-code-3 (aliases: )
@@ -48,6 +50,7 @@ VoyageEmbeddingModel
     * input_type (str) - Type of the input text. Options: 'None', 'query', 'document' Defaults to 'None'.
     * truncation (bool) - Whether to truncate the input texts to fit within the context length. Defaults to True.
     * output_dimension (int) - The number of dimensions for resulting output embeddings.
+    * output_dtype (str) - The data type for the embeddings to be returned. Options: float, int8, uint8, binary, ubinary. float is supported for all models. int8, uint8, binary, and ubinary are supported by voyage-3-large, voyage-3.5, voyage-3.5-lite, and voyage-code-3.
 VoyageMultimodalEmbeddingModel
     Vendor: voyage
     Models:
@@ -61,6 +64,9 @@ emb embed -m voyage-3 "Embeddings are essential for semantic search and RAG apps
 
 # get an embedding for an input text by voyage-3 model with input_type=query.
 emb embed -m voyage-3 "Embeddings are essential for semantic search and RAG apps." -o input_type query
+
+# get an embedding for an input text by voyage-3-large model with output_dtype=binary.
+emb embed -m voyage-3-large "Embeddings are essential for semantic search and RAG apps." -o output_dtype binary
 
 # get an embedding for an image by voyage-multimodal-3 model.
 # assume you have an image file named `gingercat.jpeg` in the current directory.

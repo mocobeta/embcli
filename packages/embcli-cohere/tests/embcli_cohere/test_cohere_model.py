@@ -52,6 +52,48 @@ def test_embed_batch_with_options(cohere_models):
 
 
 @skip_if_no_api_key
+def test_embed_batch_embedding_types(cohere_models):
+    model = cohere_models[0]
+    input_data = ["hello", "world"]
+
+    # Test int8 embedding type
+    options = {"embedding_type": "int8"}
+    embeddings = list(model.embed_batch(input_data, None, **options))
+    assert len(embeddings) == len(input_data)
+    for emb in embeddings:
+        assert isinstance(emb, list)
+        assert all(isinstance(x, int) for x in emb)
+        assert all(-128 <= x <= 127 for x in emb)
+
+    # Test uint8 embedding type
+    options = {"embedding_type": "uint8"}
+    embeddings = list(model.embed_batch(input_data, None, **options))
+    assert len(embeddings) == len(input_data)
+    for emb in embeddings:
+        assert isinstance(emb, list)
+        assert all(isinstance(x, int) for x in emb)
+        assert all(0 <= x <= 255 for x in emb)
+
+    # Test binary embedding type
+    options = {"embedding_type": "binary"}
+    embeddings = list(model.embed_batch(input_data, None, **options))
+    assert len(embeddings) == len(input_data)
+    for emb in embeddings:
+        assert isinstance(emb, list)
+        assert all(isinstance(x, int) for x in emb)
+        assert all(-128 <= x <= 127 for x in emb)
+
+    # Test ubinary embedding type
+    options = {"embedding_type": "ubinary"}
+    embeddings = list(model.embed_batch(input_data, None, **options))
+    assert len(embeddings) == len(input_data)
+    for emb in embeddings:
+        assert isinstance(emb, list)
+        assert all(isinstance(x, int) for x in emb)
+        assert all(0 <= x <= 255 for x in emb)
+
+
+@skip_if_no_api_key
 def test_embed_batch_for_ingest(cohere_models, mocker):
     for model in cohere_models:
         input_data = ["hello", "world"]

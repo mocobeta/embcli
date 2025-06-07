@@ -43,6 +43,7 @@ CohereEmbeddingModel
     * embed-multilingual-light-v3.0 (aliases: embed-multiling-light-v3)
     Model Options:
     * input_type (str) - The type of input, affecting how the model processes it. Options include 'search_document', 'search_query', 'classification', 'clustering', 'image'.
+    * embedding_type (str) - The type of embeddings to return. Options include 'float', 'int8', 'uint8', 'binary', 'ubinary'
     * truncate (str) - How to handle text inputs that exceed the model's token limit. Options include 'none', 'start', 'end', 'middle'.
 
 # get an embedding for an input text by embed-v4.0 model.
@@ -50,6 +51,9 @@ emb embed -m embed-v4 "Embeddings are essential for semantic search and RAG apps
 
 # get an embedding for an input text by embed-v4.0 model with input_type=search_query.
 emb embed -m embed-v4 "Embeddings are essential for semantic search and RAG apps." -o input_type search_query
+
+# get an embedding for an input text by embed-v4.0 model with embedding_type=uint8.
+emb embed -m embed-v4 "Embeddings are essential for semantic search and RAG apps." -o embedding_type uint8
 
 # calculate similarity score between two texts by embed-v4.0 model. the default metric is cosine similarity.
 emb simscore -m embed-v4 "The cat drifts toward sleep." "Sleep dances in the cat's eyes."

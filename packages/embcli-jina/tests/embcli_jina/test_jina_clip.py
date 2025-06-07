@@ -68,3 +68,26 @@ def test_embed_batch_with_options(jina_clip_models):
             assert isinstance(emb, list)
             assert all(isinstance(x, float) for x in emb)
             assert len(emb) == 512
+
+
+@skip_if_no_api_key
+def test_embed_batch_embedding_types(jina_clip_models):
+    input_data = ["hello", "world"]
+    for model in jina_clip_models:
+        # Test binary embedding type
+        options = {"embedding_type": "binary"}
+        embeddings = list(model.embed_batch(input_data, None, **options))
+        assert len(embeddings) == len(input_data)
+        for emb in embeddings:
+            assert isinstance(emb, list)
+            assert all(isinstance(x, int) for x in emb)
+            assert all(-128 <= x <= 127 for x in emb)
+
+        # Test ubinary embedding type
+        options = {"embedding_type": "ubinary"}
+        embeddings = list(model.embed_batch(input_data, None, **options))
+        assert len(embeddings) == len(input_data)
+        for emb in embeddings:
+            assert isinstance(emb, list)
+            assert all(isinstance(x, int) for x in emb)
+            assert all(0 <= x <= 255 for x in emb)
