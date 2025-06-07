@@ -72,7 +72,9 @@ To generate an embedding for an input text by `text-embedding-3-small` model, ru
 emb embed -m text-embedding-3-small "Have you taken a coffee break?☕"
 ```
 
-The output will be a JSON array of floats representing the embedding vector for the input text.
+The output will be a JSON array of floats or ints representing the embedding vector for the input text.
+
+Note: The output will be an int array if the model supports quantized output, such as `int8` or `binary`. Otherwise, it will be a float array.
 ```
 [-0.07306485623121262, -0.02141696587204933, -0.021973779425024986, -0.030774157494306564, -0.028927164152264595, -0.020126787945628166, 0.031263068318367004, 0.03911278396844864, -0.025681346654891968, 0.005500235594809055, 0.033544644713401794, -0.011625189334154129, 0.007747862488031387, -0.009350400418043137, ...]
 ```

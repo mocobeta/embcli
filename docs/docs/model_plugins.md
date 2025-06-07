@@ -63,13 +63,14 @@ CohereEmbeddingModel
     * embed-multilingual-light-v3.0 (aliases: embed-multiling-light-v3)
     Model Options:
     * input_type (str) - The type of input, affecting how the model processes it. Options include 'search_document', 'search_query', 'classification', 'clustering', 'image'.
+    * embedding_type (str) - The type of embeddings to return. Options include 'float', 'int8', 'uint8', 'binary', 'ubinary'
     * truncate (str) - How to handle text inputs that exceed the model's token limit. Options include 'none', 'start', 'end', 'middle'.
 ```
 
-**Example usage:** get an embedding for an input text by embed-v4.0 model with an option input_type=search_query.
+**Example usage:** get an embedding for an input text by embed-v4.0 model with an option input_type=search_query and embedding_type=binary.
 
 ```bash
-emb embed -m embed-v4 -o input_type search_query \
+emb embed -m embed-v4 -o input_type search_query -o embedding_type binary \
 "Owls can rotate their necks 270 degrees without injury🦉"
 ```
 
@@ -135,12 +136,15 @@ JinaEmbeddingModel
     * truncate (bool) - When enabled, the model will automatically drop the tail that extends beyond the maximum context length allowed by the model instead of throwing an error. Only supported in jina-embeddings-v3.
     * dimensions (int) - The number of dimensions the resulting output embeddings should have. Only supported in jina-embeddings-v3 and jina-colbert-v2.
     * input_type (str) - The type of input to the model. Supported types: 'query', 'document' Only supported in jina-corebert-v2.
+    * embedding_type (str) - The type of embeddings to return. Options include 'float', 'binary', 'ubinary'. Default is 'float'.
+JinaClipModel
+... (snip)
 ```
 
-**Example usage:** get an embedding for an input text by jina-embeddings-v3 model model with an option dimensions=512.
+**Example usage:** get an embedding for an input text by jina-embeddings-v3 model model with an option dimensions=512 and embedding_type=binary.
 
 ```bash
-emb embed -m jina-v3 -o dimensions 512 \
+emb embed -m jina-v3 -o dimensions 512 -o embedding_type binary \
 "Owls can rotate their necks 270 degrees without injury🦉"
 ```
 
@@ -168,6 +172,7 @@ MistralEmbeddingModel
     * codestral-embed (aliases: )
     Model Options:
     * output_dimension (int) - The dimesions of the output embedding, defaults to 1536 and has a maximum value of 3072. Only supprted in codestral-embed model.
+    * output_dtype (str) - The precision and format of the output embedding. Supported values are 'float' (default), 'int8', 'uint8', 'binary', and 'ubinary'. Only supported in codestral-embed model.
 ```
 
 **Example usage:** get an embedding for an input text by mistral-embed model.
@@ -175,6 +180,13 @@ MistralEmbeddingModel
 ```bash
 emb embed -m mistral-embed \
 "Owls can rotate their necks 270 degrees without injury🦉"
+```
+
+**Example usage:** get an embedding for an input text by codestral-embed model with output_dimension=3072 output_dtype=binary.
+
+```bash
+emb embed -m codestral-embed -o output_dimension 3072 -o output_dtype binary \
+"print('hello, code embeddings')"
 ```
 
 ## [embcli-voyage](https://pypi.org/project/embcli-voyage/) VoyageAI Models
@@ -194,10 +206,12 @@ VOYAGE_API_KEY=<YOUR_VOYAGE_KEY>
 
 ```bash
 emb models
-VoyageEmbeddingModel
+oyageEmbeddingModel
     Vendor: voyage
     Models:
     * voyage-3-large (aliases: )
+    * voyage-3.5 (aliases: )
+    * voyage-3.5-lite (aliases: )
     * voyage-3 (aliases: )
     * voyage-3-lite (aliases: )
     * voyage-code-3 (aliases: )
@@ -207,13 +221,14 @@ VoyageEmbeddingModel
     Model Options:
     * input_type (str) - Type of the input text. Options: 'None', 'query', 'document' Defaults to 'None'.
     * truncation (bool) - Whether to truncate the input texts to fit within the context length. Defaults to True.
-    * output_dimension (int) - The number of dimensions for resulting output embeddings.
+    * output_dimension (int) - The number of dimensions for resulting output embeddings. 
+    * output_dtype (str) - The data type for the embeddings to be returned. Options: float, int8, uint8, binary, ubinary. float is supported for all models. int8, uint8, binary, and ubinary are supported by voyage-3-large, voyage-3.5, voyage-3.5-lite, and voyage-code-3.
 ```
 
-**Example usage:** get an embedding for an input text by voyage-3-large model with options input_type=query and dimensions=512.
+**Example usage:** get an embedding for an input text by voyage-3.5 model with options input_type=query and output_dimensions=512 and output_dtype=binary.
 
 ```bash
-emb embed -m voyage-3-large -o input_type query -o output_dimension 512 \
+emb embed -m voyage-3.5 -o input_type query -o output_dimension 512 -o output_dtype binary \
 "Owls can rotate their necks 270 degrees without injury🦉"
 ```
 

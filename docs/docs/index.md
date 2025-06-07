@@ -8,7 +8,7 @@ embcli is designed to be extensible (in a similar way to [llm utility](https://g
 
 ## Project Status
 
-Pre-alpha. embcli is in active development, and new features and plugins are being added regularly.
+Alpha. embcli is in active development, and new features and plugins are being added regularly.
 
 ## Quick Start
 
