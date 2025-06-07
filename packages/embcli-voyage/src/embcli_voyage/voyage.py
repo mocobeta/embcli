@@ -11,6 +11,8 @@ class VoyageEmbeddingModel(EmbeddingModel):
     default_batch_size = 100
     model_aliases = [
         ("voyage-3-large", []),
+        ("voyage-3.5", []),
+        ("voyage-3.5-lite", []),
         ("voyage-3", []),
         ("voyage-3-lite", []),
         ("voyage-code-3", []),
