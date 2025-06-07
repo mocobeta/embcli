@@ -677,7 +677,7 @@ requires-dist = [
 
 [[package]]
 name = "embcli-voyage"
-version = "0.1.2.dev0"
+version = "0.1.3.dev0"
 source = { editable = "packages/embcli-voyage" }
 dependencies = [
     { name = "embcli-core" },
