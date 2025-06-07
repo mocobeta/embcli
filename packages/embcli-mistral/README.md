@@ -37,10 +37,16 @@ MistralEmbeddingModel
     Vendor: mistral
     Models:
     * mistral-embed (aliases: )
+    * codestral-embed (aliases: )
     Model Options:
+    * output_dimension (int) - The dimesions of the output embedding, defaults to 1536 and has a maximum value of 3072. Only supprted in codestral-embed model.
+    * output_dtype (str) - The precision and format of the output embedding. Supported values are 'float' (default), 'int8', 'uint8', 'binary', and 'ubinary'. Only supported in codestral-embed model.
 
 # get an embedding for an input text by mistral-embed model.
 emb embed -m mistral-embed "Embeddings are essential for semantic search and RAG apps."
+
+# get an embedding for an input text by codestral-embed model with output_dtype=binary.
+emb embed -m codestral-embed "print('hello, embeddings')" -o output_dtype binary
 
 # calculate similarity score between two texts by mistral-embed model. the default metric is cosine similarity.
 emb simscore -m mistral-embed "The cat drifts toward sleep." "Sleep dances in the cat's eyes."
