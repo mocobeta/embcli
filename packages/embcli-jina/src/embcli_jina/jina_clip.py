@@ -29,6 +29,11 @@ class JinaClipModel(MultimodalEmbeddingModel):
             ModelOptionType.INT,
             "The number of dimensions the resulting output embeddings should have.",
         ),
+        ModelOption(
+            "embedding_type",
+            ModelOptionType.STR,
+            "The type of embeddings to return. Options include 'float', 'binary', 'ubinary'. Default is 'float'.",  # noqa: E501
+        ),
     ]
 
     def __init__(self, model_id: str, **kwargs):
@@ -36,7 +41,9 @@ class JinaClipModel(MultimodalEmbeddingModel):
         self.endpoint = "https://api.jina.ai/v1/embeddings"
         self.api_key = os.environ.get("JINA_API_KEY")
 
-    def _embed_one_batch_multimodal(self, input: list[str], modality: Modality, **kwargs) -> Iterator[list[float]]:
+    def _embed_one_batch_multimodal(
+        self, input: list[str], modality: Modality, **kwargs
+    ) -> Iterator[list[float | int]]:
         if not input:
             return
 
@@ -54,6 +61,8 @@ class JinaClipModel(MultimodalEmbeddingModel):
             data["task"] = kwargs["task"]
         if "dimensions" in kwargs:
             data["dimensions"] = kwargs["dimensions"]
+        if "embedding_type" in kwargs:
+            data["embedding_type"] = kwargs["embedding_type"]
 
         response = httpx.post(self.endpoint, headers=headers, json=data)
         response.raise_for_status()
