@@ -2,7 +2,7 @@ from typing import Iterator
 
 import embcli_core
 import torch
-from embcli_core.models import LocalEmbeddingModel, ModelOption, ModelOptionType
+from embcli_core.models import LocalEmbeddingModel
 from sentence_transformers import SentenceTransformer
 
 
@@ -11,18 +11,7 @@ class SentenceTransformerModel(LocalEmbeddingModel):
     default_batch_size = 100
     model_aliases = [("sentence-transformers", ["sbert"])]
     default_local_model = "all-MiniLM-L6-v2"
-    valid_options = [
-        ModelOption(
-            name="precision",
-            type=ModelOptionType.STR,
-            description="The precision to use for the embeddings. Can be “float32”, “int8”, “uint8”, “binary”, or “ubinary”. Defaults to “float32”.",  # noqa: E501
-        ),
-        ModelOption(
-            name="normalize_embeddings",
-            type=ModelOptionType.BOOL,
-            description="Whether to normalize returned vectors to have length 1. Defaults to False.",
-        ),
-    ]
+    valid_options = []
     local_model_list = "https://sbert.net/docs/sentence_transformer/pretrained_models.html"
 
     def __init__(self, model_id: str, **kwargs):
