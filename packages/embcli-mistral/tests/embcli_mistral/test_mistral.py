@@ -65,7 +65,7 @@ def test_embed_batch_output_dtype(mistral_models):
         assert len(embeddings) == len(input_data)
         for emb in embeddings:
             assert isinstance(emb, list)
-            assert all(x >= -128 and x <= 127 for x in emb)
+            assert all(-128 <= x <= 127 for x in emb)
 
         # Test with output_dtype as uint8
         options = {"output_dtype": "uint8"}
@@ -73,7 +73,7 @@ def test_embed_batch_output_dtype(mistral_models):
         assert len(embeddings) == len(input_data)
         for emb in embeddings:
             assert isinstance(emb, list)
-            assert all(x >= 0 and x <= 255 for x in emb)
+            assert all(0 <= x <= 255 for x in emb)
 
         # Test with output_dtype as binary
         options = {"output_dtype": "binary"}
@@ -81,7 +81,7 @@ def test_embed_batch_output_dtype(mistral_models):
         assert len(embeddings) == len(input_data)
         for emb in embeddings:
             assert isinstance(emb, list)
-            assert all(x >= -128 and x <= 127 for x in emb)
+            assert all(-128 <= x <= 127 for x in emb)
 
         # Test with output_dtype as ubinary
         options = {"output_dtype": "ubinary"}
@@ -89,4 +89,4 @@ def test_embed_batch_output_dtype(mistral_models):
         assert len(embeddings) == len(input_data)
         for emb in embeddings:
             assert isinstance(emb, list)
-            assert all(x >= 0 and x <= 255 for x in emb)
+            assert all(0 <= x <= 255 for x in emb)

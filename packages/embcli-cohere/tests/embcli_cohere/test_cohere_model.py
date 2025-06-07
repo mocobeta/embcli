@@ -63,6 +63,7 @@ def test_embed_batch_embedding_types(cohere_models):
     for emb in embeddings:
         assert isinstance(emb, list)
         assert all(isinstance(x, int) for x in emb)
+        assert all(-128 <= x <= 127 for x in emb)
 
     # Test uint8 embedding type
     options = {"embedding_type": "uint8"}
@@ -71,6 +72,7 @@ def test_embed_batch_embedding_types(cohere_models):
     for emb in embeddings:
         assert isinstance(emb, list)
         assert all(isinstance(x, int) for x in emb)
+        assert all(0 <= x <= 255 for x in emb)
 
     # Test binary embedding type
     options = {"embedding_type": "binary"}
@@ -79,6 +81,7 @@ def test_embed_batch_embedding_types(cohere_models):
     for emb in embeddings:
         assert isinstance(emb, list)
         assert all(isinstance(x, int) for x in emb)
+        assert all(-128 <= x <= 127 for x in emb)
 
     # Test ubinary embedding type
     options = {"embedding_type": "ubinary"}
@@ -87,6 +90,7 @@ def test_embed_batch_embedding_types(cohere_models):
     for emb in embeddings:
         assert isinstance(emb, list)
         assert all(isinstance(x, int) for x in emb)
+        assert all(0 <= x <= 255 for x in emb)
 
 
 @skip_if_no_api_key

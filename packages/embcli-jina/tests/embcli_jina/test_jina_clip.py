@@ -81,6 +81,7 @@ def test_embed_batch_embedding_types(jina_clip_models):
         for emb in embeddings:
             assert isinstance(emb, list)
             assert all(isinstance(x, int) for x in emb)
+            assert all(-128 <= x <= 127 for x in emb)
 
         # Test ubinary embedding type
         options = {"embedding_type": "ubinary"}
@@ -89,3 +90,4 @@ def test_embed_batch_embedding_types(jina_clip_models):
         for emb in embeddings:
             assert isinstance(emb, list)
             assert all(isinstance(x, int) for x in emb)
+            assert all(0 <= x <= 255 for x in emb)
