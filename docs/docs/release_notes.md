@@ -1,5 +1,10 @@
 # Release Notes
 
+- [embcli-voyage Version 0.1.2](https://github.com/mocobeta/embcli/releases/tag/voyage-0.1.2) (2025-06-07)
+- [embcli-mistral Version 0.1.1](https://github.com/mocobeta/embcli/releases/tag/mistral-0.1.1) (2025-06-07)
+- [embcli-jina Version 0.1.2](https://github.com/mocobeta/embcli/releases/tag/jina-0.1.2) (2025-06-07)
+- [embcli-cohere Version 0.1.1](https://github.com/mocobeta/embcli/releases/tag/cohere-0.1.1) (2025-06-07)
+- [embcli-core Version 0.1.1](https://github.com/mocobeta/embcli/releases/tag/core-0.1.1) (2025-06-07)
 - [embcli-voyage Version 0.1.1](https://github.com/mocobeta/embcli/releases/tag/voyage-0.1.1) (2025-06-01)
 - [embcli-jina Version 0.1.1](https://github.com/mocobeta/embcli/releases/tag/jina-0.1.1) (2025-06-01)
 - [(all plugins) Version 0.1.0](https://github.com/mocobeta/embcli/releases/tag/0.1.0) (2025-06-01)
