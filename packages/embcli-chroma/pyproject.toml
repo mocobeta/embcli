@@ -5,7 +5,7 @@ description = "ChromaDB integration for embcli"
 readme = "README.md"
 authors = [{ name = "Tomoko Uchida", email = "tomoko.uchida.1111@gmail.com" }]
 requires-python = ">=3.10"
-dependencies = ["chromadb>=1.0.9"]
+dependencies = ["embcli-core>=0.1.2", "chromadb>=1.0.9"]
 
 [tool.uv.sources]
 embcli-core = { workspace = true }

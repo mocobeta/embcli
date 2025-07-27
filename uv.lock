@@ -549,10 +549,14 @@ version = "0.1.0.dev0"
 source = { editable = "packages/embcli-chroma" }
 dependencies = [
     { name = "chromadb" },
+    { name = "embcli-core" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "chromadb", specifier = ">=1.0.9" }]
+requires-dist = [
+    { name = "chromadb", specifier = ">=1.0.9" },
+    { name = "embcli-core", editable = "packages/embcli-core" },
+]
 
 [[package]]
 name = "embcli-clip"
