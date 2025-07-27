@@ -518,7 +518,7 @@ wheels = [
 
 [[package]]
 name = "embcli"
-version = "0.1.2.dev0"
+version = "0.1.2"
 source = { virtual = "." }
 
 [package.dev-dependencies]
@@ -594,7 +594,7 @@ requires-dist = [
 
 [[package]]
 name = "embcli-core"
-version = "0.1.2.dev1"
+version = "0.1.2"
 source = { editable = "packages/embcli-core" }
 dependencies = [
     { name = "click" },
