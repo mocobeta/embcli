@@ -37,7 +37,6 @@ members = [
     "packages/embcli-sbert",
     "packages/embcli-llamacpp",
     "packages/embcli-clip",
-    "packages/embcli-chroma",
 ]
 
 [dependency-groups]
