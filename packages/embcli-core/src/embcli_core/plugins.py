@@ -1,7 +1,7 @@
 import pluggy
 
 from . import hookspecs, models, vector_stores
-from .vector_store import chroma
+from .vector_store import chroma, lancedb
 
 
 def get_plugin_manager():
@@ -10,6 +10,7 @@ def get_plugin_manager():
     pm.add_hookspecs(hookspecs)
     pm.load_setuptools_entrypoints("embcli")
     pm.register(chroma)
+    pm.register(lancedb)
     pm.check_pending()
     return pm
 
