@@ -15,13 +15,15 @@ OPENAI_API_KEY=<YOUR_OPENAI_KEY>
 
 ## `vector-stores` command
 
-`emb vector-stores` command lists available vector stores. Currently, it only supports [Chroma](https://docs.trychroma.com/docs/overview/introduction) vector store.
+`emb vector-stores` command lists available vector stores.
 
 ```bash
 emb vector-stores
-ChromaVectorStore
-    Vendor: chroma
+LanceDBVectorStore
+    Vendor: lancedb
 ```
+
+See [Vector Store Plugins](vector_store_plugins.md) for the full list of available vector stores.
 
 ## `ingest-sample` command
 
@@ -42,7 +44,7 @@ Options:
                                   [required]
   -p, --model-path TEXT           Path to the local model
   --vector-store TEXT             Vector store to use for storing embeddings
-                                  [default: chroma]
+                                  [default: lancedb]
   --persist-path TEXT             Path to persist the vector store
   -c, --collection TEXT           Collection name where to store the
                                   embeddings  [required]
@@ -75,17 +77,17 @@ The output will show the name of vector store, collection, and the persistent pa
 
 ```
 Documents ingested successfully.
-Vector store: chroma (collection: catcafe)
-Persist path: ./chroma
+Vector store: lancedb (collection: catcafe)
+Persist path: ./lancedb
 ```
 
 ### `--vector-store` option
 
-`--vector-store` option specifies the vector store to use for storing embeddings. Currently, it only supports `chroma`.
+`--vector-store` option specifies the vector store to use for storing embeddings.
 
 ### `--persist-path` option
 
-`--persist-path` option specifies the path to persist the vector store. The default is different for each vector store. For Chroma, the default is `./chroma`.
+`--persist-path` option specifies the path to persist the vector store. The default is different for each vector store. For LanceDB, the default is `./lancedb`.
 
 To use a different path from the default, run the following command:
 
@@ -137,7 +139,7 @@ Options:
                                [required]
   -p, --model-path TEXT        Path to the local model
   --vector-store TEXT          Vector store to use for storing embeddings
-                               [default: chroma]
+                               [default: lancedb]
   --persist-path TEXT          Path to persist the vector store
   -c, --collection TEXT        Collection name where to store the embeddings
                                [required]
@@ -163,8 +165,8 @@ The output will show the name of vector store, collection, and the persistent pa
 
 ```
 Documents ingested successfully.
-Vector store: chroma (collection: mycollection)
-Persist path: ./chroma
+Vector store: lancedb (collection: mycollection)
+Persist path: ./lancedb
 ```
 
 ### `--input-format` option
@@ -204,7 +206,7 @@ Options:
                                [required]
   -p, --model-path TEXT        Path to the local model
   --vector-store TEXT          Vector store to use for storing embeddings
-                               [default: chroma]
+                               [default: lancedb]
   --persist-path TEXT          Path to persist the vector store
   -c, --collection TEXT        Collection name where the embeddings are stored
                                [required]
@@ -264,11 +266,11 @@ emb search -m 3-small -c menu -q "May I have some sweets?🍨" -k 10
 
 ### `--vector-store` option
 
-`--vector-store` option specifies the vector store to use for storing embeddings. Currently, it only supports `chroma`.
+`--vector-store` option specifies the vector store to use for storing embeddings.
 
 ### `--persist-path` option
 
-`--persist-path` option specifies the path to the vector store to be searched. The default is different for each vector store. For Chroma, the default is `./chroma`.
+`--persist-path` option specifies the path to the vector store to be searched. The default is different for each vector store. For LanceDB, the default is `./lancedb`.
 
 To search in `menu` collection in a different path from the default, run the following command:
 
@@ -293,8 +295,8 @@ Usage: emb collections [OPTIONS]
 
 Options:
   -e, --env-file TEXT  Path to the .env file
-  --vector-store TEXT  Vector store to use for storing embeddings  [default:
-                       chroma]
+  --vector-store TEXT  Vector store to use for storing embeddings     
+                       [default: lancedb]
   --persist-path TEXT  Path to persist the vector store
   --help               Show this message and exit.
 ```
@@ -315,7 +317,7 @@ Collections:
 
 ### `--vector-store` option
 
-`--vector-store` option specifies the vector store to use for storing embeddings. Currently, it only supports `chroma`.
+`--vector-store` option specifies the vector store to use for storing embeddings.
 
 ### `--persist-path` option
 
@@ -337,8 +339,8 @@ Usage: emb delete-collection [OPTIONS]
 
 Options:
   -e, --env-file TEXT    Path to the .env file
-  --vector-store TEXT    Vector store to use for storing embeddings  [default:
-                         chroma]
+  --vector-store TEXT    Vector store to use for storing embeddings     
+                         [default: lancedb]
   --persist-path TEXT    Path to persist the vector store
   -c, --collection TEXT  Collection name to delete  [required]
   --help                 Show this message and exit.
@@ -355,7 +357,7 @@ emb delete-collection -c mycollection
 
 ### `--vector-store` option
 
-`--vector-store` option specifies the vector store to use for storing embeddings. Currently, it only supports `chroma`.
+`--vector-store` option specifies the vector store to use for storing embeddings.
 
 ### `--persist-path` option
 

@@ -13,4 +13,5 @@ nav:
   - 'multimodal_usage.md'
   - 'model_plugins.md'
   - 'multimodal_model_plugins.md'
+  - 'vector_store_plugins.md'
   - 'release_notes.md'

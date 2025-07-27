@@ -64,13 +64,13 @@ emb simscore -m sbert \
 "The cat drifts toward sleep." "Sleep dances in the cat's eyes."
 ```
 
-Index a sample corpus in a Chroma vector store collection. The default database path is `./chroma.db`.
+Index a sample corpus in a LanceDB table. The default database path is `./lancedb`.
 
 ```bash
 emb ingest-sample -m sbert -c catcafe --corpus cat-names-en
 ```
 
-Search documents for a query in the indexed Chroma collection.
+Search documents for a query in the indexed LanceDB table.
 
 ```bash
 emb search -m sbert -c catcafe -q "Who's the most agile?"

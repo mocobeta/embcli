@@ -41,6 +41,8 @@ GeminiEmbeddingModel
     * task_type (str) - The type of task for the embedding. Supported task types: 'semantic_similarity', 'classification', 'clustering', 'retrieval_document', 'retrieval_query', 'question_answering', 'fact_verification', 'code_retrieval_query'
 ```
 
+See [Model Plugins](model_plugins.md) and [Multimodal Model Plugins](multimodal_model_plugins.md) for the full list of available models.
+
 ## `embed` command
 
 `emb embed` command generates embeddings for the provided text of file using the specified model.

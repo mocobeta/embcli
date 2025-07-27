@@ -15,7 +15,7 @@ OPENAI_API_KEY=<YOUR_OPENAI_KEY>
 
 **Installation:** `pip install embcli-openai`
 
-`emb models` command shows the available models with there short aliases and supported model options.
+`emb models` command shows the available models with their short aliases and supported model options.
 
 ```bash
 emb models
