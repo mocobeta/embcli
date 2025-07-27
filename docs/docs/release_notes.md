@@ -1,5 +1,7 @@
 # Release Notes
 
+- [embcli-chroma Version 0.1.0](https://github.com/mocobeta/embcli/releases/tag/chroma-0.1.0) (2025-07-27)
+- [embcli-core Version 0.1.2](https://github.com/mocobeta/embcli/releases/tag/core-0.1.2) (2025-07-27)
 - [embcli-voyage Version 0.1.2](https://github.com/mocobeta/embcli/releases/tag/voyage-0.1.2) (2025-06-07)
 - [embcli-mistral Version 0.1.1](https://github.com/mocobeta/embcli/releases/tag/mistral-0.1.1) (2025-06-07)
 - [embcli-jina Version 0.1.2](https://github.com/mocobeta/embcli/releases/tag/jina-0.1.2) (2025-06-07)
@@ -19,4 +21,4 @@
 - embcli-gemini Version 0.0.5 (2025-05-12)
 - embcli-jina Version 0.0.5 (2025-05-12)
 - embcli-mistral Version 0.0.5 (2025-05-12)
-- emblli-voyage Version 0.0.5 (2025-05-12)
+- embcli-voyage Version 0.0.5 (2025-05-12)
