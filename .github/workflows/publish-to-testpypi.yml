@@ -29,6 +29,7 @@ on:
           - embcli-openai
           - embcli-sbert
           - embcli-voyage
+          - embcli-chroma
           - all
 
 jobs:

@@ -1,0 +1,36 @@
+[project]
+name = "embcli-chroma"
+version = "0.1.0-dev"
+description = "ChromaDB integration for embcli"
+readme = "README.md"
+authors = [{ name = "Tomoko Uchida", email = "tomoko.uchida.1111@gmail.com" }]
+license = { text = "Apache-2.0" }
+keywords = ["cli", "llm", "nlp", "embeddings"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Terminals",
+    "Topic :: Text Processing :: Linguistic",
+    "Topic :: Utilities",
+]
+requires-python = ">=3.10"
+dependencies = ["embcli-core>=0.1.2", "chromadb>=1.0.9"]
+
+[project.urls]
+"Repository" = "https://github.com/mocobeta/embcli"
+"Homepage" = "https://embcli.mocobeta.dev/"
+
+[tool.uv.sources]
+embcli-core = { workspace = true }
+
+[project.entry-points."embcli"]
+chroma = "embcli_chroma.chroma"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

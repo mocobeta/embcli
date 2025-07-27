@@ -10,6 +10,7 @@ resolution-markers = [
 [manifest]
 members = [
     "embcli",
+    "embcli-chroma",
     "embcli-clip",
     "embcli-cohere",
     "embcli-core",
@@ -540,6 +541,21 @@ dev = [
     { name = "pytest", specifier = ">=8.3.5" },
     { name = "pytest-mock", specifier = ">=3.14.1" },
     { name = "ruff", specifier = ">=0.11.12" },
+]
+
+[[package]]
+name = "embcli-chroma"
+version = "0.1.0.dev0"
+source = { editable = "packages/embcli-chroma" }
+dependencies = [
+    { name = "chromadb" },
+    { name = "embcli-core" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "chromadb", specifier = ">=1.0.9" },
+    { name = "embcli-core", editable = "packages/embcli-core" },
 ]
 
 [[package]]
