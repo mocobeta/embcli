@@ -70,7 +70,7 @@ embcli is a plugin-based CLI for working with embedding models and vector stores
 
 4. **Vector Store Integration**:
    - Abstract `VectorStore` base class defines interface
-   - Currently supports ChromaDB via `vector_store/chroma.py`
+   - Currently supports LanceDB via `vector_store/lancedb.py` as default implementation
    - Vector stores handle document ingestion and similarity search
 
 ### Key Design Patterns
