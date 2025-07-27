@@ -218,7 +218,7 @@ def simscore(env_file, model_id, model_path, similarity, file1, file2, image_fil
 @click.option(
     "vector_store_vendor",
     "--vector-store",
-    default="chroma",
+    default="lancedb",
     help="Vector store to use for storing embeddings",
     show_default=True,
 )
@@ -290,7 +290,7 @@ def ingest(
 @click.option(
     "vector_store_vendor",
     "--vector-store",
-    default="chroma",
+    default="lancedb",
     help="Vector store to use for storing embeddings",
     show_default=True,
 )
@@ -365,7 +365,7 @@ def ingest_sample(env_file, model_id, model_path, vector_store_vendor, persist_p
 @click.option(
     "vector_store_vendor",
     "--vector-store",
-    default="chroma",
+    default="lancedb",
     help="Vector store to use for storing embeddings",
     show_default=True,
 )
@@ -430,7 +430,7 @@ def search(
 @click.option(
     "vector_store_vendor",
     "--vector-store",
-    default="chroma",
+    default="lancedb",
     help="Vector store to use for storing embeddings",
     show_default=True,
 )
@@ -462,7 +462,7 @@ def collections(env_file, vector_store_vendor, persist_path):
 @click.option(
     "vector_store_vendor",
     "--vector-store",
-    default="chroma",
+    default="lancedb",
     help="Vector store to use for storing embeddings",
     show_default=True,
 )
