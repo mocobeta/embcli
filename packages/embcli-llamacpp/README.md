@@ -47,7 +47,7 @@ emb simscore -m llamacpp -p ./all-MiniLM-L6-v2.F16.gguf "The cat drifts toward s
 
 ### Document Indexing and Search
 
-You can use the `emb` command to index documents and perform semantic search. `emb` uses [`chroma`](https://github.com/chroma-core/chroma) for the default vector database.
+You can use the `emb` command to index documents and perform search by an image. `emb` uses [`LanceDB`](https://github.com/lancedb/lancedb) for the default vector database.
 
 ```bash
 # index example documents in the current directory.

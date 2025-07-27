@@ -61,7 +61,7 @@ emb simscore -m clip -f1 desc.txt --image2 gingercat.jpeg
 
 ### Document Indexing and Multimodal Search
 
-You can use the `emb` command to index documents and perform search by an image. `emb` uses [`chroma`](https://github.com/chroma-core/chroma) for the default vector database.
+You can use the `emb` command to index documents and perform search by an image. `emb` uses [`LanceDB`](https://github.com/lancedb/lancedb) for the default vector database.
 
 ```bash
 # index example documents in the current directory.
