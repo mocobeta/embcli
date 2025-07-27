@@ -22,6 +22,7 @@ requires-python = ">=3.10"
 dependencies = [
     "chromadb>=1.0.8",
     "click>=8.1.8",
+    "lancedb>=0.24.2",
     "numpy>=2.2.5",
     "pluggy>=1.5.0",
     "python-dotenv>=1.1.0",
