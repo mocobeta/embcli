@@ -1,11 +1,11 @@
 from click.testing import CliRunner
 from embcli_core.cli import ingest_sample
-from embcli_core.vector_store import chroma
+from embcli_core.vector_store import lancedb
 
 
 def test_ingest_sample_command(plugin_manager, mocker, tmp_path):
     """Test the ingest command."""
-    plugin_manager.register(chroma)
+    plugin_manager.register(lancedb)
     mocker.patch("embcli_core.cli._pm", plugin_manager)
 
     test_persist_path = tmp_path / "test_db"
@@ -18,7 +18,7 @@ def test_ingest_sample_command(plugin_manager, mocker, tmp_path):
             "--model",
             "embedding-mock-1",
             "--vector-store",
-            "chroma",
+            "lancedb",
             "--persist-path",
             str(test_persist_path),
             "--collection",
@@ -28,7 +28,7 @@ def test_ingest_sample_command(plugin_manager, mocker, tmp_path):
     assert result.exit_code == 0
 
     # Check if the output contains the expected success message
-    assert "chroma" in result.output
+    assert "lancedb" in result.output
     assert str(test_persist_path) in result.output
 
     # Check if the database was created
@@ -37,7 +37,7 @@ def test_ingest_sample_command(plugin_manager, mocker, tmp_path):
 
 def test_ingest_sample_command_corpus(plugin_manager, mocker, tmp_path):
     """Test the ingest command with corpus."""
-    plugin_manager.register(chroma)
+    plugin_manager.register(lancedb)
     mocker.patch("embcli_core.cli._pm", plugin_manager)
 
     test_persist_path = tmp_path / "test_db"
@@ -50,7 +50,7 @@ def test_ingest_sample_command_corpus(plugin_manager, mocker, tmp_path):
             "--model",
             "embedding-mock-1",
             "--vector-store",
-            "chroma",
+            "lancedb",
             "--persist-path",
             str(test_persist_path),
             "--collection",
@@ -62,7 +62,7 @@ def test_ingest_sample_command_corpus(plugin_manager, mocker, tmp_path):
     assert result.exit_code == 0
 
     # Check if the output contains the expected success message
-    assert "chroma" in result.output
+    assert "lancedb" in result.output
     assert str(test_persist_path) in result.output
 
     # Check if the database was created
@@ -71,7 +71,7 @@ def test_ingest_sample_command_corpus(plugin_manager, mocker, tmp_path):
 
 def test_ingest_sample_command_local_model(plugin_manager, mocker, tmp_path):
     """Test the ingest command."""
-    plugin_manager.register(chroma)
+    plugin_manager.register(lancedb)
     mocker.patch("embcli_core.cli._pm", plugin_manager)
 
     test_persist_path = tmp_path / "test_db"
@@ -84,7 +84,7 @@ def test_ingest_sample_command_local_model(plugin_manager, mocker, tmp_path):
             "--model",
             "local-mock/mymodel",
             "--vector-store",
-            "chroma",
+            "lancedb",
             "--persist-path",
             str(test_persist_path),
             "--collection",
@@ -94,7 +94,7 @@ def test_ingest_sample_command_local_model(plugin_manager, mocker, tmp_path):
     assert result.exit_code == 0
 
     # Check if the output contains the expected success message
-    assert "chroma" in result.output
+    assert "lancedb" in result.output
     assert str(test_persist_path) in result.output
 
     # Check if the database was created
@@ -103,7 +103,7 @@ def test_ingest_sample_command_local_model(plugin_manager, mocker, tmp_path):
 
 def test_ingest_sample_command_local_model_file(plugin_manager, mocker, tmp_path):
     """Test the ingest command."""
-    plugin_manager.register(chroma)
+    plugin_manager.register(lancedb)
     mocker.patch("embcli_core.cli._pm", plugin_manager)
 
     test_persist_path = tmp_path / "test_db"
@@ -118,7 +118,7 @@ def test_ingest_sample_command_local_model_file(plugin_manager, mocker, tmp_path
             "--model-path",
             "/path/to/mymodel",
             "--vector-store",
-            "chroma",
+            "lancedb",
             "--persist-path",
             str(test_persist_path),
             "--collection",
@@ -128,7 +128,7 @@ def test_ingest_sample_command_local_model_file(plugin_manager, mocker, tmp_path
     assert result.exit_code == 0
 
     # Check if the output contains the expected success message
-    assert "chroma" in result.output
+    assert "lancedb" in result.output
     assert str(test_persist_path) in result.output
 
     # Check if the database was created

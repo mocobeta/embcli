@@ -1,6 +1,6 @@
 [project]
 name = "embcli-core"
-version = "0.1.2-dev"
+version = "0.1.2-dev1"
 description = "embcli - CLI for Embeddings"
 readme = "README.md"
 authors = [{ name = "Tomoko Uchida", email = "tomoko.uchida.1111@gmail.com" }]
@@ -20,7 +20,6 @@ classifiers = [
 ]
 requires-python = ">=3.10"
 dependencies = [
-    "chromadb>=1.0.8",
     "click>=8.1.8",
     "lancedb>=0.24.2",
     "numpy>=2.2.5",

@@ -1,10 +1,10 @@
 from click.testing import CliRunner
 from embcli_core.cli import collections, delete_collection, ingest_sample
-from embcli_core.vector_store import chroma
+from embcli_core.vector_store import lancedb
 
 
 def test_list_delete_collection_command(plugin_manager, mocker, tmp_path):
-    plugin_manager.register(chroma)
+    plugin_manager.register(lancedb)
     mocker.patch("embcli_core.cli._pm", plugin_manager)
 
     test_persist_path = tmp_path / "test_db"
@@ -19,7 +19,7 @@ def test_list_delete_collection_command(plugin_manager, mocker, tmp_path):
                 "--model",
                 "embedding-mock-1",
                 "--vector-store",
-                "chroma",
+                "lancedb",
                 "--persist-path",
                 str(test_persist_path),
                 "--collection",
@@ -29,14 +29,14 @@ def test_list_delete_collection_command(plugin_manager, mocker, tmp_path):
             ],
         )
         assert result.exit_code == 0
-        assert "chroma" in result.output
+        assert "lancedb" in result.output
 
     # Check if created collections are correctly listed
     result = runner.invoke(
         collections,
         [
             "--vector-store",
-            "chroma",
+            "lancedb",
             "--persist-path",
             str(test_persist_path),
         ],
@@ -51,7 +51,7 @@ def test_list_delete_collection_command(plugin_manager, mocker, tmp_path):
         delete_collection,
         [
             "--vector-store",
-            "chroma",
+            "lancedb",
             "--persist-path",
             str(test_persist_path),
             "--collection",
@@ -65,7 +65,7 @@ def test_list_delete_collection_command(plugin_manager, mocker, tmp_path):
         collections,
         [
             "--vector-store",
-            "chroma",
+            "lancedb",
             "--persist-path",
             str(test_persist_path),
         ],
@@ -80,7 +80,7 @@ def test_list_delete_collection_command(plugin_manager, mocker, tmp_path):
         delete_collection,
         [
             "--vector-store",
-            "chroma",
+            "lancedb",
             "--persist-path",
             str(test_persist_path),
             "--collection",
@@ -88,4 +88,4 @@ def test_list_delete_collection_command(plugin_manager, mocker, tmp_path):
         ],
     )
     assert result.exit_code == 0
-    assert "Collection [test_collection_cat-names-en] does not exists" in result.output
+    assert "Collection 'test_collection_cat-names-en' does not exist" in result.output

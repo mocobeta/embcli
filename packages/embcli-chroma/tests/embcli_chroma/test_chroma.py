@@ -2,8 +2,8 @@ import random
 import tempfile
 
 import pytest
+from embcli_chroma.chroma import ChromaVectorStore
 from embcli_core.document import Document
-from embcli_core.vector_store.chroma import ChromaVectorStore
 
 
 def test_init_with_persist_path():
