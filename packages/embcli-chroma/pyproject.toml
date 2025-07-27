@@ -1,6 +1,6 @@
 [project]
 name = "embcli-chroma"
-version = "0.1.0-dev"
+version = "0.1.0"
 description = "ChromaDB integration for embcli"
 readme = "README.md"
 authors = [{ name = "Tomoko Uchida", email = "tomoko.uchida.1111@gmail.com" }]
