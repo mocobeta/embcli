@@ -1,11 +1,11 @@
 from click.testing import CliRunner
 from embcli_core.cli import ingest, search
-from embcli_core.vector_store import chroma
+from embcli_core.vector_store import lancedb
 
 
 def test_search_command(plugin_manager, mocker, tmp_path, test_csv_file):
     """Test the search command."""
-    plugin_manager.register(chroma)
+    plugin_manager.register(lancedb)
     mocker.patch("embcli_core.cli._pm", plugin_manager)
 
     test_persist_path = tmp_path / "test_db"
@@ -19,7 +19,7 @@ def test_search_command(plugin_manager, mocker, tmp_path, test_csv_file):
             "--model",
             "embedding-mock-1",
             "--vector-store",
-            "chroma",
+            "lancedb",
             "--persist-path",
             str(test_persist_path),
             "--collection",
@@ -37,7 +37,7 @@ def test_search_command(plugin_manager, mocker, tmp_path, test_csv_file):
             "--model",
             "embedding-mock-1",
             "--vector-store",
-            "chroma",
+            "lancedb",
             "--persist-path",
             str(test_persist_path),
             "--collection",
@@ -57,7 +57,7 @@ def test_search_command(plugin_manager, mocker, tmp_path, test_csv_file):
 
 def test_search_command_with_image(plugin_manager, mocker, tmp_path, test_csv_file):
     """Test the search command with an image."""
-    plugin_manager.register(chroma)
+    plugin_manager.register(lancedb)
     mocker.patch("embcli_core.cli._pm", plugin_manager)
 
     test_persist_path = tmp_path / "test_db"
@@ -76,7 +76,7 @@ def test_search_command_with_image(plugin_manager, mocker, tmp_path, test_csv_fi
             "--model",
             "multimodal-mock-1",
             "--vector-store",
-            "chroma",
+            "lancedb",
             "--persist-path",
             str(test_persist_path),
             "--collection",
@@ -94,7 +94,7 @@ def test_search_command_with_image(plugin_manager, mocker, tmp_path, test_csv_fi
             "--model",
             "multimodal-mock-1",
             "--vector-store",
-            "chroma",
+            "lancedb",
             "--persist-path",
             str(test_persist_path),
             "--collection",
@@ -114,7 +114,7 @@ def test_search_command_with_image(plugin_manager, mocker, tmp_path, test_csv_fi
 
 def test_search_command_local_model(plugin_manager, mocker, tmp_path, test_csv_file):
     """Test the search command."""
-    plugin_manager.register(chroma)
+    plugin_manager.register(lancedb)
     mocker.patch("embcli_core.cli._pm", plugin_manager)
 
     test_persist_path = tmp_path / "test_db"
@@ -128,7 +128,7 @@ def test_search_command_local_model(plugin_manager, mocker, tmp_path, test_csv_f
             "--model",
             "local-mock/mymodel",
             "--vector-store",
-            "chroma",
+            "lancedb",
             "--persist-path",
             str(test_persist_path),
             "--collection",
@@ -146,7 +146,7 @@ def test_search_command_local_model(plugin_manager, mocker, tmp_path, test_csv_f
             "--model",
             "local-mock/mymodel",
             "--vector-store",
-            "chroma",
+            "lancedb",
             "--persist-path",
             str(test_persist_path),
             "--collection",
@@ -166,7 +166,7 @@ def test_search_command_local_model(plugin_manager, mocker, tmp_path, test_csv_f
 
 def test_search_command_local_model_path(plugin_manager, mocker, tmp_path, test_csv_file):
     """Test the search command."""
-    plugin_manager.register(chroma)
+    plugin_manager.register(lancedb)
     mocker.patch("embcli_core.cli._pm", plugin_manager)
 
     test_persist_path = tmp_path / "test_db"
@@ -182,7 +182,7 @@ def test_search_command_local_model_path(plugin_manager, mocker, tmp_path, test_
             "--model-path",
             "/path/to/mymodel",
             "--vector-store",
-            "chroma",
+            "lancedb",
             "--persist-path",
             str(test_persist_path),
             "--collection",
@@ -202,7 +202,7 @@ def test_search_command_local_model_path(plugin_manager, mocker, tmp_path, test_
             "--model-path",
             "/path/to/mymodel",
             "--vector-store",
-            "chroma",
+            "lancedb",
             "--persist-path",
             str(test_persist_path),
             "--collection",

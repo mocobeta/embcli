@@ -597,7 +597,6 @@ name = "embcli-core"
 version = "0.1.2.dev0"
 source = { editable = "packages/embcli-core" }
 dependencies = [
-    { name = "chromadb" },
     { name = "click" },
     { name = "lancedb" },
     { name = "numpy" },
@@ -607,7 +606,6 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "chromadb", specifier = ">=1.0.8" },
     { name = "click", specifier = ">=8.1.8" },
     { name = "lancedb", specifier = ">=0.24.2" },
     { name = "numpy", specifier = ">=2.2.5" },

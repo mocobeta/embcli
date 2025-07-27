@@ -60,6 +60,8 @@ class LanceDBVectorStore(VectorStoreLocalFS):
         """Delete a collection."""
         if collection in self.db.table_names():
             self.db.drop_table(collection)
+        else:
+            raise ValueError(f"Collection '{collection}' does not exist in LanceDB.")
 
 
 @hookimpl
