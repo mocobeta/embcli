@@ -594,7 +594,7 @@ requires-dist = [
 
 [[package]]
 name = "embcli-core"
-version = "0.1.2.dev0"
+version = "0.1.2.dev1"
 source = { editable = "packages/embcli-core" }
 dependencies = [
     { name = "click" },
