@@ -1,7 +1,7 @@
 import pytest
-from embcli_jina import jina, jina_clip
+from embcli_jina import jina, jina_multimodal
 from embcli_jina.jina import JinaEmbeddingModel
-from embcli_jina.jina_clip import JinaClipModel
+from embcli_jina.jina_multimodal import JinaMultiModalModel
 
 
 @pytest.fixture
@@ -11,9 +11,9 @@ def jina_models():
 
 
 @pytest.fixture
-def jina_clip_models():
-    model_ids = [alias[0] for alias in JinaClipModel.model_aliases]
-    return [JinaClipModel(model_id) for model_id in model_ids]
+def jina_multimodal_models():
+    model_ids = [alias[0] for alias in JinaMultiModalModel.model_aliases]
+    return [JinaMultiModalModel(model_id) for model_id in model_ids]
 
 
 @pytest.fixture
@@ -25,5 +25,5 @@ def plugin_manager():
     pm = pluggy.PluginManager("embcli")
     pm.add_hookspecs(hookspecs)
     pm.register(jina)
-    pm.register(jina_clip)
+    pm.register(jina_multimodal)
     return pm

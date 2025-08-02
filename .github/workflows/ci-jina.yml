@@ -47,6 +47,6 @@ jobs:
       env:
         JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
         RUN_JINA_TESTS: "1"
-        RUN_JINA_CLIP_TESTS: "1"
+        RUN_JINA_MULTIMODAL_TESTS: "1"
       run: |
         uv run --package embcli-jina pytest packages/embcli-jina/tests
