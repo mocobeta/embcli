@@ -11,6 +11,7 @@ class GeminiEmbeddingModel(EmbeddingModel):
     vendor = "gemini"
     default_batch_size = 100
     model_aliases = [
+        ("gemini-embedding-001", []),
         ("gemini-embedding-exp-03-07", ["exp-03-07"]),
         ("text-embedding-004", ["text-004"]),
         ("embedding-001", []),
