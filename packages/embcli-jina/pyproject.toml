@@ -34,4 +34,4 @@ build-backend = "hatchling.build"
 
 [project.entry-points."embcli"]
 jina = "embcli_jina.jina"
-jina-clip = "embcli_jina.jina_clip"
+jina-clip = "embcli_jina.jina_multimodal"

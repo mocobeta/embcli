@@ -14,15 +14,25 @@ def image_to_base64(image_path: str) -> str:
     return data.decode("utf-8")
 
 
-class JinaClipModel(MultimodalEmbeddingModel):
+class JinaMultiModalModel(MultimodalEmbeddingModel):
     vendor = "jina"
     default_batch_size = 100
-    model_aliases = [("jina-clip-v2", [])]
+    model_aliases = [("jina-embeddings-v4", ["jina-v4"]), ("jina-clip-v2", [])]
     valid_options = [
         ModelOption(
             "task",
             ModelOptionType.STR,
-            "Downstream task for which the embeddings are used. Supported tasks: 'retrieval.query', 'retrieval.passage'.",  # noqa: E501
+            "Downstream task for which the embeddings are used. Supported tasks: 'retrieval.query', 'retrieval.passage', 'text-matching', 'code.query', 'code.passage'.",  # noqa: E501
+        ),
+        ModelOption(
+            "late_chunking",
+            ModelOptionType.BOOL,
+            "Whether if the late chunking is applied. Only supported in jina-embeddings-v4.",
+        ),
+        ModelOption(
+            "truncate",
+            ModelOptionType.BOOL,
+            "When enabled, the model will automatically drop the tail that extends beyond the maximum context length allowed by the model instead of throwing an error. Only supported in jina-embeddings-v4.",  # noqa: E501
         ),
         ModelOption(
             "dimensions",
@@ -87,9 +97,9 @@ class JinaClipModel(MultimodalEmbeddingModel):
 @embcli_core.hookimpl
 def embedding_model():
     def create(model_id: str, **kwargs):
-        model_ids = [alias[0] for alias in JinaClipModel.model_aliases]
+        model_ids = [alias[0] for alias in JinaMultiModalModel.model_aliases]
         if model_id not in model_ids:
             raise ValueError(f"Model ID {model_id} is not supported.")
-        return JinaClipModel(model_id, **kwargs)
+        return JinaMultiModalModel(model_id, **kwargs)
 
-    return JinaClipModel, create
+    return JinaMultiModalModel, create
