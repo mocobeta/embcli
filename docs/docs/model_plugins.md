@@ -93,6 +93,7 @@ GEMINI_API_KEY=<YOUR_GEMINI_KEY>
 GeminiEmbeddingModel
     Vendor: gemini
     Models:
+    * gemini-embedding-001 (aliases: )
     * gemini-embedding-exp-03-07 (aliases: exp-03-07)
     * text-embedding-004 (aliases: text-004)
     * embedding-001 (aliases: )

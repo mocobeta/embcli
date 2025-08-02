@@ -56,32 +56,39 @@ JINA_API_KEY=<YOUR_JINA_KEY>
 
 ```bash
 emb models
-JinaEmbeddingModel
-    Vendor: jina
-... (snip)
-JinaClipModel
+JinaMultiModalModel
     Vendor: jina
     Models:
+    * jina-embeddings-v4 (aliases: jina-v4)
     * jina-clip-v2 (aliases: )
     Model Options:
-    * task (str) - Downstream task for which the embeddings are used. Supported tasks: 'retrieval.query', 'retrieval.passage'.
+    * task (str) - Downstream task for which the embeddings are used. Supported tasks: 'retrieval.query', 'retrieval.passage', 'text-matching', 'code.query', 'code.passage'.
+    * late_chunking (bool) - Whether if the late chunking is applied. Only supported in jina-embeddings-v4.
+    * truncate (bool) - When enabled, the model will automatically drop the tail that extends beyond the maximum context length allowed by the model instead of throwing an error. Only supported in jina-embeddings-v4.
     * dimensions (int) - The number of dimensions the resulting output embeddings should have.
     * embedding_type (str) - The type of embeddings to return. Options include 'float', 'binary', 'ubinary'. Default is 'float'.
+SentenceTransformerModel
+    Vendor: sbert
+    Models:
+    * sentence-transformers (aliases: sbert)
+    Default Local Model: all-MiniLM-L6-v2
+    See https://sbert.net/docs/sentence_transformer/pretrained_models.html for available local models.
+    Model Options:
 ```
 
-**Example usage:** get an embedding for an input text by jina-clip-v2 model model with an option dimensions=512 and embedding_type=binary.
+**Example usage:** get an embedding for an input text by jina-v4 model model with an option dimensions=512 and embedding_type=binary.
 
 ```bash
-emb embed -m jina-clip-v2 -o dimensions 512 \
+emb embed -m jina-v4 -o dimensions 512 \
 -o embedding_type binary \
 "Owls can rotate their necks 270 degrees without injury🦉"
 ```
 
-**Example usage:** get an embedding for an input image by jina-clip-v2 model.
+**Example usage:** get an embedding for an input image by jina-v4 model.
 
 ```bash
 # Assume you have an image file `gingercat.jpeg` in the current directory.
-emb embed -m jina-clip-v2 --image gingercat.jpeg
+emb embed -m jina-v4 --image gingercat.jpeg
 ```
 
 ## [embcli-voyage](https://pypi.org/project/embcli-voyage/) for Voyage Multimodal Embeddings
