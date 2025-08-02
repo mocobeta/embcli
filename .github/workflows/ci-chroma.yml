@@ -3,8 +3,16 @@ name: CI for Chroma Vector Store
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'packages/embcli-core/**'
+      - 'packages/embcli-chroma/**'
+      - '.github/workflows/ci-chroma.yml'
   pull_request:
     branches: [ main ]
+    paths:
+      - 'packages/embcli-core/**'
+      - 'packages/embcli-chroma/**'
+      - '.github/workflows/ci-chroma.yml'
 
 jobs:
   test:
