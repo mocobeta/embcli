@@ -28,7 +28,7 @@ def test_embed_command_text(plugin_manager, mocker):
 
 @skip_if_no_api_key
 def test_embed_command_image(plugin_manager, mocker):
-    mocker.patch("embcli_jina.jina_multimodal.TIMEOUT_SEC", 30)
+    mocker.patch("embcli_jina.jina_multimodal.TIMEOUT_SEC", 60)
     mocker.patch("embcli_core.cli._pm", plugin_manager)
     runner = CliRunner()
     image_path = files("tests.embcli_jina").joinpath("flying_cat.jpeg")

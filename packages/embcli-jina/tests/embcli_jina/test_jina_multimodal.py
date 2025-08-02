@@ -29,7 +29,7 @@ def test_factory_create_invalid_model():
 
 @skip_if_no_api_key
 def test_embed_one_batch_multimodal(jina_multimodal_models, mocker):
-    mocker.patch("embcli_jina.jina_multimodal.TIMEOUT_SEC", 30)
+    mocker.patch("embcli_jina.jina_multimodal.TIMEOUT_SEC", 60)
     for model in jina_multimodal_models:
         print(f"Testing model: {model.model_id}")
         input_data = ["hello", "world"]
@@ -44,7 +44,7 @@ def test_embed_one_batch_multimodal(jina_multimodal_models, mocker):
 
 @skip_if_no_api_key
 def test_embed_one_batch_multimodal_image(jina_multimodal_models, mocker):
-    mocker.patch("embcli_jina.jina_multimodal.TIMEOUT_SEC", 30)
+    mocker.patch("embcli_jina.jina_multimodal.TIMEOUT_SEC", 60)
     for model in jina_multimodal_models:
         image_paths = [
             files("tests.embcli_jina").joinpath("flying_cat.jpeg"),
