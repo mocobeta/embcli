@@ -22,7 +22,7 @@ def test_embed_command_text(plugin_manager, mocker):
 
     embeddings = json.loads(result.output)
     assert isinstance(embeddings, list)
-    assert len(embeddings) == 2048
+    assert len(embeddings) == 1024
     assert all(isinstance(val, float) for val in embeddings)
 
 
@@ -37,5 +37,5 @@ def test_embed_command_image(plugin_manager, mocker):
 
     embeddings = json.loads(result.output)
     assert isinstance(embeddings, list)
-    assert len(embeddings) == 2048
+    assert len(embeddings) == 1024
     assert all(isinstance(val, float) for val in embeddings)
