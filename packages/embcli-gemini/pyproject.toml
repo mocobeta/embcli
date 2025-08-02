@@ -1,6 +1,6 @@
 [project]
 name = "embcli-gemini"
-version = "0.1.1-dev"
+version = "0.1.2-dev"
 description = "gemini plugin for embcli"
 readme = "README.md"
 authors = [{ name = "Tomoko Uchida", email = "tomoko.uchida.1111@gmail.com" }]
