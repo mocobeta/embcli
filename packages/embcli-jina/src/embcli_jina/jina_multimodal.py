@@ -6,6 +6,8 @@ import embcli_core
 import httpx
 from embcli_core.models import Modality, ModelOption, ModelOptionType, MultimodalEmbeddingModel
 
+TIMEOUT_SEC = 3  # Default timeout for embedding requests
+
 
 def image_to_base64(image_path: str) -> str:
     """Encodes an image file to a base64 string."""
@@ -74,7 +76,7 @@ class JinaMultiModalModel(MultimodalEmbeddingModel):
         if "embedding_type" in kwargs:
             data["embedding_type"] = kwargs["embedding_type"]
 
-        response = httpx.post(self.endpoint, headers=headers, json=data)
+        response = httpx.post(self.endpoint, headers=headers, json=data, timeout=TIMEOUT_SEC)
         response.raise_for_status()
         for item in response.json().get("data", []):
             if "embedding" in item:
