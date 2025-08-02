@@ -615,7 +615,7 @@ requires-dist = [
 
 [[package]]
 name = "embcli-gemini"
-version = "0.1.1"
+version = "0.1.2.dev0"
 source = { editable = "packages/embcli-gemini" }
 dependencies = [
     { name = "embcli-core" },
