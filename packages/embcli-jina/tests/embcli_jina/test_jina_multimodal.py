@@ -28,7 +28,8 @@ def test_factory_create_invalid_model():
 
 
 @skip_if_no_api_key
-def test_embed_one_batch_multimodal(jina_multimodal_models):
+def test_embed_one_batch_multimodal(jina_multimodal_models, mocker):
+    mocker.patch("embcli_jina.multimodal.TIMEOUT_SEC", 30)
     for model in jina_multimodal_models:
         print(f"Testing model: {model.model_id}")
         input_data = ["hello", "world"]
@@ -42,7 +43,8 @@ def test_embed_one_batch_multimodal(jina_multimodal_models):
 
 
 @skip_if_no_api_key
-def test_embed_one_batch_multimodal_image(jina_multimodal_models):
+def test_embed_one_batch_multimodal_image(jina_multimodal_models, mocker):
+    mocker.patch("embcli_jina.multimodal.TIMEOUT_SEC", 30)
     for model in jina_multimodal_models:
         image_paths = [
             files("tests.embcli_jina").joinpath("flying_cat.jpeg"),
@@ -61,7 +63,8 @@ def test_embed_one_batch_multimodal_image(jina_multimodal_models):
 
 
 @skip_if_no_api_key
-def test_embed_batch_with_options(jina_multimodal_models):
+def test_embed_batch_with_options(jina_multimodal_models, mocker):
+    mocker.patch("embcli_jina.multimodal.TIMEOUT_SEC", 30)
     input_data = ["hello", "world"]
     for model in jina_multimodal_models:
         options = {"task": "retrieval.query", "dimensions": 512}

@@ -43,6 +43,7 @@ def test_embed_one_batch_yields_embeddings(jina_models):
 
 @skip_if_no_api_key
 def test_embed_batch_with_options(jina_models, mocker):
+    mocker.patch("embcli_jina.jina.TIMEOUT_SEC", 30)
     mocker.patch("embcli_jina.jina.COLBERT_TIMEOUT_SEC", 30)
     input_data = ["hello", "world"]
     for model in jina_models:
@@ -90,6 +91,7 @@ def test_embed_batch_embedding_types(jina_models):
 
 @skip_if_no_api_key
 def test_embed_batch_for_ingest(jina_models, mocker):
+    mocker.patch("embcli_jina.jina.TIMEOUT_SEC", 30)
     mocker.patch("embcli_jina.jina.COLBERT_TIMEOUT_SEC", 30)
     for model in jina_models:
         input_data = ["hello", "world"]
@@ -106,6 +108,7 @@ def test_embed_batch_for_ingest(jina_models, mocker):
 
 @skip_if_no_api_key
 def test_embed_for_search(jina_models, mocker):
+    mocker.patch("embcli_jina.jina.TIMEOUT_SEC", 30)
     mocker.patch("embcli_jina.jina.COLBERT_TIMEOUT_SEC", 30)
     for model in jina_models:
         input = "hello world"

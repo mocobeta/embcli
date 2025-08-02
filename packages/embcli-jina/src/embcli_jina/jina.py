@@ -5,6 +5,7 @@ import embcli_core
 import httpx
 from embcli_core.models import EmbeddingModel, ModelOption, ModelOptionType
 
+TIMEOUT_SEC = 3  # Default timeout for embedding requests
 COLBERT_TIMEOUT_SEC = 5  # Timeout for ColBERT model requests
 
 
@@ -81,7 +82,7 @@ class JinaEmbeddingModel(EmbeddingModel):
         if "embedding_type" in kwargs:
             data["embedding_type"] = kwargs["embedding_type"]
 
-        timeout = COLBERT_TIMEOUT_SEC if self.model_id == "jina-colbert-v2" else None
+        timeout = COLBERT_TIMEOUT_SEC if self.model_id == "jina-colbert-v2" else TIMEOUT_SEC
         response = httpx.post(self.endpoint, headers=headers, json=data, timeout=timeout)
         response.raise_for_status()
         for item in response.json().get("data", []):
